@@ -12,7 +12,7 @@ namespace threewp_broadcast;
 	@version	20130530
 **/
 
-class Broadcasting_Data
+class BroadcastingData
 {
 	/**
 		@brief		The _POST array.
@@ -29,39 +29,39 @@ class Broadcasting_Data
 	public $attachment_data;
 
 	/**
-		@brief		ID of blogs being worked on.
-		@details
-
-		A stdClass consisting of:
-		- ->parent The parent blog from which the post is being broadcasted.
-		- ->child The current child.
-		- ->children An array of blog_ids we will be broadcasting to.
-
-		@var		$blog_id
-		@since		20130530
+		@brief		Array of blog IDs to which to broadcast.
+		@var		$blogs
+		@since		20130927
 	**/
-	public $blog_id;
+	public $blogs = [];
 
 	/**
-		@brief		True if new taxonomies are to be created on the child blogs.
-		@var		$create_taxonomies
-		@since		20130603
+		@brief		The ID of the child blog we are currently working on.
+		@var		$current_child_blog_id
+		@since		20130927
 	**/
-	public $create_taxonomies;
+	public $current_child_blog_id;
 
 	/**
 		@brief		True if custom fields are to be broadcasted.
 		@var		$custom_fields
 		@since		20130603
 	**/
-	public $custom_fields;
+	public $custom_fields = false;
 
 	/**
 		@brief		True if the broadcaster wants to link this post to the child blog posts,
 		@var		$link
 		@since		20130603
 	**/
-	public $link;
+	public $link = false;
+
+	/**
+		@brief		The ID of the parent blog.
+		@var		$parent_blog_id
+		@since		20130927
+	**/
+	public $parent_blog_id;
 
 	/**
 		@brief		The ID of the parent post.
@@ -78,25 +78,18 @@ class Broadcasting_Data
 	public $post;
 
 	/**
-		@brief		Convenience: the type of post (post, page, etc).
-		@var		$post_type
-		@since		20130603
-	**/
-	public $post_type;
-
-	/**
 		@brief		True if the post type supports a hierarchy.
 		@var		$post_type_is_hierarchical
 		@since		20130603
 	**/
-	public $post_type_is_hierarchical;
+	public $post_type_is_hierarchical = false;
 
 	/**
 		@brief		True if the parent post is marked as sticky.
 		@var		$post_is_sticky
 		@since		20130603
 	**/
-	public $post_is_sticky;
+	public $post_is_sticky = false;
 
 	/**
 		@brief		The post type object retrieved from get_post_type_object().
@@ -110,21 +103,21 @@ class Broadcasting_Data
 		@var		$post_type_supports_custom_fields
 		@since		20130603
 	**/
-	public $post_type_supports_custom_fields;
+	public $post_type_supports_custom_fields = false;
 
 	/**
 		@brief		True if the post type supports thumbnails.
 		@var		$post_type_supports_thumbnails
 		@since		20130603
 	**/
-	public $post_type_supports_thumbnails;
+	public $post_type_supports_thumbnails = false;
 
 	/**
 		@brief		True if taxonomies are to be broadcasted to the child blogs.
 		@var		$taxonomies
 		@since		20130603
 	**/
-	public $taxonomies;
+	public $taxonomies = false;
 
 	/**
 		@brief		The wp_upload_dir() of the parent blog.
@@ -141,10 +134,38 @@ class Broadcasting_Data
 		return $this;
 	}
 
-	public function __construct()
+	public function __construct( $options )
 	{
 		$this->blog_id = new \stdClass();
 		$this->blog_id->children = array();
+
+		// Import any known values from the options object.
+		foreach( (array)$options as $key => $value )
+			if ( property_exists( $this, $key ) )
+				$this->$key = $value;
+	}
+
+	/**
+		@brief		Add a blog or blogs to which to broadcast.
+		@param		mixed		$blog_ids		An int or array of ints to which to broadcast this post.
+		@since		20130928
+	**/
+	public function broadcast_to( $blog_ids )
+	{
+		if ( ! is_array( $blog_ids ) )
+			$blog_ids = [ $blog_ids ];
+		foreach( $blog_ids as $blog_id )
+			$this->blogs[ $blog_id ] = $blog_id;
+	}
+
+	/**
+		@brief		Convenience method to query whether there are child blogs to be broadcasted to.
+		@return		bool		True if there are child blogs to be broadcasted to.
+		@since		20130928
+	**/
+	public function has_blogs()
+	{
+		return count( $this->blogs ) > 0;
 	}
 }
 

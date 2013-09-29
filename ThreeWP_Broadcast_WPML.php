@@ -37,7 +37,7 @@ class ThreeWP_Broadcast_WPML
 		if ( ! defined( 'WPML_LOAD_API_SUPPORT' ) )
 			define( 'WPML_LOAD_API_SUPPORT', true );
 
-		$this->add_action( 'threewp_broadcast_add_meta_box' );
+		$this->add_action( 'threewp_broadcast_added_meta_box' );
 		if( $this->is_wpml() )
 		{
 			$this->add_action( 'threewp_brodcast_broadcasting_before_restore_current_blog' );
@@ -53,11 +53,11 @@ class ThreeWP_Broadcast_WPML
 		@brief		Add information to the broadcast box about the status of Broadcast WPML.
 		@since		20130717
 	**/
-	public function threewp_broadcast_add_meta_box( $o )
+	public function threewp_broadcast_added_meta_box( $meta_box_data )
 	{
-		$o->html .= '<div class="broadcast_wpml">';
-		$o->html .= $this->generate_meta_box_info( $o );
-		$o->html .= '</div><!-- broadcast_wpml -->';
+		$meta_box_data->html->broadcast_wpml = sprintf( '<div class="broadcast_wpml">%s</div><!-- broadcast_wpml -->',
+			$this->generate_meta_box_info( $meta_box_data )
+		);
 	}
 
 	/**

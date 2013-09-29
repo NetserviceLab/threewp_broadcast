@@ -1,3 +1,8 @@
+#threewp_broadcast.postbox div.p
+{
+	margin-bottom: 0.5em;
+}
+
 .aural-info
 {
 	display: none;
@@ -37,7 +42,7 @@ ul.broadcast_blogs
 {
 	border-style: solid;
 	border-width: 1px;
-	
+
 }
 
 .textcenter
@@ -52,6 +57,7 @@ ul.broadcast_blogs
 	background-position: right center;
 	background-repeat: no-repeat;
 }
+
 #threewp_broadcast li.blog_is_required
 {
 	background-image: url("../images/lock-16.png");

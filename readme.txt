@@ -155,8 +155,14 @@ Translated categories and tags are untested as of 2013-07-17.
 
 Users are requested to check their post type and custom field exception settings after upgrading.
 
-
 == Changelog ==
+
+= 2.0 201310xx =
+* Removed: Unecessary role to create taxonomies, which are now automatically created and synced.
+* Removed: Blacklisted blogs - replaced with per-blog per-user functionality in Premium pack.
+* Removed: Required blogs - replaced with per-blog per-user functionality in Premium pack.
+* Code: Minified css.
+* Code: Modernized user.js.
 
 = 1.30 20130927 =
 * Fix: Fixed bug that sometimes skipped some blogs, at random, when broadcasting.

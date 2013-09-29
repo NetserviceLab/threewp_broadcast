@@ -1,0 +1,59 @@
+#threewp_broadcast.postbox
+{
+	.blogs_input
+	{
+		position: relative;
+
+		.arrow
+		{
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+
+		legend
+		{
+			margin-bottom: 0.5em;
+			font-style: italic;
+		}
+
+		.form_item_checkbox
+		{
+			background-position: right center;
+			background-repeat: no-repeat;
+			margin-bottom: 0.25em;
+			margin-top: 0.25em;
+
+			&.linked
+			{
+				background-image: url("../images/link-16.png");
+			}
+
+			&.required
+			{
+				background-image: url("../images/lock-16.png");
+			}
+		}
+
+
+	}
+
+	.html_section
+	{
+		margin-bottom: 1em;
+
+	}
+
+	.selection_change
+	{
+		text-align: center;
+		font-size: 80%;
+		cursor: pointer;
+	}
+
+}
+
+tr.action_3broadcast_broadcasted td.activity_monitor_action
+{
+	background-image: url("../images/threewp_activity_monitor_icon.png");
+}
