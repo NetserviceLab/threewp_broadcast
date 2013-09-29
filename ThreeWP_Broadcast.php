@@ -1086,11 +1086,13 @@ class ThreeWP_Broadcast
 		}
 
 		$blogs_input = $form->checkboxes( 'blogs' )
-			->label( 'Broadcast to' );
+			->label( 'Broadcast to' )
+			->prefix( 'blogs' );
 
 		foreach( $blogs as $blog_id => $blog )
 		{
 			$blogs_input->option( $blog[ 'blogname' ], $blog_id );
+			$option = $blogs_input->input( 'blogs_' . $blog_id );
 		}
 
 		// Preselect those children that this post has.
@@ -1324,26 +1326,30 @@ class ThreeWP_Broadcast
 	{
 		$allowed_post_status = [ 'pending', 'private', 'publish' ];
 
-		if ( $post_array->post_status == 'draft' && $this->role_at_least( $this->get_site_option( 'role_broadcast_as_draft' ) ) )
+		if ( $bcd->post->post_status == 'draft' && $this->role_at_least( $this->get_site_option( 'role_broadcast_as_draft' ) ) )
 			$allowed_post_status[] = 'draft';
 
-		if ( $post_array->post_status == 'future' && $this->role_at_least( $this->get_site_option( 'role_broadcast_scheduled_posts' ) ) )
+		if ( $bcd->post->post_status == 'future' && $this->role_at_least( $this->get_site_option( 'role_broadcast_scheduled_posts' ) ) )
 			$allowed_post_status[] = 'future';
 
-		if ( ! in_array( $post_array->post_status, $allowed_post_status ) )
+		if ( ! in_array( $bcd->post->post_status, $allowed_post_status ) )
 			return;
 
 		$POST = $bcd->_POST;		// convenience
+		$POST = $POST[ 'broadcast' ];
 
 		// Collect the list of blogs.
-		if ( isset( $POST[ 'broadcast' ][ 'groups' ][ '666' ] ) )
-			$bcd->broadcast_to( array_keys( $_POST[ 'broadcast' ][ 'groups' ][ '666' ] ) );
+		if ( isset( $POST[ 'blogs' ] ) )
+			$bcd->broadcast_to( array_values( $POST[ 'blogs' ] ) );
 
 		$bcd->custom_fields = isset( $POST[ 'custom_fields' ] )
 			&& ( $this->is_super_admin || $this->role_at_least( $this->get_site_option( 'role_custom_fields' ) ) );
 
 		$bcd->link = isset( $POST[ 'link' ] )
 			&& ( $this->is_super_admin || $this->role_at_least( $this->get_site_option( 'role_link' ) ) );
+
+		$bcd->taxonomies = isset( $POST[ 'taxonomies' ] )
+			&& ( $this->is_super_admin || $this->role_at_least( $this->get_site_option( 'role_taxonomies' ) ) );
 
 		$bcd->post_is_sticky = @( $POST[ 'sticky' ] == 'sticky' );		// Sticky isn't a tag, taxonomy or custom_field.
 	}
@@ -1420,7 +1426,7 @@ class ThreeWP_Broadcast
 	**/
 	public function threewp_broadcast_broadcast_post( $broadcasting_data )
 	{
-		if ( ! is_a( $broadcasting_data, 'threewp_broadcast\Broadcasting_Data' ) )
+		if ( ! is_a( $broadcasting_data, get_class( new BroadcastingData ) ) )
 			return $broadcasting_data;
 		return $this->broadcast_post( $broadcasting_data );
 	}
@@ -1520,7 +1526,6 @@ class ThreeWP_Broadcast
 			}
 		}
 
-		require_once( 'include/AttachmentData.php' );
 		$bcd->attachment_data = array();
 		$attached_files = get_children( 'post_parent='.$bcd->post->ID.'&post_type=attachment' );
 		$has_attached_files = count( $attached_files) > 0;
@@ -1629,7 +1634,6 @@ class ThreeWP_Broadcast
 
 					// Go through the original post's terms and compare each slug with the slug of the target terms.
 					$taxonomies_to_add_to = array();
-					$have_created_taxonomies = false;
 					foreach( $source_post_terms as $source_post_term )
 					{
 						$found = false;
@@ -1639,7 +1643,7 @@ class ThreeWP_Broadcast
 							if ( $target_blog_term[ 'slug' ] == $source_slug )
 							{
 								$found = true;
-								$taxonomies_to_add_to[ $target_blog_term[ 'term_id' ] ] = intval( $target_blog_term[ 'term_id' ] );
+								$taxonomies_to_add_to[] = intval( $target_blog_term[ 'term_id' ] );
 								break;
 							}
 						}
@@ -1681,10 +1685,9 @@ class ThreeWP_Broadcast
 							else
 							{
 								$term_taxonomy_id = $new_taxonomy[ 'term_taxonomy_id' ];
-								$have_created_taxonomies = true;
 							}
 
-							$taxonomies_to_add_to[] = $term_taxonomy_id;
+							$taxonomies_to_add_to []= intval( $term_taxonomy_id );
 						}
 					}
 
@@ -2185,7 +2188,6 @@ class ThreeWP_Broadcast
 	 */
 	public function set_post_broadcast_data( $blog_id, $post_id, $broadcast_data )
 	{
-		require_once( 'include/BroadcastData.php' );
 		if ( $broadcast_data->is_modified() )
 			if ( $broadcast_data->is_empty() )
 				$this->sql_delete_broadcast_data( $blog_id, $post_id );

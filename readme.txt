@@ -161,6 +161,7 @@ Users are requested to check their post type and custom field exception settings
 * Removed: Unecessary role to create taxonomies, which are now automatically created and synced.
 * Removed: Blacklisted blogs - replaced with per-blog per-user functionality in Premium pack.
 * Removed: Required blogs - replaced with per-blog per-user functionality in Premium pack.
+* Fix: Category broadcast bug
 * Code: Minified css.
 * Code: Modernized user.js.
 

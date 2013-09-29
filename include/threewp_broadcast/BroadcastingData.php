@@ -134,7 +134,7 @@ class BroadcastingData
 		return $this;
 	}
 
-	public function __construct( $options )
+	public function __construct( $options = [] )
 	{
 		$this->blog_id = new \stdClass();
 		$this->blog_id->children = array();
@@ -155,7 +155,10 @@ class BroadcastingData
 		if ( ! is_array( $blog_ids ) )
 			$blog_ids = [ $blog_ids ];
 		foreach( $blog_ids as $blog_id )
+		{
+			$blog_id = intval( $blog_id );
 			$this->blogs[ $blog_id ] = $blog_id;
+		}
 	}
 
 	/**
