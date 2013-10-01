@@ -9,19 +9,16 @@ namespace threewp_broadcast\meta_box;
 class data
 {
 	/**
-		@brief		Array of HTML data.
-		@details	To ease manipulation, each part of the meta box should have a named key.
-
-		The html for the link checkbox should, for example, be in a key called input_link.
+		@brief		HTML object containing data to be displayed.
 		@since		20130928
 		@var		$html
 	**/
 	public $html;
 
 	/**
-		@brief
+		@brief		The Wordpress Post object for this meta box.
 		@since		20130928
-		@var		$
+		@var		$post
 	**/
 	public $post;
 

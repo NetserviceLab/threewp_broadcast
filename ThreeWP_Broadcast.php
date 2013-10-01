@@ -1017,8 +1017,6 @@ class ThreeWP_Broadcast
 		$post_type_supports_custom_fields = post_type_supports( $post_type, 'custom-fields' );
 		$post_type_is_hierarchical = $post_type_object->hierarchical;
 
-		$prefix = 'broadcast';
-
 		if ( $this->is_super_admin || $this->role_at_least( $this->get_site_option( 'role_link' ) ) )
 		{
 			// Check the link box is the post has been published and has children OR it isn't published yet.
@@ -1027,12 +1025,11 @@ class ThreeWP_Broadcast
 				||
 				! $published
 			);
-			$input_link = $form->checkbox( 'link' )
+			$link_input = $form->checkbox( 'link' )
 				->checked( $linked )
 				->label_( 'Link this post to its children' )
 				->title( $this->_( 'Create a link to the children, which will be updated when this post is updated, trashed when this post is trashed, etc.' ) );
-
-			$meta_box_data->html->input_link = $input_link;
+			$meta_box_data->html->link = '';
 		}
 
 		if (
@@ -1041,22 +1038,21 @@ class ThreeWP_Broadcast
 			( $this->is_super_admin || $this->role_at_least( $this->get_site_option( 'role_custom_fields' ) ) )
 		)
 		{
-			$input_custom_fields = $form->checkbox( 'custom_fields' )
+			$custom_fields_input = $form->checkbox( 'custom_fields' )
 				->checked( isset( $last_used_settings['custom_fields'] ) )
 				->label_( 'Custom fields' )
 				->title( 'Broadcast all the custom fields and the featured image?' );
-
-			$meta_box_data->html->custom_fields = $input_custom_fields;
+			$meta_box_data->html->custom_fields = '';
 		}
 
 		if ( $this->is_super_admin || $this->role_at_least( $this->get_site_option( 'role_taxonomies' ) ) )
 		{
-			$input_taxonomies = $form->checkbox( 'taxonomies' )
+			$taxonomies_input = $form->checkbox( 'taxonomies' )
 				->checked( isset( $last_used_settings['taxonomies'] ) )
 				->label_( 'Taxonomies' )
 				->title( 'The taxonomies must have the same name (slug) on the selected blogs.' );
+			$meta_box_data->html->taxonomies = '';
 
-			$meta_box_data->html->input_taxonomies = $input_taxonomies;
 		}
 
 		$meta_box_data->html->broadcast_strings = '
@@ -1074,15 +1070,13 @@ class ThreeWP_Broadcast
 		$data = $this->sql_user_get( $this->user_id() );
 		if ( $this->role_at_least( $this->get_site_option( 'role_groups' ) ) && (count( $data['groups'] )>0) )
 		{
-			$input_broadcast_groups = $form->select( 'groups' )
+			$groups_input = $form->select( 'groups' )
 				->label_( 'Select blogs in group' )
 				->option( 'No group selected', '' );
 
 			foreach( $data['groups'] as $groupIndex=>$groupData)
-				$input_broadcast_groups->option( $groupData[ 'name' ], implode( ' ', array_keys( $groupData['blogs'] ) ) );
-
-			// The javascripts just reacts on a click to the select box and selects those checkboxes that the selected group has.
-			$meta_box_data->html->broadcast_groups = $input_broadcast_groups;
+				$groups_input->option( $groupData[ 'name' ], implode( ' ', array_keys( $groupData['blogs'] ) ) );
+			$meta_box_data->html->groups = '';
 		}
 
 		$blogs_input = $form->checkboxes( 'blogs' )
@@ -1103,11 +1097,21 @@ class ThreeWP_Broadcast
 			$option->checked( true )->css_class( 'linked' );
 		}
 
-		$meta_box_data->html->blogs_input = $blogs_input;
+		$meta_box_data->html->blogs = '';
 
 		// Allow plugins to modify the meta box with their own info.
 		// The string, $box, must be modified or appended to using string search and replace.
 		do_action( 'threewp_broadcast_added_meta_box', $meta_box_data );
+
+		foreach( [
+			'link',
+			'custom_fields',
+			'taxonomies',
+			'groups',
+			'blogs'
+		] as $type )
+			if ( $meta_box_data->html->has( $type ) )
+				$meta_box_data->html->$type = ${ $type . '_input' };
 
 		echo $meta_box_data->html;
 	}

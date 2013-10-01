@@ -28,4 +28,9 @@ class html
 			$r .= sprintf( '<div class="%s html_section">%s</div>', $key, $value );
 		return $r;
 	}
+
+	public function has( $key )
+	{
+		return property_exists( $this->html, $key );
+	}
 }
