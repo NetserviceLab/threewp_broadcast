@@ -91,8 +91,6 @@ class ThreeWP_Broadcast
 			$this->add_action( 'wp_head', 1 );
 
 		$this->permalink_cache = new \stdClass;
-		$test = new \plainview\collections\collection;
-		$test->getIterator();
 	}
 
 	public function threewp_broadcast_add_meta_boxes( $broadcast )
