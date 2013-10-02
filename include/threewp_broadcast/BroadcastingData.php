@@ -29,7 +29,7 @@ class BroadcastingData
 	public $attachment_data;
 
 	/**
-		@brief		Array of blog IDs to which to broadcast.
+		@brief		Array of child blog objects to which to broadcast.
 		@var		$blogs
 		@since		20130927
 	**/
@@ -138,6 +138,8 @@ class BroadcastingData
 	{
 		$this->blog_id = new \stdClass();
 		$this->blog_id->children = array();
+
+		$this->blogs = new \plainview\collections\collection;
 
 		// Import any known values from the options object.
 		foreach( (array)$options as $key => $value )

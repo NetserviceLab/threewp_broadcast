@@ -91,11 +91,13 @@ class ThreeWP_Broadcast
 			$this->add_action( 'wp_head', 1 );
 
 		$this->permalink_cache = new \stdClass;
+		$test = new \plainview\collections\collection;
+		$test->getIterator();
 	}
 
 	public function threewp_broadcast_add_meta_boxes( $broadcast )
 	{
-		// Is it null? Then someone else has decided that it should not be shown.
+		// Is it false? Then someone else has decided that it should not be shown.
 		if ( $this->add_meta_box === false )
 			return $broadcast;
 
