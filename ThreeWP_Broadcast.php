@@ -6,7 +6,7 @@ Author URI:		http://www.plainview.se
 Description:	Network plugin to broadcast a post to other blogs. Whitelist, blacklist, groups and automatic category+tag+custom field posting/creation available.
 Plugin Name:	ThreeWP Broadcast
 Plugin URI:		http://plainview.se/wordpress/threewp-broadcast/
-Version:		1.30.2
+Version:		2.0
 */
 
 namespace threewp_broadcast;
@@ -14,6 +14,8 @@ namespace threewp_broadcast;
 if ( ! class_exists( '\\plainview\\wordpress\\base' ) )	require_once( __DIR__ . '/plainview_sdk/plainview/autoload.php' );
 
 require_once( 'include/vendor/autoload.php' );
+
+use \plainview\collections\collection;
 
 class ThreeWP_Broadcast
 	extends \plainview\wordpress\base
@@ -44,7 +46,7 @@ class ThreeWP_Broadcast
 	**/
 	public $permalink_cache;
 
-	public $plugin_version = 20130927;
+	public $plugin_version = 20131003;
 
 	protected $sdk_version_required = 20130505;		// add_action / add_filter
 
@@ -176,7 +178,7 @@ class ThreeWP_Broadcast
 			return;
 
 		wp_enqueue_script( '3wp_broadcast', '/' . $this->paths['path_from_base_directory'] . '/js/user.min.js' );
-		wp_enqueue_style( '3wp_broadcast', '/' . $this->paths['path_from_base_directory'] . '/css/ThreeWP_Broadcast.scss.min.css', false, '0.0.1', 'screen' );
+		wp_enqueue_style( '3wp_broadcast', '/' . $this->paths['path_from_base_directory'] . '/css/ThreeWP_Broadcast.scss.min.css', false, '20131003', 'screen' );
 	}
 
 	// --------------------------------------------------------------------------------------------
@@ -1224,66 +1226,7 @@ class ThreeWP_Broadcast
 		// Loop check.
 		if ( $this->is_broadcasting() )
 			return;
-/**
-		// User must be allowed to use broadcast at all.
-		if ( ! $this->role_at_least( $this->get_site_option( 'role_broadcast' ) ) )
-			return;
 
-		$post = get_post( $post_id );
-		$post_array = (array) $post;
-
-		$allowed_post_status = [ 'pending', 'private', 'publish' ];
-
-		if ( $post_array->post_status == 'draft' && $this->role_at_least( $this->get_site_option( 'role_broadcast_as_draft' ) ) )
-			$allowed_post_status[] = 'draft';
-
-		if ( $post_array->post_status == 'future' && $this->role_at_least( $this->get_site_option( 'role_broadcast_scheduled_posts' ) ) )
-			$allowed_post_status[] = 'future';
-
-		if ( ! in_array( $post_array->post_status, $allowed_post_status ) )
-			return;
-
-		// Check if the user hasn't marked any blogs for forced broadcasting but it the admin wants forced blogs.
-		if ( ! isset( $_POST[ 'broadcast' ] ) )
-		{
-			// Site admin is never forced to do anything.
-			if ( is_super_admin() )
-				return;
-
-			if ( ! $this->get_site_option( 'always_use_required_list' ) == true )
-				return;
-		}
-
-		// Begin: Add and remove blogs
-
-		// Are there blogs to broadcast to?
-		if ( isset( $_POST[ 'broadcast' ][ 'groups' ][ '666' ] ) )
-			$blogs = array_keys( $_POST[ 'broadcast' ][ 'groups' ][ '666' ] );
-		else
-			$blogs = array();
-
-		$blogs = array_flip( $blogs );
-
-		// Remove the blog we're currently working on. No point in broadcasting to ourselves.
-		unset( $blogs[ get_current_blog_id() ] );
-
-		$user_id = $this->user_id();		// Convenience.
-
-		// Remove blacklisted
-		foreach( $blogs as $blogID=>$ignore)
-			if ( !$this->is_blog_user_writable( $user_id, $blogID ) )
-				unset( $blogs[ $blogID ] );
-
-		// Add required blogs.
-		if ( $this->get_site_option( 'always_use_required_list' ) )
-		{
-			$required_blogs = $this->get_required_blogs();
-			foreach( $required_blogs as $required_blog=>$ignore)
-				$blogs[ $required_blog ] = $required_blog;
-		}
-
-		// End: Add and remove blogs
-**/
 		$broadcasting_data = new BroadcastingData( [
 			'_POST' => $_POST,
 			'post' => get_post( $post_id ),
@@ -1556,6 +1499,40 @@ class ThreeWP_Broadcast
 			$bcd->post_custom_fields = $this->keep_valid_custom_fields( $bcd->post_custom_fields );
 		}
 
+		// Sticky isn't a tag, taxonomy or custom_field.
+		$bcd->post_is_sticky = @( $bcd->_POST[ 'sticky' ] == 'sticky' );
+
+		// Handle any galleries.
+		$bcd->galleries = new collection;
+		$rx = get_shortcode_regex();
+		$matches = '';
+		preg_match_all( '/' . $rx . '/', $bcd->post->post_content, $matches );
+
+		// [2] contains only the shortcode command / key. No options.
+		foreach( $matches[ 2 ] as $index => $key )
+		{
+			// Look for only the gallery shortcode.
+			if ( $key !== 'gallery' )
+				continue;
+
+			// We've found a gallery!
+			$bcd->has_galleries = true;
+			$gallery = new \stdClass;
+			$bcd->galleries->push( $gallery );
+
+			// Complete matches are in 0.
+			$gallery->old_shortcode = $matches[ 0 ][ $index ];
+
+			// Extract the IDs
+			$gallery->ids_string = preg_replace( '/.*ids=\"([0-9,]*)".*/', '\1', $gallery->old_shortcode );
+			$gallery->ids_array = explode( ',', $gallery->ids_string );
+			foreach( $gallery->ids_array as $id )
+			{
+				$ad = AttachmentData::from_attachment_id( $id, $bcd->upload_dir );
+				$bcd->attachment_data[ $id ] = $ad;
+			}
+		}
+
 		// And now save the user's last settings.
 		$user_id = get_current_user_id();
 		$this->save_last_used_settings( $user_id, $bcd->_POST[ 'broadcast' ] );
@@ -1713,29 +1690,32 @@ class ThreeWP_Broadcast
 				wp_delete_attachment( $attachment_to_remove->ID );
 
 			// Copy the attachments
-			$bcd->copied_attachments = array();
+			$bcd->copied_attachments = [];
 			foreach( $bcd->attachment_data as $key => $attachment )
 			{
 				if ( $key != 'thumbnail' )
 				{
 					$o = clone( $bcd );
 					$o->attachment_data = $attachment;
-					$o->post_id = $bcd->new_post[ 'ID' ];
-					$new_attachment_id = $this->copy_attachment( $o );
+					if ( $o->attachment_data->post->post_parent > 0 )
+						$o->attachment_data->post->post_parent = $bcd->new_post[ 'ID' ];
+					$this->maybe_copy_attachment( $o );
 					$a = new \stdClass();
 					$a->old = $attachment;
-					$a->new = get_post( $new_attachment_id );
+					$a->new = get_post( $o->attachment_id );
 					$bcd->copied_attachments[] = $a;
 				}
 			}
+
+			// Maybe modify the post content with new URLs to attachments and what not.
+			$unmodified_post = (object)$bcd->new_post;
+			$modified_post = clone( $unmodified_post );
 
 			// If there were any image attachments copied...
 			if ( count( $bcd->copied_attachments ) > 0 )
 			{
 				// Update the URLs in the post to point to the new images.
 				$new_upload_dir = wp_upload_dir();
-				$unmodified_post = (object)$bcd->new_post;
-				$modified_post = clone( $unmodified_post );
 				foreach( $bcd->copied_attachments as $a )
 				{
 					// Replace the GUID with the new one.
@@ -1743,39 +1723,35 @@ class ThreeWP_Broadcast
 					// And replace the IDs present in any image captions.
 					$modified_post->post_content = str_replace( 'id="attachment_' . $a->old->id . '"', 'id="attachment_' . $a->new->id . '"', $modified_post->post_content );
 				}
-
-				// Update any [gallery] shortcodes found.
-				$rx = get_shortcode_regex();
-				$matches = '';
-				preg_match_all( '/' . $rx . '/', $modified_post->post_content, $matches );
-
-				// [2] contains only the shortcode command / key. No options.
-				foreach( $matches[ 2 ] as $index => $key )
-				{
-					// Look for only the gallery shortcode.
-					if ( $key !== 'gallery' )
-						continue;
-					// Complete matches are in 0.
-					$old_shortcode = $matches[ 0 ][ $index ];
-					// Extract the IDs
-					$ids = preg_replace( '/.*ids=\"([0-9,]*)".*/', '\1', $old_shortcode );
-					// And put in the new IDs.
-					$new_ids = array();
-					// Try to find the equivalent new attachment ID.
-					// If no attachment found
-					foreach( explode( ',', $ids ) as $old_id )
-						foreach( $bcd->copied_attachments as $a )
-						{
-							if ( $old_id == $a->old->id )
-								$new_ids[] = $a->new->ID;
-						}
-					$new_shortcode = str_replace( $ids, implode( ',', $new_ids ) , $old_shortcode );
-					$modified_post->post_content = str_replace( $old_shortcode, $new_shortcode, $modified_post->post_content );
-				}
-				// Maybe updating the post is not necessary.
-				if ( $unmodified_post->post_content != $modified_post->post_content )
-					wp_update_post( $modified_post );	// Or maybe it is.
 			}
+
+			// If there are galleries...
+			foreach( $bcd->galleries as $gallery )
+			{
+				// Work on a copy.
+				$gallery = clone( $gallery );
+				$new_ids = [];
+
+				// Go through all the attachment IDs
+				foreach( $gallery->ids_array as $id )
+				{
+					// Find the new ID.
+					foreach( $bcd->copied_attachments as $ca )
+					{
+						if ( $ca->old->id != $id )
+							continue;
+						$new_ids[] = $ca->new->ID;
+					}
+				}
+				$new_ids_string = implode( ',', $new_ids );
+				$new_shortcode = $gallery->old_shortcode;
+				$new_shortcode = str_replace( $gallery->ids_string, $new_ids_string, $gallery->old_shortcode );
+				$modified_post->post_content = str_replace( $gallery->old_shortcode, $new_shortcode, $modified_post->post_content );
+			}
+
+			// Maybe updating the post is not necessary.
+			if ( $unmodified_post->post_content != $modified_post->post_content )
+				wp_update_post( $modified_post );	// Or maybe it is.
 
 			if ( $bcd->custom_fields )
 			{
@@ -1816,10 +1792,11 @@ class ThreeWP_Broadcast
 				{
 					$o = clone( $bcd );
 					$o->attachment_data = $bcd->attachment_data[ 'thumbnail' ];
-					$o->post_id = $bcd->new_post[ 'ID' ];
-					$new_attachment_id = $this->copy_attachment( $o );
-					if ( $new_attachment_id !== false )
-						update_post_meta( $bcd->new_post[ 'ID' ], '_thumbnail_id', $new_attachment_id );
+					// Clear the attachment cache for this blog because the featured image could have been copied by the file copy.
+					$this->attachment_cache->forget( get_current_blog_id() );
+					$this->maybe_copy_attachment( $o );
+					if ( $o->attachment_id !== false )
+						update_post_meta( $bcd->new_post[ 'ID' ], '_thumbnail_id', $o->attachment_id );
 				}
 			}
 
@@ -1893,12 +1870,11 @@ class ThreeWP_Broadcast
 
 		The $o object is an extension of Broadcasting_Data and must contain:
 		- @i attachment_data An AttachmentData object containing the attachmend info.
-		- @i post_id The ID of the post to which to attach the new attachment.
 
 		@param		object		$o		Options.
 		@return		@i int The attachment's new post ID.
 		@since		20130530
-		@version	20130530
+		@version	20131003
 	*/
 	private function copy_attachment( $o )
 	{
@@ -1913,23 +1889,23 @@ class ThreeWP_Broadcast
 		// And now create the attachment stuff.
 		// This is taken almost directly from http://codex.wordpress.org/Function_Reference/wp_insert_attachment
 		$wp_filetype = wp_check_filetype( $o->attachment_data->filename_base, null );
-		$attachment = array(
+		$attachment = [
 			'guid' => $upload_dir['url'] . '/' . $o->attachment_data->filename_base,
-			'menu_order' => $o->attachment_data->menu_order,
-			'post_excerpt' => $o->attachment_data->post_excerpt,
+			'menu_order' => $o->attachment_data->post->menu_order,
+			'post_excerpt' => $o->attachment_data->post->post_excerpt,
 			'post_mime_type' => $wp_filetype['type'],
-			'post_title' => $o->attachment_data->post_title,
+			'post_title' => $o->attachment_data->post->post_title,
 			'post_content' => '',
 			'post_status' => 'inherit',
-		);
-		$attach_id = wp_insert_attachment( $attachment, $upload_dir['path'] . '/' . $o->attachment_data->filename_base, $o->post_id );
+		];
+		$o->attachment_id = wp_insert_attachment( $attachment, $upload_dir['path'] . '/' . $o->attachment_data->filename_base, $o->attachment_data->post->post_parent );
 
 		// Now to maybe handle the metadata.
 		if ( $o->attachment_data->file_metadata )
 		{
 			// 1. Create new metadata for this attachment.
-			require_once(ABSPATH . "wp-admin" . '/includes/image.php' );
-			$attach_data = wp_generate_attachment_metadata( $attach_id, $upload_dir['path'] . '/' . $o->attachment_data->filename_base );
+			require_once( ABSPATH . "wp-admin" . '/includes/image.php' );
+			$attach_data = wp_generate_attachment_metadata( $o->attachment_id, $upload_dir['path'] . '/' . $o->attachment_data->filename_base );
 
 			// 2. Write the old metadata first.
 			foreach( $o->attachment_data->post_custom as $key => $value )
@@ -1943,14 +1919,12 @@ class ThreeWP_Broadcast
 						$value = $attach_data[ 'file' ];
 						break;
 				}
-				update_post_meta( $attach_id, $key, $value );
+				update_post_meta( $o->attachment_id, $key, $value );
 			}
 
 			// 3. Overwrite the metadata that needs to be overwritten with fresh data.
-			wp_update_attachment_metadata( $attach_id,  $attach_data );
+			wp_update_attachment_metadata( $o->attachment_id,  $attach_data );
 		}
-
-		return $attach_id;
 	}
 
 	/**
@@ -2009,6 +1983,16 @@ class ThreeWP_Broadcast
 		if ( count( $r ) < 1 )
 			return new BroadcastData( [] );
 		return new BroadcastData( $r );
+	}
+
+	/**
+		Returns a list of all the, as per admin, required blogs to broadcast to.
+	**/
+	private function get_required_blogs()
+	{
+		$requiredBlogs = array_filter( explode( ',', $this->get_site_option( 'requiredlist' ) ) );
+		$requiredBlogs = array_flip( $requiredBlogs);
+		return $requiredBlogs;
 	}
 
 	public function is_blog_user_writable( $user_id, $blog_id)
@@ -2172,6 +2156,47 @@ class ThreeWP_Broadcast
 		if (!isset( $data['last_used_settings'] ) )
 			$data['last_used_settings'] = array();
 		return $data['last_used_settings'];
+	}
+
+	/**
+		@brief		Will only copy the attachment if it doesn't already exist on the target blog.
+		@details	The return value is an object, with the most important property being ->attachment_id.
+
+		@param		object		$options		See the parameter for copy_attachment.
+	**/
+	public function maybe_copy_attachment( $options )
+	{
+		if ( !isset( $this->attachment_cache ) )
+			$this->attachment_cache = new collection;
+
+		$attachment_data = $options->attachment_data;		// Convenience.
+
+		$key = get_current_blog_id();
+
+		$attachment_posts = $this->attachment_cache->get( $key, null );
+		if ( $attachment_posts === null )
+		{
+			$attachment_posts = get_posts( [
+				'post_name' => $attachment_data->post->post_name,			// Isn't used, though it should be. Maybe a patch is in order...
+				'post_type' => 'attachment',
+			] );
+			$this->attachment_cache->put( $key, $attachment_posts );
+		}
+
+		// Is there an existing media file?
+		// Try to find the filename in the GUID.
+		foreach( $attachment_posts as $post )
+		{
+			if ( $post->post_name !== $attachment_data->post->post_name )
+				continue;
+			// The ID is the important part.
+			$options->attachment_id = $post->ID;
+			return $options;
+		}
+
+		// Since it doesn't exist, copy it.
+		$this->copy_attachment( $options );
+		return $options;
 	}
 
 	private function save_last_used_settings( $user_id, $settings )

@@ -3,8 +3,8 @@ jQuery(document).ready(function($) {
 	{
 		$arrow : null,
 		$broadcast : null,
-		$broadcast_blogs_inputs : null,
-		$blogs_input : null,
+		$broadcast_blogs_htmls : null,
+		$blogs_html : null,
 		$select_all : null,
 		$invert_selection : null,
 
@@ -16,16 +16,16 @@ jQuery(document).ready(function($) {
 			if ( this.$broadcast.length < 1 )
 				return;
 
-			this.$blogs_input = $( '.blogs_input', this.$broadcast );
-			this.$broadcast_blogs_inputs = $( 'input.checkbox', this.$blogs_input );
+			this.$blogs_html = $( '.blogs.html_section', this.$broadcast );
+			this.$broadcast_blogs_htmls = $( 'input.checkbox', this.$blogs_html );
 
 			// Append "Select all / none" text.
 			this.$select_all = $( '<span />' )
 				.addClass( 'selection_change select_deselect_all' )
 				.click(function()
 				{
-					var checkedStatus = ! window.broadcast.$broadcast_blogs_inputs.first().prop( 'checked' );
-					window.broadcast.$broadcast_blogs_inputs.each( function(index, item)
+					var checkedStatus = ! window.broadcast.$broadcast_blogs_htmls.first().prop( 'checked' );
+					window.broadcast.$broadcast_blogs_htmls.each( function(index, item)
 					{
 						var $item = $( item );
 						// Only change the status of the blogs that aren't disabled.
@@ -34,14 +34,14 @@ jQuery(document).ready(function($) {
 					});
 				})
 				.text( broadcast_strings.select_deselect_all )
-				.appendTo( this.$blogs_input );
+				.appendTo( this.$blogs_html );
 
-			this.$blogs_input.append( '&emsp;' );
+			this.$blogs_html.append( '&emsp;' );
 
 			this.$invert_selection = $( '<span />' )
 				.click( function()
 				{
-					window.broadcast.$broadcast_blogs_inputs.each( function(index, item)
+					window.broadcast.$broadcast_blogs_htmls.each( function(index, item)
 					{
 						var $item = $( item );
 						var checked = $item.prop( 'checked' );
@@ -50,14 +50,14 @@ jQuery(document).ready(function($) {
 				})
 				.addClass( 'selection_change invert_selection' )
 				.text( broadcast_strings.invert_selection )
-				.appendTo( this.$blogs_input );
+				.appendTo( this.$blogs_html );
 
 			// Need to hide the blog list?
-			if ( this.$broadcast_blogs_inputs.length > 5 )
+			if ( this.$broadcast_blogs_htmls.length > 5 )
 			{
 				this.$arrow = $( '<div />' )
 					.addClass( 'arrow howto' )
-					.appendTo( $( '.blogs_input.html_section', this.$broadcast ) )
+					.appendTo( this.$blogs_html )
 					.click( function()
 					{
 						var $this = $( this );
@@ -92,7 +92,7 @@ jQuery(document).ready(function($) {
 
 
 			// Hide all those blogs that aren't checked
-			this.$broadcast_blogs_inputs.each( function( index, item )
+			this.$broadcast_blogs_htmls.each( function( index, item )
 			{
 				var $this = $( this );
 				var checked = $this.prop( 'checked' );
@@ -107,7 +107,7 @@ jQuery(document).ready(function($) {
 		show_blogs : function()
 		{
 			this.$arrow.addClass( 'opened' ).removeClass( 'closed' ).html( broadcast_strings.hide_all );
-			this.$broadcast_blogs_inputs.parent().show();
+			this.$broadcast_blogs_htmls.parent().show();
 		}
 	};
 
