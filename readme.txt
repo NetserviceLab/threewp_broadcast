@@ -203,13 +203,13 @@ Broadcast is capable of handling WooCommerce products.
 
 This will broadcast all normal product settings: SKU, price, etc.
 
-If your products have variations, you'll be wanting the WooCommerce plugin from the premium pack.
+If your products have variations, or you want the attribute taxonomies to be synced, you'll be wanting the WooCommerce plugin from the premium pack.
 
 If you have a product gallery, use the "Custom Field Attachments" premium plugin to broadcast the "_product_image_gallery" custom field.
 
 = WPML Sitepress =
 
-WPML is supported via a plugin in the premium pack.
+WPML is semi-supported via a plugin in the premium pack.
 
 For more information, see WPML discussion here: http://wordpress.org/support/topic/wmpl-integration-not-working
 
