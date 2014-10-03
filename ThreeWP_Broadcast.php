@@ -2574,7 +2574,7 @@ This can be increased by adding the following to your wp-config.php:
 			// Maybe updating the post is not necessary.
 			if ( $post_modified )
 			{
-				$this->debug( 'Modifying with new post: %s', $modified_post->post_content );
+				$this->debug( 'Modifying new post.' );
 				wp_update_post( $modified_post );	// Or maybe it is.
 			}
 			else
