@@ -515,6 +515,10 @@ class ThreeWP_Broadcast
 			$this->save_debug_settings_from_form( $form );
 
 			$this->message( 'Options saved!' );
+
+			$_POST = [];
+			echo $this->admin_menu_settings();
+			return;
 		}
 
 		$r .= $form->open_tag();
