@@ -3125,7 +3125,7 @@ This can be increased by adding the following to your wp-config.php:
 
 		global $wpdb;
 		// The post_name is the important part.
-		$query = sprintf( "SELECT `ID` FROM `%s` WHERE `post_type` = 'attachment' AND `post_parent` = 0 AND `post_name` = '%s'",
+		$query = sprintf( "SELECT `ID` FROM `%s` WHERE `post_type` = 'attachment' AND `post_name` = '%s'",
 			$wpdb->posts,
 			$attachment_data->post->post_name
 		);
