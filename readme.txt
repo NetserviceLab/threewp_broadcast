@@ -165,9 +165,7 @@ The broadcast meta box, menu and columns in the post view can be hidden from use
 
 = Is php v5.4 really necessary? =
 
-Yes.
-
-PHP v5.3 has been officially unsupported since the 14th of August, 2014. If your web host refuses to upgrade to a supported version, go find a new host.
+Yes. PHP v5.3 has been officially unsupported since the 14th of August, 2014. If your web host refuses to upgrade to a supported version, go find a new host.
 
 If you use v5.3 then use the last plugin that works with that version: v1.18. The download link is on the main page.
 
@@ -218,6 +216,7 @@ For more information, see WPML discussion here: http://wordpress.org/support/top
 = 8 201410xx =
 * Fix: Better duplicate image finding.
 * Code: broadcasting_after_switch_to_blog action has $broadcast_here property. Allows skipping blogs.
+* New: Premium Pack Plugin: Protect Child Status
 
 = 7 20140923 =
 * Fix: Massive optimization of taxonomy syncing.
