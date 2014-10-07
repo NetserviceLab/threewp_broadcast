@@ -2329,6 +2329,13 @@ This can be increased by adding the following to your wp-config.php:
 			$action->broadcasting_data = $bcd;
 			$action->apply();
 
+			if ( ! $action->broadcast_here )
+			{
+				$this->debug( 'Skipping this blog.' );
+				$child_blog->switch_from();
+				continue;
+			}
+
 			// Post parent
 			if ( $bcd->link && isset( $parent_broadcast_data) )
 				if ( $parent_broadcast_data->has_linked_child_on_this_blog() )

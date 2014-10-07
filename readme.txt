@@ -217,6 +217,7 @@ For more information, see WPML discussion here: http://wordpress.org/support/top
 
 = 8 201410xx =
 * Fix: Better duplicate image finding.
+* Code: broadcasting_after_switch_to_blog action has $broadcast_here property. Allows skipping blogs.
 
 = 7 20140923 =
 * Fix: Massive optimization of taxonomy syncing.
