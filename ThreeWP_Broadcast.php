@@ -3095,12 +3095,20 @@ This can be increased by adding the following to your wp-config.php:
 		return implode( ' ', $r );
 	}
 
-	private function load_last_used_settings( $user_id)
+	/**
+		@brief		Load the user's last used settings from the user meta table.
+		@details	Remove the sql_user_get call in v9 or v10, giving time for people to move the settings from the table to the user meta.
+		@since		2014-10-09 06:27:32
+	**/
+	public function load_last_used_settings( $user_id )
 	{
-		$data = $this->sql_user_get( $user_id );
-		if (!isset( $data[ 'last_used_settings' ] ) )
-			$data[ 'last_used_settings' ] = [];
-		return $data[ 'last_used_settings' ];
+		$settings = get_user_meta( $user_id, 'broadcast_last_used_settings', true );
+		if ( ! $settings )
+		{
+			$settings = $this->sql_user_get( $user_id );
+			$settings = $settings[ 'last_used_settings' ];
+		}
+		return $settings;
 	}
 
 	/**
@@ -3184,11 +3192,14 @@ This can be increased by adding the following to your wp-config.php:
 		return $options;
 	}
 
-	private function save_last_used_settings( $user_id, $settings )
+	/**
+		@brief		Save the user's last used settings.
+		@details	Since v8 the data is stored in the user's meta.
+		@since		2014-10-09 06:19:53
+	**/
+	public function save_last_used_settings( $user_id, $settings )
 	{
-		$data = $this->sql_user_get( $user_id );
-		$data[ 'last_used_settings' ] = $settings;
-		$this->sql_user_set( $user_id, $data );
+		update_user_meta( $user_id, 'broadcast_last_used_settings', $settings );
 	}
 
 	/**
