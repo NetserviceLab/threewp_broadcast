@@ -15,6 +15,7 @@ if ( ! class_exists( '\\threewp_broadcast\\base' ) )	require_once( __DIR__ . '/T
 
 require_once( 'vendor/autoload.php' );
 
+use \Exception;
 use \plainview\sdk\collections\collection;
 use \threewp_broadcast\broadcast_data\blog;
 use \plainview\sdk\html\div;
@@ -2178,10 +2179,17 @@ This can be increased by adding the following to your wp-config.php:
 			$this->debug( 'Has %s attachments.', count( $has_attached_files ) );
 			foreach( $attached_files as $attached_file )
 			{
-				$data = attachment_data::from_attachment_id( $attached_file, $bcd->upload_dir );
-				$data->set_attached_to_parent( $bcd->post );
-				$bcd->attachment_data[ $attached_file->ID ] = $data;
-				$this->debug( 'Attachment %s found.', $attached_file->ID );
+				try
+				{
+					$data = attachment_data::from_attachment_id( $attached_file, $bcd->upload_dir );
+					$data->set_attached_to_parent( $bcd->post );
+					$bcd->attachment_data[ $attached_file->ID ] = $data;
+					$this->debug( 'Attachment %s found.', $attached_file->ID );
+				}
+				catch( Exception $e )
+				{
+					$this->debug( 'Exception adding attachment: ' . $e->getMessage() );
+				}
 			}
 		}
 
@@ -2211,11 +2219,18 @@ This can be increased by adding the following to your wp-config.php:
 				$bcd->thumbnail_id = $bcd->post_custom_fields[ '_thumbnail_id' ][0];
 				$bcd->thumbnail = get_post( $bcd->thumbnail_id );
 				unset( $bcd->post_custom_fields[ '_thumbnail_id' ] ); // There is a new thumbnail id for each blog.
-				$data = attachment_data::from_attachment_id( $bcd->thumbnail, $bcd->upload_dir);
-				$data->set_attached_to_parent( $bcd->post );
-				$bcd->attachment_data[ 'thumbnail' ] = $data;
-				// Now that we know what the attachment id the thumbnail has, we must remove it from the attached files to avoid duplicates.
-				unset( $bcd->attachment_data[ $bcd->thumbnail_id ] );
+				try
+				{
+					$data = attachment_data::from_attachment_id( $bcd->thumbnail, $bcd->upload_dir);
+					$data->set_attached_to_parent( $bcd->post );
+					$bcd->attachment_data[ 'thumbnail' ] = $data;
+					// Now that we know what the attachment id the thumbnail has, we must remove it from the attached files to avoid duplicates.
+					unset( $bcd->attachment_data[ $bcd->thumbnail_id ] );
+				}
+				catch( Exception $e )
+				{
+					$this->debug( 'Exception adding attachment: ' . $e->getMessage() );
+				}
 			}
 			else
 				$this->debug( 'Custom fields: Post does not have a thumbnail (featured image).' );
@@ -2290,9 +2305,16 @@ This can be increased by adding the following to your wp-config.php:
 			foreach( $gallery->ids_array as $id )
 			{
 				$this->debug( 'Gallery has attachment %s.', $id );
-				$data = attachment_data::from_attachment_id( $id, $bcd->upload_dir );
-				$data->set_attached_to_parent( $bcd->post );
-				$bcd->attachment_data[ $id ] = $data;
+				try
+				{
+					$data = attachment_data::from_attachment_id( $id, $bcd->upload_dir );
+					$data->set_attached_to_parent( $bcd->post );
+					$bcd->attachment_data[ $id ] = $data;
+				}
+				catch( Exception $e )
+				{
+					$this->debug( 'Exception adding attachment: ' . $e->getMessage() );
+				}
 			}
 		}
 
