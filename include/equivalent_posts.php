@@ -23,6 +23,11 @@ class equivalent_posts
 		$this->equivalents = [];
 	}
 
+	public function broadcast()
+	{
+		return \threewp_broadcast\ThreeWP_Broadcast::instance();
+	}
+
 	/**
 		@brief		Retrieve the equivalent post on a blog for a specific parent blog/post.
 		@since		2014-09-21 11:54:04
@@ -32,7 +37,7 @@ class equivalent_posts
 		if ( ! isset( $this->equivalents[ $parent_blog ][ $parent_post ][ $child_blog ] ) )
 		{
 			// Try to retrieve the broadcast data
-			$broadcast_data = $this->get_post_broadcast_data( $parent_blog, $parent_post );
+			$broadcast_data = $this->broadcast()->get_post_broadcast_data( $parent_blog, $parent_post );
 			$children = $broadcast_data->get_linked_children();
 			if ( ! isset( $children[ $child_blog ] ) )
 				return false;
