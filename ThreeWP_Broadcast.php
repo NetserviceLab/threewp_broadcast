@@ -2176,7 +2176,7 @@ This can be increased by adding the following to your wp-config.php:
 		$has_attached_files = count( $attached_files) > 0;
 		if ( $has_attached_files )
 		{
-			$this->debug( 'Has %s attachments.', count( $has_attached_files ) );
+			$this->debug( 'Has %s attachments.', count( $attached_files ) );
 			foreach( $attached_files as $attached_file )
 			{
 				try
