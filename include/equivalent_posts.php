@@ -30,7 +30,14 @@ class equivalent_posts
 	public function get( $parent_blog, $parent_post, $child_blog )
 	{
 		if ( ! isset( $this->equivalents[ $parent_blog ][ $parent_post ][ $child_blog ] ) )
-			return false;
+		{
+			// Try to retrieve the broadcast data
+			$broadcast_data = $this->get_post_broadcast_data( $parent_blog, $parent_post );
+			$children = $broadcast_data->get_linked_children();
+			if ( ! isset( $children[ $child_blog ] ) )
+				return false;
+			$this->set( $parent_blog, $parent_post, $child_blog, $children[ $child_blog] );
+		}
 		return $this->equivalents[ $parent_blog ][ $parent_post ][ $child_blog ];
 	}
 
