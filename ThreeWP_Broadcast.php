@@ -2380,7 +2380,8 @@ This can be increased by adding the following to your wp-config.php:
 					{
 						$temp_post_data = $bcd->new_post;
 						$temp_post_data[ 'ID' ] = $child_post_id;
-						$bcd->new_post[ 'ID' ] = wp_update_post( $temp_post_data );
+						wp_update_post( $temp_post_data );
+						$bcd->new_post[ 'ID' ] = $child_post_id;
 						$need_to_insert_post = false;
 					}
 				}
