@@ -213,12 +213,12 @@ For more information, see WPML discussion here: http://wordpress.org/support/top
 
 == Changelog ==
 
-= 8 201410xx =
+= 8 20141013 =
 * New: Premium Pack Plugin: Protect Child Status
 * Fix: Better duplicate image finding.
 * Code: broadcasting_after_switch_to_blog action has $broadcast_here property. Allows skipping blogs.
 * Code: Last used settings are now stored in the user's meta table, instead of a separate database table. The table will be removed in v9 or v10.
-* Code: Better valid attachment checking.
+* Code: Better attachment validity checking.
 
 = 7 20140923 =
 * Fix: Massive optimization of taxonomy syncing.
