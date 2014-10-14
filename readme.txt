@@ -213,6 +213,9 @@ For more information, see WPML discussion here: http://wordpress.org/support/top
 
 == Changelog ==
 
+== 9 2014xxxx =
+* Fix JS error: blogs_to_hide empty value.
+
 = 8 20141013 =
 * New: Premium Pack Plugin: Protect Child Status
 * Fix: Better duplicate image finding.
