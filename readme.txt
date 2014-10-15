@@ -215,6 +215,7 @@ For more information, see WPML discussion here: http://wordpress.org/support/top
 
 == 9 2014xxxx =
 * Fix JS error: blogs_to_hide empty value.
+* Fix: last_used_settings warning.
 
 = 8 20141013 =
 * New: Premium Pack Plugin: Protect Child Status

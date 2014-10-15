@@ -3131,6 +3131,8 @@ This can be increased by adding the following to your wp-config.php:
 			$settings = $this->sql_user_get( $user_id );
 			$settings = $settings[ 'last_used_settings' ];
 		}
+		if ( ! is_array( $settings ) )
+			$settings = [];
 		return $settings;
 	}
 
