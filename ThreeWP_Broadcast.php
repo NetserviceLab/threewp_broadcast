@@ -94,29 +94,6 @@ class ThreeWP_Broadcast
 	// 20140501 when debug trait is moved to SDK.
 	protected $sdk_version_required = 20130505;		// add_action / add_filter
 
-	protected $site_options = array(
-		'blogs_to_hide' => 5,								// How many blogs to auto-hide
-		'broadcast_internal_custom_fields' => true,		// Broadcast internal custom fields?
-		'canonical_url' => true,							// Override the canonical URLs with the parent post's.
-		'clear_post' => true,								// Clear the post before broadcasting.
-		'custom_field_whitelist' => '_wp_page_template _wplp_ _aioseop_',				// Internal custom fields that should be broadcasted.
-		'custom_field_blacklist' => '',						// Internal custom fields that should not be broadcasted.
-		'custom_field_protectlist' => '',					// Internal custom fields that should not be overwritten on broadcast
-		'database_version' => 0,							// Version of database and settings
-		'debug' => false,									// Display debug information?
-		'debug_ips' => '',									// List of IP addresses that can see debug information, when debug is enabled.
-		'save_post_priority' => 640,						// Priority of save_post action. Higher = lets other plugins do their stuff first
-		'override_child_permalinks' => false,				// Make the child's permalinks link back to the parent item?
-		'post_types' => 'post page',						// Custom post types which use broadcasting
-		'existing_attachments' => 'use',					// What to do with existing attachments: use, overwrite, randomize
-		'role_broadcast' => 'super_admin',					// Role required to use broadcast function
-		'role_link' => 'super_admin',						// Role required to use the link function
-		'role_broadcast_as_draft' => 'super_admin',			// Role required to broadcast posts as templates
-		'role_broadcast_scheduled_posts' => 'super_admin',	// Role required to broadcast scheduled, future posts
-		'role_taxonomies' => 'super_admin',					// Role required to broadcast the taxonomies
-		'role_custom_fields' => 'super_admin',				// Role required to broadcast the custom fields
-	);
-
 	public function _construct()
 	{
 		if ( ! $this->is_network )
@@ -3246,6 +3223,32 @@ This can be increased by adding the following to your wp-config.php:
 				$this->sql_delete_broadcast_data( $blog_id, $post_id );
 			else
 				$this->sql_update_broadcast_data( $blog_id, $post_id, $broadcast_data );
+	}
+
+	public function site_options()
+	{
+		return array_merge( [
+			'blogs_to_hide' => 5,								// How many blogs to auto-hide
+			'broadcast_internal_custom_fields' => true,		// Broadcast internal custom fields?
+			'canonical_url' => true,							// Override the canonical URLs with the parent post's.
+			'clear_post' => true,								// Clear the post before broadcasting.
+			'custom_field_whitelist' => '_wp_page_template _wplp_ _aioseop_',				// Internal custom fields that should be broadcasted.
+			'custom_field_blacklist' => '',						// Internal custom fields that should not be broadcasted.
+			'custom_field_protectlist' => '',					// Internal custom fields that should not be overwritten on broadcast
+			'database_version' => 0,							// Version of database and settings
+			'debug' => false,									// Display debug information?
+			'debug_ips' => '',									// List of IP addresses that can see debug information, when debug is enabled.
+			'save_post_priority' => 640,						// Priority of save_post action. Higher = lets other plugins do their stuff first
+			'override_child_permalinks' => false,				// Make the child's permalinks link back to the parent item?
+			'post_types' => 'post page',						// Custom post types which use broadcasting
+			'existing_attachments' => 'use',					// What to do with existing attachments: use, overwrite, randomize
+			'role_broadcast' => 'super_admin',					// Role required to use broadcast function
+			'role_link' => 'super_admin',						// Role required to use the link function
+			'role_broadcast_as_draft' => 'super_admin',			// Role required to broadcast posts as templates
+			'role_broadcast_scheduled_posts' => 'super_admin',	// Role required to broadcast scheduled, future posts
+			'role_taxonomies' => 'super_admin',					// Role required to broadcast the taxonomies
+			'role_custom_fields' => 'super_admin',				// Role required to broadcast the custom fields
+		], parent::site_options() );
 	}
 
 	/**
