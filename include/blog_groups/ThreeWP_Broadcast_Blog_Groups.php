@@ -97,7 +97,7 @@ class ThreeWP_Broadcast_Blog_Groups
 		{
 			$r .= $this->p_( 'Click on the group name to edit or delete it.' );
 
-			$blogs = new \threewp_broadcast\filters\get_user_writable_blogs;
+			$blogs = new \threewp_broadcast\actions\get_user_writable_blogs;
 			$blogs->user_id = $this->user_id();
 			$blogs = $blogs->apply()->blogs;
 
@@ -324,7 +324,7 @@ class ThreeWP_Broadcast_Blog_Groups
 			->required()
 			->value( $edit_form->unfilter_text( $blog_group->data->name ) );
 
-		$blogs = new \threewp_broadcast\filters\get_user_writable_blogs;
+		$blogs = new \threewp_broadcast\actions\get_user_writable_blogs;
 		$blogs->user_id = $this->user_id();
 		$blogs = $blogs->apply()->blogs;
 

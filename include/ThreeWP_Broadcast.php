@@ -686,7 +686,7 @@ class ThreeWP_Broadcast
 		$broadcast_data = $this->get_post_broadcast_data( $current_blog_id, $post_id );
 
 		// Get a list of blogs that this user can link to.
-		$filter = new filters\get_user_writable_blogs( $this->user_id() );
+		$filter = new actions\get_user_writable_blogs( $this->user_id() );
 		$blogs = $filter->apply()->blogs;
 
 		$orphans = [];
@@ -1105,7 +1105,7 @@ This can be increased by adding the following to your wp-config.php:
 		$this->display_broadcast_meta_box |= $this->role_at_least( $this->get_site_option( 'role_broadcast' ) );
 
 		// No access to any other blogs = no point in displaying it.
-		$filter = new filters\get_user_writable_blogs( $this->user_id() );
+		$filter = new actions\get_user_writable_blogs( $this->user_id() );
 		$blogs = $filter->apply()->blogs;
 		if ( count( $blogs ) <= 1 )
 		{
@@ -1465,7 +1465,7 @@ This can be increased by adding the following to your wp-config.php:
 			</script>
 		' );
 
-		$filter = new filters\get_user_writable_blogs( $this->user_id() );
+		$filter = new actions\get_user_writable_blogs( $this->user_id() );
 		$blogs = $filter->apply()->blogs;
 
 		$blogs_input = $form->checkboxes( 'blogs' )

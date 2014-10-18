@@ -213,6 +213,10 @@ For more information, see WPML discussion here: http://wordpress.org/support/top
 
 == Changelog ==
 
+== 10 2014xxxx =
+* Code: threewp_broadcast_get_user_writable_blogs is now an action.
+* Code: Actions now use the standard Plainview Wordpress SDK actions as the base class.
+
 == 9 20141017 =
 * Fix JS error: blogs_to_hide empty value.
 * Fix: last_used_settings warning.
