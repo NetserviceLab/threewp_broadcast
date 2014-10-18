@@ -298,8 +298,8 @@ class ThreeWP_Broadcast
 	{
 		$r = '';
 		$r .= $this->html_css();
-		$contents = file_get_contents( __DIR__ . '/html/premium_pack_info.html' );
-		$r .= $this->wrap( $contents, $this->_( 'ThreeWP Broadcast Premium Pack info' ) );
+		$contents = file_get_contents( __DIR__ . '/../html/premium_pack_info.html' );
+		$r .= $this->wrap( $contents, $this->_( '/../ThreeWP Broadcast Premium Pack info' ) );
 		echo $r;
 	}
 
@@ -2971,7 +2971,7 @@ This can be increased by adding the following to your wp-config.php:
 	**/
 	public function html_css()
 	{
-		return file_get_contents( __DIR__ . '/html/style.css' );
+		return file_get_contents( __DIR__ . '/../html/style.css' );
 	}
 
 	public function is_blog_user_writable( $user_id, $blog )

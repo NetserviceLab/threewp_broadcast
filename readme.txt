@@ -3,7 +3,7 @@ Contributors: edward_plainview
 License: GPLv3
 Requires at least: 3.3.1
 Stable tag: trunk
-Tags: broadcast, multipost, share content, duplicate, posts, marketing, threewp, linking, posts, multiple, blogs, sitepress, woocommerce, synchronize, event organiser, acf, all in one calendar
+Tags: broadcast, multipost, share content, duplicate, posts, marketing, threewp, linking, posts, multiple, blogs, sitepress, woocommerce, synchronize, event organiser, acf, all in one calendar, menu, copy menu
 Tested up to: 4.0
 
 Network plugin for PHP v5.4+ to broadcast posts to other blogs in the network. Custom post types, taxonomies, and attachments are supported.
@@ -55,6 +55,7 @@ For a complete list of features and more information, see <a href="http://plugin
 * <strong>Keep Child Attachments</strong> keeps the child post's attachments instead of deleting them when updating a broadcast.
 * <strong>Keep Child Status</strong> keeps the status of post children to private, pending, published, draft, no matter the status of the parent.
 * <strong>Local Links</strong> automatically updates links to local posts on each child blog.
+* <strong>Menus</strong> can copy menus between blogs (update / overwrite), with support for equivalent child posts on the child blogs.
 * <strong>Per Blog Taxonomies</strong> allows individual setting of child post taxonomies.
 * <strong>Permalinks</strong> enables more precise permalink control.
 * <strong>Protect Child Content</strong> prevents overwriting of child post content.
@@ -214,6 +215,7 @@ For more information, see WPML discussion here: http://wordpress.org/support/top
 == Changelog ==
 
 == 10 2014xxxx =
+* New: Premium Pack Plugin: Menus
 * Code: threewp_broadcast_get_user_writable_blogs is now an action.
 * Code: Actions now use the standard Plainview Wordpress SDK actions as the base class.
 

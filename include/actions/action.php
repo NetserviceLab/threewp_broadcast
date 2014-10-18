@@ -18,7 +18,6 @@ class action
 		return 'threewp_broadcast_';
 	}
 
-
 	// TODO: Remove this @ v11
 	public function finish( $finished = true )
 	{
