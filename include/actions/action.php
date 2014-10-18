@@ -3,10 +3,22 @@
 namespace threewp_broadcast\actions;
 
 class action
-	extends \threewp_broadcast\actionfilter
+	extends \plainview\sdk\wordpress\actions\action
 {
-	public function apply_method( $filter_name )
+	public function execute()
 	{
-		do_action( $filter_name, $this );
+		$action_name = $this->get_name();
+		do_action( $action_name, $this );
+		return $this;
+	}
+
+	public function get_prefix()
+	{
+		return 'threewp_broadcast_';
+	}
+
+	public function finish( $finished = true )
+	{
+		return $this->set_boolean( 'finished', $finished );
 	}
 }

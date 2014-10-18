@@ -99,7 +99,7 @@ class ThreeWP_Broadcast
 		$this->add_filter( 'threewp_broadcast_add_meta_box' );
 		$this->add_filter( 'threewp_broadcast_admin_menu', 100 );
 		$this->add_filter( 'threewp_broadcast_broadcast_post' );
-		$this->add_filter( 'threewp_broadcast_get_user_writable_blogs', 11 );		// Allow other plugins to do this first.
+		$this->add_action( 'threewp_broadcast_get_user_writable_blogs', 11 );		// Allow other plugins to do this first.
 		$this->add_filter( 'threewp_broadcast_get_post_types', 9 );					// Add our custom post types to the array of broadcastable post types.
 		$this->add_action( 'threewp_broadcast_manage_posts_custom_column', 9 );		// Just before the standard 10.
 		$this->add_action( 'threewp_broadcast_maybe_clear_post', 11 );
@@ -122,11 +122,11 @@ class ThreeWP_Broadcast
 		$this->load_language();
 
 		$action = new actions\admin_menu;
-		$action->apply();
+		$action->execute();
 
 		$action = new actions\menu;
 		$action->broadcast = $this;
-		$action->apply();
+		$action->execute();
 
 		// Hook into save_post, no matter is the meta box is displayed or not.
 		$this->add_action( 'save_post', intval( $this->get_site_option( 'save_post_priority' ) ) );
@@ -571,7 +571,7 @@ class ThreeWP_Broadcast
 
 		$action = new actions\broadcast_menu_tabs();
 		$action->tabs = $tabs;
-		$action->apply();
+		$action->execute();
 
 		echo $tabs;
 	}
@@ -687,7 +687,7 @@ class ThreeWP_Broadcast
 
 		// Get a list of blogs that this user can link to.
 		$filter = new actions\get_user_writable_blogs( $this->user_id() );
-		$blogs = $filter->apply()->blogs;
+		$blogs = $filter->execute()->blogs;
 
 		$orphans = [];
 
@@ -1094,7 +1094,7 @@ This can be increased by adding the following to your wp-config.php:
 		if ( $this->display_broadcast_meta_box === true )
 		{
 			$action = new actions\get_post_types;
-			$action->apply();
+			$action->execute();
 			foreach( $action->post_types as $post_type )
 				add_meta_box( 'threewp_broadcast', $this->_( 'Broadcast' ), array( &$this, 'threewp_broadcast_add_meta_box' ), $post_type, 'side', 'low' );
 			return;
@@ -1106,7 +1106,7 @@ This can be increased by adding the following to your wp-config.php:
 
 		// No access to any other blogs = no point in displaying it.
 		$filter = new actions\get_user_writable_blogs( $this->user_id() );
-		$blogs = $filter->apply()->blogs;
+		$blogs = $filter->execute()->blogs;
 		if ( count( $blogs ) <= 1 )
 		{
 			// If the user is debugging, show the box anyway.
@@ -1144,7 +1144,7 @@ This can be increased by adding the following to your wp-config.php:
 		$action->parent_blog_id = $blog_id;
 		$action->parent_post_id = $parent_post_id;
 		$action->broadcast_data = $broadcast_data;
-		$action->apply();
+		$action->execute();
 
 		echo $action->render();
 	}
@@ -1240,7 +1240,7 @@ This can be increased by adding the following to your wp-config.php:
 		// We must handle this post type.
 		$post = get_post( $post_id );
 		$action = new actions\get_post_types;
-		$action->apply();
+		$action->execute();
 		if ( ! in_array( $post->post_type, $action->post_types ) )
 		{
 			$this->debug( 'We do not care about the %s post type.', $post->post_type );
@@ -1279,7 +1279,7 @@ This can be increased by adding the following to your wp-config.php:
 		// Allow plugins to modify the meta box with their own info.
 		$action = new actions\prepare_meta_box;
 		$action->meta_box_data = $meta_box_data;
-		$action->apply();
+		$action->execute();
 
 		$this->debug( 'Prepared.' );
 
@@ -1303,7 +1303,7 @@ This can be increased by adding the following to your wp-config.php:
 
 		$action = new actions\prepare_broadcasting_data;
 		$action->broadcasting_data = $broadcasting_data;
-		$action->apply();
+		$action->execute();
 
 		$this->debug( 'Prepared.' );
 
@@ -1326,7 +1326,7 @@ This can be increased by adding the following to your wp-config.php:
 		// Allow plugins to modify the meta box with their own info.
 		$action = new actions\prepare_meta_box;
 		$action->meta_box_data = $meta_box_data;
-		$action->apply();
+		$action->execute();
 
 		foreach( $meta_box_data->css as $key => $value )
 			wp_enqueue_style( $key, $value, '', $this->plugin_version );
@@ -1380,7 +1380,7 @@ This can be increased by adding the following to your wp-config.php:
 		if ( $this->debugging() )
 			$meta_box_data->html->put( 'debug', $this->p_( 'Broadcast is in debug mode. More information than usual will be shown.' ) );
 
-		if ( $action->is_applied() )
+		if ( $action->is_finished() )
 		{
 			if ( $this->debugging() )
 				$meta_box_data->html->put( 'debug_applied', $this->p_( 'Broadcast is not preparing the meta box because it has already been applied.' ) );
@@ -1392,7 +1392,7 @@ This can be increased by adding the following to your wp-config.php:
 			$meta_box_data->html->put( 'already_broadcasted',  sprintf( '<p>%s</p>',
 				$this->_( 'This post is a broadcasted child post. It cannot be broadcasted further.' )
 			) );
-			$action->applied();
+			$action->finish();
 			return;
 		}
 
@@ -1466,7 +1466,7 @@ This can be increased by adding the following to your wp-config.php:
 		' );
 
 		$filter = new actions\get_user_writable_blogs( $this->user_id() );
-		$blogs = $filter->apply()->blogs;
+		$blogs = $filter->execute()->blogs;
 
 		$blogs_input = $form->checkboxes( 'blogs' )
 			->css_class( 'blogs checkboxes' )
@@ -1543,7 +1543,7 @@ This can be increased by adding the following to your wp-config.php:
 			) );
 		}
 
-		$action->applied();
+		$action->finish();
 	}
 
 	/**
@@ -1559,24 +1559,23 @@ This can be increased by adding the following to your wp-config.php:
 		@brief		Return a collection of blogs that the user is allowed to write to.
 		@since		20131003
 	**/
-	public function threewp_broadcast_get_user_writable_blogs( $filter )
+	public function threewp_broadcast_get_user_writable_blogs( $action )
 	{
-		if ( $filter->is_applied() )
+		if ( $action->is_finished() )
 			return;
 
-		$blogs = get_blogs_of_user( $filter->user_id, true );
+		$blogs = get_blogs_of_user( $action->user_id, true );
 		foreach( $blogs as $blog)
 		{
 			$blog = blog::make( $blog );
 			$blog->id = $blog->userblog_id;
-			if ( ! $this->is_blog_user_writable( $filter->user_id, $blog ) )
+			if ( ! $this->is_blog_user_writable( $action->user_id, $blog ) )
 				continue;
-			$filter->blogs->set( $blog->id, $blog );
+			$action->blogs->set( $blog->id, $blog );
 		}
 
-		$filter->blogs->sort_logically();
-		$filter->applied();
-		return $filter;
+		$action->blogs->sort_logically();
+		$action->finish();
 	}
 
 	/**
@@ -1595,21 +1594,21 @@ This can be increased by adding the following to your wp-config.php:
 		@brief		Handle the display of the custom column.
 		@since		2014-04-18 08:30:19
 	**/
-	public function threewp_broadcast_manage_posts_custom_column( $filter )
+	public function threewp_broadcast_manage_posts_custom_column( $action )
 	{
-		if ( $filter->broadcast_data->get_linked_parent() !== false)
+		if ( $action->broadcast_data->get_linked_parent() !== false)
 		{
-			$parent = $filter->broadcast_data->get_linked_parent();
+			$parent = $action->broadcast_data->get_linked_parent();
 			$parent_blog_id = $parent[ 'blog_id' ];
 			switch_to_blog( $parent_blog_id );
 
 			$html = $this->_(sprintf( 'Linked from %s', '<a href="' . get_bloginfo( 'url' ) . '/wp-admin/post.php?post=' .$parent[ 'post_id' ] . '&action=edit">' . get_bloginfo( 'name' ) . '</a>' ) );
-			$filter->html->put( 'linked_from', $html );
+			$action->html->put( 'linked_from', $html );
 			restore_current_blog();
 		}
-		elseif ( $filter->broadcast_data->has_linked_children() )
+		elseif ( $action->broadcast_data->has_linked_children() )
 		{
-			$children = $filter->broadcast_data->get_linked_children();
+			$children = $action->broadcast_data->get_linked_children();
 
 			if ( count( $children ) > 0 )
 			{
@@ -1622,8 +1621,8 @@ This can be increased by adding the following to your wp-config.php:
 					$strings->set( 'text_all', $this->_( 'All' ) );
 					$strings->set( 'div_small_open', '<small>' );
 
-					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_restore_all&amp;post=%s", $filter->parent_post_id );
-					$url = wp_nonce_url( $url, 'broadcast_restore_all_' . $filter->parent_post_id );
+					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_restore_all&amp;post=%s", $action->parent_post_id );
+					$url = wp_nonce_url( $url, 'broadcast_restore_all_' . $action->parent_post_id );
 					$strings->set( 'restore_all_separator', ' | ' );
 					$strings->set( 'restore_all', sprintf( '<a href="%s" title="%s">%s</a>',
 						$url,
@@ -1631,8 +1630,8 @@ This can be increased by adding the following to your wp-config.php:
 						$this->_( 'Restore' )
 					) );
 
-					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_trash_all&amp;post=%s", $filter->parent_post_id );
-					$url = wp_nonce_url( $url, 'broadcast_trash_all_' . $filter->parent_post_id );
+					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_trash_all&amp;post=%s", $action->parent_post_id );
+					$url = wp_nonce_url( $url, 'broadcast_trash_all_' . $action->parent_post_id );
 					$strings->set( 'trash_all_separator', ' | ' );
 					$strings->set( 'trash_all', sprintf( '<a href="%s" title="%s">%s</a>',
 						$url,
@@ -1640,8 +1639,8 @@ This can be increased by adding the following to your wp-config.php:
 						$this->_( 'Trash' )
 					) );
 
-					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_unlink_all&amp;post=%s", $filter->parent_post_id );
-					$url = wp_nonce_url( $url, 'broadcast_unlink_all_' . $filter->parent_post_id );
+					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_unlink_all&amp;post=%s", $action->parent_post_id );
+					$url = wp_nonce_url( $url, 'broadcast_unlink_all_' . $action->parent_post_id );
 					$strings->set( 'unlink_all_separator', ' | ' );
 					$strings->set( 'unlink_all', sprintf( '<a href="%s" title="%s">%s</a>',
 						$url,
@@ -1649,8 +1648,8 @@ This can be increased by adding the following to your wp-config.php:
 						$this->_( 'Unlink' )
 					) );
 
-					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_delete_all&amp;post=%s", $filter->parent_post_id );
-					$url = wp_nonce_url( $url, 'broadcast_delete_all_' . $filter->parent_post_id );
+					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_delete_all&amp;post=%s", $action->parent_post_id );
+					$url = wp_nonce_url( $url, 'broadcast_delete_all_' . $action->parent_post_id );
 					$strings->set( 'delete_all_separator', ' | ' );
 					$strings->set( 'delete_all', sprintf( '<span class="trash"><a href="%s" title="%s">%s</a></span>',
 						$url,
@@ -1661,7 +1660,7 @@ This can be increased by adding the following to your wp-config.php:
 					$strings->set( 'div_small_close', '</small>' );
 					$strings->set( 'div_close', '</div>' );
 
-					$filter->html->put( 'delete_all', $strings );
+					$action->html->put( 'delete_all', $strings );
 				}
 
 				$collection = new \threewp_broadcast\collections\strings;
@@ -1686,8 +1685,8 @@ This can be increased by adding the following to your wp-config.php:
 					$strings->set( 'span_row_actions_open', '<span class="row-actions broadcasted_blog_actions">' );
 					$strings->set( 'small_open', '<small>' );
 
-					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_restore&amp;post=%s&amp;child=%s", $filter->parent_post_id, $child_blog_id );
-					$url = wp_nonce_url( $url, 'broadcast_restore_' . $child_blog_id . '_' . $filter->parent_post_id );
+					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_restore&amp;post=%s&amp;child=%s", $action->parent_post_id, $child_blog_id );
+					$url = wp_nonce_url( $url, 'broadcast_restore_' . $child_blog_id . '_' . $action->parent_post_id );
 					$strings->set( 'restore_separator', ' | ' );
 					$strings->set( 'restore', sprintf( '<a href="%s" title="%s">%s</a>',
 						$url,
@@ -1695,8 +1694,8 @@ This can be increased by adding the following to your wp-config.php:
 						$this->_( 'Restore' )
 					) );
 
-					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_trash&amp;post=%s&amp;child=%s", $filter->parent_post_id, $child_blog_id );
-					$url = wp_nonce_url( $url, 'broadcast_trash_' . $child_blog_id . '_' . $filter->parent_post_id );
+					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_trash&amp;post=%s&amp;child=%s", $action->parent_post_id, $child_blog_id );
+					$url = wp_nonce_url( $url, 'broadcast_trash_' . $child_blog_id . '_' . $action->parent_post_id );
 					$strings->set( 'trash_separator', ' | ' );
 					$strings->set( 'trash', sprintf( '<a href="%s" title="%s">%s</a>',
 						$url,
@@ -1704,8 +1703,8 @@ This can be increased by adding the following to your wp-config.php:
 						$this->_( 'Trash' )
 					) );
 
-					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_unlink&amp;post=%s&amp;child=%s", $filter->parent_post_id, $child_blog_id );
-					$url = wp_nonce_url( $url, 'broadcast_unlink_' . $child_blog_id . '_' . $filter->parent_post_id );
+					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_unlink&amp;post=%s&amp;child=%s", $action->parent_post_id, $child_blog_id );
+					$url = wp_nonce_url( $url, 'broadcast_unlink_' . $child_blog_id . '_' . $action->parent_post_id );
 					$strings->set( 'unlink_separator', ' | ' );
 					$strings->set( 'unlink', sprintf( '<a href="%s" title="%s">%s</a>',
 						$url,
@@ -1713,8 +1712,8 @@ This can be increased by adding the following to your wp-config.php:
 						$this->_( 'Unlink' )
 					) );
 
-					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_delete&amp;post=%s&amp;child=%s", $filter->parent_post_id, $child_blog_id );
-					$url = wp_nonce_url( $url, 'broadcast_delete_' . $child_blog_id . '_' . $filter->parent_post_id );
+					$url = sprintf( "admin.php?page=threewp_broadcast&amp;action=user_delete&amp;post=%s&amp;child=%s", $action->parent_post_id, $child_blog_id );
+					$url = wp_nonce_url( $url, 'broadcast_delete_' . $child_blog_id . '_' . $action->parent_post_id );
 					$strings->set( 'delete_separator', ' | ' );
 					$strings->set( 'delete', sprintf( '<span class="trash"><a href="%s" title="%s">%s</a></span>',
 						$url,
@@ -1734,10 +1733,10 @@ This can be increased by adding the following to your wp-config.php:
 					return $child->metadata()->get( 'blogname' );
 				});
 
-				$filter->html->put( 'broadcasted_to', $collection );
+				$action->html->put( 'broadcasted_to', $collection );
 			}
 		}
-		$filter->applied();
+		$action->finish();
 	}
 
 	/**
@@ -1746,7 +1745,7 @@ This can be increased by adding the following to your wp-config.php:
 	**/
 	public function threewp_broadcast_maybe_clear_post( $action )
 	{
-		if ( $action->is_applied() )
+		if ( $action->is_finished() )
 		{
 			$this->debug( 'Not maybe clearing the POST.' );
 			return;
@@ -2288,12 +2287,12 @@ This can be increased by adding the following to your wp-config.php:
 		// POST is no longer needed. Empty it so that other plugins don't use it.
 		$action = new actions\maybe_clear_post;
 		$action->post = $_POST;
-		$action->apply();
+		$action->execute();
 		$_POST = $action->post;
 
 		$action = new actions\broadcasting_started;
 		$action->broadcasting_data = $bcd;
-		$action->apply();
+		$action->execute();
 
 		$this->debug( 'The attachment data is: %s', $bcd->attachment_data );
 
@@ -2313,7 +2312,7 @@ This can be increased by adding the following to your wp-config.php:
 
 			$action = new actions\broadcasting_after_switch_to_blog;
 			$action->broadcasting_data = $bcd;
-			$action->apply();
+			$action->execute();
 
 			if ( ! $action->broadcast_here )
 			{
@@ -2438,7 +2437,7 @@ This can be increased by adding the following to your wp-config.php:
 							$action = new actions\wp_insert_term;
 							$action->taxonomy = $parent_post_taxonomy;
 							$action->term = $new_term;
-							$action->apply();
+							$action->execute();
 							$new_taxonomy = $action->new_term;
 							$term_id = $new_taxonomy[ 'term_id' ];
 							$this->debug( 'Taxonomies: Created taxonomy %s (%s).', $parent_post_term->name, $term_id );
@@ -2558,7 +2557,7 @@ This can be increased by adding the following to your wp-config.php:
 			$bcd->modified_post = $modified_post;
 			$action = new actions\broadcasting_modify_post;
 			$action->broadcasting_data = $bcd;
-			$action->apply();
+			$action->execute();
 
 			$this->debug( 'Checking for post modifications.' );
 			$post_modified = false;
@@ -2688,7 +2687,7 @@ This can be increased by adding the following to your wp-config.php:
 
 			$action = new actions\broadcasting_before_restore_current_blog;
 			$action->broadcasting_data = $bcd;
-			$action->apply();
+			$action->execute();
 
 			$child_blog->switch_from();
 		}
@@ -2705,7 +2704,7 @@ This can be increased by adding the following to your wp-config.php:
 
 		$action = new actions\broadcasting_finished;
 		$action->broadcasting_data = $bcd;
-		$action->apply();
+		$action->execute();
 
 		// Finished broadcasting.
 		array_pop( $this->broadcasting );
@@ -3044,7 +3043,7 @@ This can be increased by adding the following to your wp-config.php:
 			$action = new actions\wp_insert_term;
 			$action->taxonomy = $source_post_taxonomy;
 			$action->term = $new_term;
-			$action->apply();
+			$action->execute();
 			$term_id = $action->new_term[ 'term_id' ];
 		}
 		elseif ( is_array( $term_id ) )
@@ -3291,7 +3290,7 @@ This can be increased by adding the following to your wp-config.php:
 				$action = new actions\wp_insert_term;
 				$action->taxonomy = $taxonomy;
 				$action->term = $unfound_source;
-				$action->apply();
+				$action->execute();
 
 				$new_taxonomy = $action->new_term;
 				$new_taxonomy_id = $new_taxonomy[ 'term_id' ];
@@ -3340,7 +3339,7 @@ This can be increased by adding the following to your wp-config.php:
 
 			$action->new_term->parent = $new_parent;
 
-			$action->apply();
+			$action->execute();
 			$refresh_cache |= $action->updated;
 		}
 

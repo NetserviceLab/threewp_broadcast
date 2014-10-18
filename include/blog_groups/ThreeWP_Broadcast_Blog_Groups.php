@@ -99,7 +99,7 @@ class ThreeWP_Broadcast_Blog_Groups
 
 			$blogs = new \threewp_broadcast\actions\get_user_writable_blogs;
 			$blogs->user_id = $this->user_id();
-			$blogs = $blogs->apply()->blogs;
+			$blogs = $blogs->execute()->blogs;
 
 			$table = $this->table();
 			$row = $table->head()->row();
@@ -326,7 +326,7 @@ class ThreeWP_Broadcast_Blog_Groups
 
 		$blogs = new \threewp_broadcast\actions\get_user_writable_blogs;
 		$blogs->user_id = $this->user_id();
-		$blogs = $blogs->apply()->blogs;
+		$blogs = $blogs->execute()->blogs;
 
 		$input_blogs = $edit_form->checkboxes( 'blogs' )
 			->label_( 'Blogs' );
