@@ -2,6 +2,9 @@
 
 namespace threewp_broadcast\traits;
 
+use \threewp_broadcast\actions;
+use \threewp_broadcast\meta_box;
+
 /**
 	@brief		Methods related to the broadcast meta box.
 	@since		2014-10-19 15:44:39

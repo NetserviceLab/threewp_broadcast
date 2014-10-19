@@ -2,6 +2,12 @@
 
 namespace threewp_broadcast\traits;
 
+use \Exception;
+use \plainview\sdk\collections\collection;
+use \threewp_broadcast\actions;
+use \threewp_broadcast\broadcasting_data;
+use \threewp_broadcast\broadcast_data\blog;
+
 /**
 	@brief		Methods related to actual broadcasting of a post.
 	@since		2014-10-19 15:44:39
@@ -808,7 +814,7 @@ trait broadcasting
 			{
 				$blog_id = $blog_input->get_name();
 				$blog_id = str_replace( 'blogs_', '', $blog_id );
-				$blog = new broadcast_data\blog;
+				$blog = new blog;
 				$blog->id = $blog_id;
 				$bcd->broadcast_to( $blog );
 			}

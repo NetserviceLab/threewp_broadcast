@@ -2,10 +2,7 @@
 
 namespace threewp_broadcast;
 
-use \Exception;
-use \plainview\sdk\collections\collection;
 use \threewp_broadcast\broadcast_data\blog;
-use \plainview\sdk\html\div;
 
 class ThreeWP_Broadcast
 	extends \plainview\sdk\wordpress\base
