@@ -42,6 +42,19 @@ trait broadcast_data
 	}
 
 	/**
+	 * Retrieves the BroadcastData for this post_id.
+	 *
+	 * Will return a fully functional BroadcastData class even if the post doesn't have BroadcastData.
+	 *
+	 * Use BroadcastData->is_empty() to check for that.
+	 * @param int $post_id Post ID to retrieve data for.
+	 */
+	public function get_post_broadcast_data( $blog_id, $post_id )
+	{
+		return $this->broadcast_data_cache()->get_for( $blog_id, $post_id );
+	}
+
+	/**
 	 * Updates / removes the BroadcastData for a post.
 	 *
 	 * If the BroadcastData->is_empty() then the BroadcastData is removed completely.
