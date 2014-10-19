@@ -3437,16 +3437,7 @@ This can be increased by adding the following to your wp-config.php:
 		$this->query( $query );
 	}
 
-	public function sql_update_broadcast_data( $broadcast_data )
-	{
-		$args = func_get_args();
-		if ( count( $args ) == 1 )
-			return $this->sql_update_broadcast_data_old( null, null, $broadcast_data );
-		else
-			return call_user_func_array( [ $this, 'sql_update_broadcast_data_old' ], $args );
-	}
-
-	public function sql_update_broadcast_data_old( $blog_id, $post_id, $bcd )
+	public function sql_update_broadcast_data( $blog_id, $post_id, $bcd )
 	{
 		$data = serialize( $bcd->getData() );
 		$data = base64_encode( $data );
