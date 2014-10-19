@@ -477,4 +477,53 @@ This can be increased by adding the following to your wp-config.php:
 		echo $tabs;
 	}
 
+	/**
+		@brief		Adds to the broadcast menu.
+		@param		threewp_broadcast		$threewp_broadcast		The broadcast object.
+		@since		20130927
+	**/
+	public function threewp_broadcast_menu( $action )
+	{
+		if ( $this->display_premium_pack_info && is_super_admin() )
+			$this->add_submenu_page(
+				'threewp_broadcast',
+				$this->_( 'Premium Pack info' ),
+				$this->_( 'Premium Pack' ),
+				'edit_posts',
+				'threewp_broadcast_premium_pack_info',
+				[ &$this, 'admin_menu_premium_pack_info' ]
+			);
+
+		if ( is_super_admin() )
+			$action->broadcast->add_submenu_page(
+				'threewp_broadcast',
+				'Admin settings',
+				'Admin settings',
+				'activate_plugins',
+				'threewp_broadcast_admin_menu',
+				[ &$this, 'admin_menu_tabs' ]
+			);
+	}
+
+	/**
+		@brief		Adds to the broadcast menu.
+		@param		threewp_broadcast		$threewp_broadcast		The broadcast object.
+		@since		20130927
+	**/
+	public function threewp_broadcast_menu_final( $action )
+	{
+		if ( ! $this->display_broadcast_menu )
+			return;
+
+		add_menu_page(
+			$this->_( 'ThreeWP Broadcast' ),
+			$this->_( 'Broadcast' ),
+			'edit_posts',
+			'threewp_broadcast',
+			[ &$this, 'broadcast_menu_tabs' ]
+		);
+
+		$this->add_submenu_pages();
+	}
+
 }
