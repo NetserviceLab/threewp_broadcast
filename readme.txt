@@ -168,8 +168,6 @@ The broadcast meta box, menu and columns in the post view can be hidden from use
 
 Yes. PHP v5.3 has been officially unsupported since the 14th of August, 2014. If your web host refuses to upgrade to a supported version, go find a new host.
 
-If you use v5.3 then use the last plugin that works with that version: v1.18. The download link is on the main page.
-
 = Orphans? =
 
 If you have already created posts on other blogs that are supposed to be children of a specific post, you can use the "find orphans" function to find and link them.
@@ -211,6 +209,14 @@ If you have a product gallery, use the "Custom Field Attachments" premium plugin
 WPML is semi-supported via a plugin in the premium pack.
 
 For more information, see WPML discussion here: http://wordpress.org/support/topic/wmpl-integration-not-working
+
+= XCache vs APC opcode cache =
+
+Xcache v2 does not support PHP namespaces, which is a PHP 5.3 feature. Trying to enable Broadcast with Xcache v2 enabled will result in a PHP crash.
+
+Xcache v3, which does support namespaces, has not yet been tested. Anyone with Xcache v3 experience is welcome to contact me with info.
+
+APC works flawlessly.
 
 == Changelog ==
 
