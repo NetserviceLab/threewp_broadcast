@@ -6,7 +6,6 @@ use \Exception;
 use \plainview\sdk\collections\collection;
 use \threewp_broadcast\broadcast_data\blog;
 use \plainview\sdk\html\div;
-use \stdClass;
 
 class ThreeWP_Broadcast
 	extends \plainview\sdk\wordpress\base
@@ -114,7 +113,7 @@ class ThreeWP_Broadcast
 		if ( $this->get_site_option( 'canonical_url' ) )
 			$this->add_action( 'wp_head', 1 );
 
-		$this->permalink_cache = new \stdClass;
+		$this->permalink_cache = (object)[];
 	}
 
 	public function admin_menu()
@@ -1816,7 +1815,7 @@ This can be increased by adding the following to your wp-config.php:
 		$bcd->custom_fields = $form->checkbox( 'custom_fields' )->get_post_value()
 			&& ( is_super_admin() || $this->role_at_least( $this->get_site_option( 'role_custom_fields' ) ) );
 		if ( $bcd->custom_fields )
-			$bcd->custom_fields = new \stdClass;
+			$bcd->custom_fields = (object)[];
 
 		$bcd->link = $form->checkbox( 'link' )->get_post_value()
 			&& ( is_super_admin() || $this->role_at_least( $this->get_site_option( 'role_link' ) ) );
@@ -2159,7 +2158,7 @@ This can be increased by adding the following to your wp-config.php:
 		if ( $bcd->custom_fields !== false )
 		{
 			if ( ! is_object( $bcd->custom_fields ) )
-				$bcd->custom_fields = new \stdClass;
+				$bcd->custom_fields = (object)[];
 
 			$this->debug( 'Custom fields: Will broadcast custom fields.' );
 			$bcd->post_custom_fields = get_post_custom( $bcd->post->ID );
@@ -2255,7 +2254,7 @@ This can be increased by adding the following to your wp-config.php:
 		{
 			// We've found a gallery!
 			$bcd->has_galleries = true;
-			$gallery = new \stdClass;
+			$gallery = (object)[];
 			$bcd->galleries->push( $gallery );
 
 			// Complete matches are in 0.
@@ -2498,7 +2497,7 @@ This can be increased by adding the following to your wp-config.php:
 					$o->attachment_data->post->post_parent = 0;
 				}
 				$this->maybe_copy_attachment( $o );
-				$a = new \stdClass();
+				$a = (object)[];
 				$a->old = $attachment;
 				$a->new = get_post( $o->attachment_id );
 				$a->new->id = $a->new->ID;		// Lowercase is expected.
