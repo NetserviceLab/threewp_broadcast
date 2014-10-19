@@ -671,14 +671,9 @@ trait broadcasting
 
 	public function save_post( $post_id )
 	{
-		$this->debug( 'Running save_post hook.' );
-
 		// We must be on the source blog.
 		if ( ms_is_switched() )
-		{
-			$this->debug( 'Not on parent blog.' );
 			return;
-		}
 
 		// Loop check.
 		if ( $this->is_broadcasting() )
