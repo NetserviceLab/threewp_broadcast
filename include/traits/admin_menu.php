@@ -195,8 +195,8 @@ This can be increased by adding the following to your wp-config.php:
 	{
 		$r = '';
 		$r .= $this->html_css();
-		$contents = file_get_contents( __DIR__ . '/../html/premium_pack_info.html' );
-		$r .= $this->wrap( $contents, $this->_( '/../ThreeWP Broadcast Premium Pack info' ) );
+		$contents = file_get_contents( __DIR__ . '/../../html/premium_pack_info.html' );
+		$r .= $this->wrap( $contents, $this->_( 'ThreeWP Broadcast Premium Pack info' ) );
 		echo $r;
 	}
 
