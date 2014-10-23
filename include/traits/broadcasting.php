@@ -25,6 +25,8 @@ trait broadcasting
 	{
 		$bcd = $broadcasting_data;
 
+		$this->debug( 'Broadcast version %s.', THREEWP_BROADCAST_VERSION );
+
 		$this->debug( 'Broadcasting the post %s <pre>%s</pre>', $bcd->post->ID, $bcd->post );
 
 		$this->debug( 'The POST was <pre>%s</pre>', $bcd->_POST );
