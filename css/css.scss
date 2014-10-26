@@ -68,7 +68,8 @@
 
 }
 
-tr.action_3broadcast_broadcasted td.activity_monitor_action
+#toplevel_page_threewp_broadcast .wp-menu-image
 {
-	background-image: url("../images/threewp_activity_monitor_icon.png");
+	background-image: url( '../assets/icon.svg' );
+	background-size: contain;
 }

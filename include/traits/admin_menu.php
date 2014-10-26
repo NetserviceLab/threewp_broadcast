@@ -28,14 +28,6 @@ trait admin_menu
 
 	public function admin_print_styles()
 	{
-		$load = false;
-
-		foreach(array( 'post-new.php', 'post.php' ) as $string)
-			$load |= strpos( $_SERVER[ 'SCRIPT_FILENAME' ], $string) !== false;
-
-		if ( !$load )
-			return;
-
 		$this->enqueue_js();
 		wp_enqueue_style( 'threewp_broadcast', $this->paths[ 'url' ] . '/css/css.scss.min.css', '', $this->plugin_version  );
 	}
@@ -520,7 +512,8 @@ This can be increased by adding the following to your wp-config.php:
 			$this->_( 'Broadcast' ),
 			'edit_posts',
 			'threewp_broadcast',
-			[ &$this, 'broadcast_menu_tabs' ]
+			[ &$this, 'broadcast_menu_tabs' ],
+			'none'
 		);
 
 		$this->add_submenu_pages();

@@ -28,5 +28,6 @@
   #threewp_broadcast.postbox .html_section {
     margin-bottom: 1em; }
 
-tr.action_3broadcast_broadcasted td.activity_monitor_action {
-  background-image: url("../images/threewp_activity_monitor_icon.png"); }
+#toplevel_page_threewp_broadcast .wp-menu-image {
+  background-image: url('../assets/icon.svg');
+  background-size: contain; }
