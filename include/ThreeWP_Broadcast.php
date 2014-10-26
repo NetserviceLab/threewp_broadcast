@@ -384,7 +384,7 @@ class ThreeWP_Broadcast
 	{
 		if ( ! file_exists( $o->attachment_data->filename_path ) )
 		{
-			$this->debug( 'Copy attachment: File %s does not exist!', $o->attachment_data->filename_path );
+			$this->debug( 'Copy attachment: File "%s" does not exist!', $o->attachment_data->filename_path );
 			return false;
 		}
 

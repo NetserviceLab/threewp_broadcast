@@ -106,8 +106,8 @@ trait broadcasting
 
 			if ( $bcd->has_thumbnail )
 			{
-				$this->debug( 'Custom fields: Post has a thumbnail (featured image).' );
 				$bcd->thumbnail_id = $bcd->post_custom_fields[ '_thumbnail_id' ][0];
+				$this->debug( 'Custom fields: Post has a thumbnail (featured image): %s', $bcd->thumbnail_id );
 				$bcd->thumbnail = get_post( $bcd->thumbnail_id );
 				unset( $bcd->post_custom_fields[ '_thumbnail_id' ] ); // There is a new thumbnail id for each blog.
 				try
