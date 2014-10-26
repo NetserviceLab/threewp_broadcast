@@ -591,7 +591,7 @@ trait broadcasting
 					$this->debug( 'Custom fields: Maybe copied attachment.' );
 					if ( $o->attachment_id !== false )
 					{
-						$this->debug( 'Handling post thumbnail: %s %s', $bcd->new_post[ 'ID' ], '_thumbnail_id', $o->attachment_id );
+						$this->debug( 'Handling post thumbnail for post %s. Thumbnail ID is now %s', $bcd->new_post[ 'ID' ], '_thumbnail_id', $o->attachment_id );
 						update_post_meta( $bcd->new_post[ 'ID' ], '_thumbnail_id', $o->attachment_id );
 					}
 				}
