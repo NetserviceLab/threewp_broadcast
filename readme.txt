@@ -147,6 +147,12 @@ For contract work such as the following, contact me so we can make a deal:
 
 If you're not into donations, try the support forum to see if other users can help you out.
 
+= Debug dumps =
+
+A debug dump is the long text that is displayed when broadcasting a post with debug mode on. This dump can then be read to see what Broadcast is or isn't doing.
+
+To switch on debug mode, see the admin settings. If your site is live it would be wise to input your IP in the associated textarea, so that only you see the debug dump.
+
 = Blacklist, whitelisting, force broadcast =
 
 Broadcasting to specific blogs, hiding blogs and forcing blogs can be acheived with the <em>User & Blog Settings</em> plugin in the <a href="http://plugins.plainview.se/threewp-broadcast-premium-pack/" title="Premium Pack's page on the web"><em>Broadcast Premium Pack</em></a>.
