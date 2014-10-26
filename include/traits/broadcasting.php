@@ -515,13 +515,6 @@ trait broadcasting
 
 				foreach( $old_custom_fields as $key => $value )
 				{
-					// This post has a featured image! Remove it from disk!
-					if ( $key == '_thumbnail_id' )
-					{
-						$thumbnail_post = $value[0];
-						$this->debug( 'Custom fields: The thumbnail ID is %s. Saved for later use.', $thumbnail_post );
-					}
-
 					// Do we delete this custom field?
 					$delete = true;
 
