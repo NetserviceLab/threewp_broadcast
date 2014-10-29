@@ -579,7 +579,7 @@ class ThreeWP_Broadcast
 		if ( ! $settings )
 		{
 			$settings = $this->sql_user_get( $user_id );
-			$settings = $settings[ 'last_used_settings' ];
+			$settings = @$settings[ 'last_used_settings' ];
 		}
 		if ( ! is_array( $settings ) )
 			$settings = [];
