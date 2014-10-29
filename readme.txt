@@ -226,6 +226,9 @@ APC works flawlessly.
 
 == Changelog ==
 
+= 12 2014xxxx =
+* Fix: Last used settings notice removed.
+
 = 11 20141021 =
 * Fix: Fatal error when broadcasting attachments.
 
