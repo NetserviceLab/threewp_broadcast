@@ -9,6 +9,8 @@ Plugin URI:		http://plainview.se/wordpress/threewp-broadcast/
 Version:		11
 */
 
+require_once( 'vendor/autoload.php' );
+
 /**
 	@brief		Return the current instance of the Blog Groups plugin.
 	@since		2014-10-18 14:52:30
