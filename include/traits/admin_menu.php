@@ -318,6 +318,14 @@ This can be increased by adding the following to your wp-config.php:
 			->size( 3, 3 )
 			->value( $this->get_site_option( 'blogs_to_hide' ) );
 
+		$blogs_hide_overview = $fs->number( 'blogs_hide_overview' )
+			->description_( 'How many children to display in the overview before making the list into a summary.' )
+			->label_( 'Display in overview' )
+			->min( 1 )
+			->required()
+			->size( 3, 3 )
+			->value( $this->get_site_option( 'blogs_hide_overview' ) );
+
 		$existing_attachments = $fs->select( 'existing_attachments' )
 			->description_( 'Action to take when attachments with the same filename already exist on the child blog.' )
 			->label_( 'Existing attachments' )
@@ -364,6 +372,7 @@ This can be increased by adding the following to your wp-config.php:
 			$this->update_site_option( 'clear_post', $clear_post->is_checked() );
 			$this->update_site_option( 'save_post_priority', $save_post_priority->get_post_value() );
 			$this->update_site_option( 'blogs_to_hide', $blogs_to_hide->get_post_value() );
+			$this->update_site_option( 'blogs_hide_overview', $blogs_to_hide->get_post_value() );
 			$this->update_site_option( 'existing_attachments', $existing_attachments->get_post_value() );
 
 			$this->save_debug_settings_from_form( $form );

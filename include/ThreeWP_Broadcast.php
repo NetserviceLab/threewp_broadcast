@@ -671,6 +671,7 @@ class ThreeWP_Broadcast
 	{
 		return array_merge( [
 			'blogs_to_hide' => 5,								// How many blogs to auto-hide
+			'blogs_hide_overview' => 5,							// Use a summary in the overview if more than this amount of children / siblings.
 			'broadcast_internal_custom_fields' => true,		// Broadcast internal custom fields?
 			'canonical_url' => true,							// Override the canonical URLs with the parent post's.
 			'clear_post' => true,								// Clear the post before broadcasting.
