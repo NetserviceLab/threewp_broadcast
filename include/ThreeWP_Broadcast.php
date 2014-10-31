@@ -474,7 +474,7 @@ class ThreeWP_Broadcast
 	{
 		if ( isset( $this->_js_enqueued ) )
 			return;
-		wp_enqueue_script( 'threewp_broadcast', $this->paths[ 'url' ] . '/js/user.min.js', '', $this->plugin_version );
+		wp_enqueue_script( 'threewp_broadcast', $this->paths[ 'url' ] . '/js/user.js', '', $this->plugin_version );
 		$this->_js_enqueued = true;
 	}
 
