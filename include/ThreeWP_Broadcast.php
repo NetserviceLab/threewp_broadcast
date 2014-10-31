@@ -369,6 +369,15 @@ class ThreeWP_Broadcast
 	// --------------------------------------------------------------------------------------------
 
 	/**
+		@brief		Convenience function to return a Plainview SDK Collection.
+		@since		2014-10-31 13:21:06
+	**/
+	public static function collection()
+	{
+		return new \plainview\sdk\collections\Collection();
+	}
+
+	/**
 		@brief		Creates a new attachment.
 		@details
 
