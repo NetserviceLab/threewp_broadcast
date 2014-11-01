@@ -8,6 +8,27 @@ jQuery(document).ready(function($) {
 		$select_all : null,
 		$invert_selection : null,
 
+		/**
+			Hides all the blogs ... except those that have been selected.
+		**/
+		hide_blogs : function()
+		{
+			window.broadcast.$blogs_html.removeClass( 'opened' ).addClass( 'closed' );
+			this.$show_hide.html( broadcast_strings.show_all );
+
+			// Hide all those blogs that aren't checked
+			this.$broadcast_blogs_htmls.each( function( index, item )
+			{
+				var $this = $( this );
+				var checked = $this.prop( 'checked' );
+				// Ignore inputs that are supposed to be hidden.
+				if ( $this.prop( 'hidden' ) === true )
+					return;
+				if ( ! checked )
+					$this.parent().hide();
+			});
+		},
+
 		init : function()
 		{
 			this.$broadcast = $( '#threewp_broadcast.postbox' );
@@ -104,27 +125,6 @@ jQuery(document).ready(function($) {
 
 		},
 
-		/**
-			Hides all the blogs ... except those that have been selected.
-		**/
-		hide_blogs : function()
-		{
-			window.broadcast.$blogs_html.removeClass( 'opened' ).addClass( 'closed' );
-			this.$show_hide.html( broadcast_strings.show_all );
-
-			// Hide all those blogs that aren't checked
-			this.$broadcast_blogs_htmls.each( function( index, item )
-			{
-				var $this = $( this );
-				var checked = $this.prop( 'checked' );
-				// Ignore inputs that are supposed to be hidden.
-				if ( $this.prop( 'hidden' ) === true )
-					return;
-				if ( ! checked )
-					$this.parent().hide();
-			});
-		},
-
 		// Ajaxify the settings page.
 		init_settings_page : function()
 		{
@@ -159,6 +159,82 @@ jQuery(document).ready(function($) {
 		},
 
 		/**
+			@brief		Subclass for handling of post bulk actions.
+			@since		2014-10-31 23:15:10
+		**/
+		post_bulk_actions :
+		{
+			/**
+				@brief		Return a string with all of the selected post IDs.
+				@since		2014-10-31 23:15:48
+			**/
+			get_ids : function()
+			{
+				var post_ids = [];
+				// Get all selected rows
+				var $inputs = $( '#posts-filter tbody#the-list th.check-column input:checked' );
+				$.each( $inputs, function( index, item )
+				{
+					var $item = $( item );
+					var $row = $( item ).parentsUntil( 'tr' ).parent();
+					// Add it
+					var id = $row.prop( 'id' ).replace( 'post-', '' );
+					post_ids.push( id );
+				});
+				return post_ids.join( ',' );
+			},
+
+			/**
+				@brief		Initialize the actions, if possible.
+				@since		2014-10-31 23:16:13
+			**/
+			init : function()
+			{
+				if ( typeof broadcast_bulk_post_actions === undefined )
+					return;
+
+				// Begin by adding the broadcast optgroup.
+				var $select = $( '.bulkactions select' );
+				var $optgroup = $( '<optgroup>' );
+
+				$.each( broadcast_bulk_post_actions, function( index, item )
+				{
+					var $option = $( '<option>' );
+					$option.html( item.name );
+					$option.prop( 'value', index );
+					$option.addClass( 'broadcast' );
+					$option.appendTo( $optgroup );
+				} );
+
+				// We appendTo here because otherwise it is only put in one place.
+				$optgroup.prop( 'label', 'Broadcast' );
+				$optgroup.appendTo( $select );
+
+				// Take over the apply buttons
+				$( '.button.action' )
+				.click( function()
+				{
+					// What is the current selection?
+					var $container = $( this ).parent();
+					var $select = $( 'select', $container );
+
+					var $selected = $( 'option:selected', $select );
+
+					// Not a broadcast bulk post action = allow the button to work normally.
+					if ( ! $selected.hasClass( 'broadcast' ) )
+						return true;
+
+					// Retrieve the action.
+					var value = $selected.prop( 'value' );
+					var action = broadcast_bulk_post_actions[ value ];
+					// Use the callback.
+					action.callback( window.broadcast.post_bulk_actions );
+					return false;
+				} );
+			}
+		},
+
+		/**
 			Reshows all the hidden blogs.
 		**/
 		show_blogs : function()
@@ -177,4 +253,6 @@ jQuery(document).ready(function($) {
 
 	broadcast.init();
 	broadcast.init_settings_page();
+
+	broadcast.post_bulk_actions.init();
 });

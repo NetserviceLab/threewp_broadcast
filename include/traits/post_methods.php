@@ -3,6 +3,8 @@
 namespace threewp_broadcast\traits;
 
 use threewp_broadcast\actions;
+use threewp_broadcast\ajax;
+use threewp_broadcast\post_bulk_actions;
 
 /**
 	@brief		Methods that have to do with posts and their broadcast data.
@@ -20,13 +22,10 @@ trait post_methods
 		{
 			if (  $this->display_broadcast_columns )
 			{
-				$this->add_action( 'post_row_actions', 10, 2 );
-				$this->add_action( 'page_row_actions', 'post_row_actions', 10, 2 );
-
 				$this->add_filter( 'manage_posts_columns' );
-				$this->add_action( 'manage_posts_custom_column', 10, 2 );
-
 				$this->add_filter( 'manage_pages_columns', 'manage_posts_columns' );
+
+				$this->add_action( 'manage_posts_custom_column', 10, 2 );
 				$this->add_action( 'manage_pages_custom_column', 'manage_posts_custom_column', 10, 2 );
 			}
 
@@ -48,8 +47,12 @@ trait post_methods
 		$this->trash_untrash_delete_post( 'wp_delete_post', $post_id );
 	}
 
-	public function manage_posts_columns( $defaults)
+	public function manage_posts_columns( $defaults )
 	{
+		$action = new actions\get_post_bulk_actions();
+		$action->execute();
+		echo $action->get_js();
+
 		$defaults[ '3wp_broadcast' ] = '<span title="'.$this->_( 'Shows which blogs have posts linked to this one' ).'">'.$this->_( 'Broadcasted' ).'</span>';
 		return $defaults;
 	}
@@ -77,24 +80,29 @@ trait post_methods
 		echo $action->render();
 	}
 
-	public function post_row_actions( $actions, $post )
+	/**
+		@brief		Fill the action with all of the bulk actions we offer.
+		@since		2014-10-31 14:11:10
+	**/
+	public function threewp_broadcast_get_post_bulk_actions( $action )
 	{
-		$this->broadcast_data_cache()->expect_from_wp_query();
+		$ajax_action = 'broadcast_post_bulk_action';
 
-		$broadcast_data = $this->broadcast_data_cache()->get_for( get_current_blog_id(), $post->ID );
-
-		if ( $broadcast_data->get_linked_parent() === false )
+		foreach( [
+			'delete' => 'Delete broadcasts',
+			'link_unlinked' => 'Link unlinked broadcasts',
+			'restore' => 'Restore broadcasts',
+			'trash' => 'Trash broadcasts',
+			'unlink' => 'Unlink broadcasts',
+		] as $subaction => $name )
 		{
-			$url = sprintf( 'admin.php?page=threewp_broadcast&amp;action=user_find_orphans&amp;post=%s', $post->ID );
-			$url = wp_nonce_url( $url, 'broadcast_find_orphans_' . $post->ID );
-			$actions[ 'broadcast_find_orphans' ] =
-				sprintf( '<a href="%s" title="%s">%s</a>',
-					$url ,
-					$this->_( 'Find posts on other blogs that are identical to this post' ),
-					$this->_( 'Find orphans' )
-				);
+			$a = new post_bulk_actions\wp_ajax;
+			$a->set_action( $ajax_action );
+			$a->set_data( 'subaction', $subaction );
+			$a->set_name( $name );
+			$a->set_nonce( $ajax_action . $subaction );
+			$action->add( $a );
 		}
-		return $actions;
 	}
 
 	/**
@@ -103,7 +111,7 @@ trait post_methods
 	**/
 	public function threewp_broadcast_manage_posts_custom_column( $action )
 	{
-		if ( $action->broadcast_data->get_linked_parent() !== false)
+		if ( $action->broadcast_data->get_linked_parent() !== false )
 		{
 			$parent = $action->broadcast_data->get_linked_parent();
 			$parent_blog_id = $parent[ 'blog_id' ];
@@ -113,7 +121,8 @@ trait post_methods
 			$action->html->put( 'linked_from', $html );
 			restore_current_blog();
 		}
-		elseif ( $action->broadcast_data->has_linked_children() )
+
+		if ( $action->broadcast_data->has_linked_children() )
 		{
 			$children = $action->broadcast_data->get_linked_children();
 
@@ -246,6 +255,136 @@ trait post_methods
 		$action->finish();
 	}
 
+	/**
+		@brief		Handle a post bulk action sent via Ajax.
+		@since		2014-11-01 19:00:57
+	**/
+	public function wp_ajax_broadcast_post_bulk_action()
+	{
+		$r = (object)[];
+		$r->json = new ajax\json();
+
+		if ( ! isset( $_REQUEST[ 'nonce' ] ) )
+			wp_die( 'No nonce.' );
+
+		if ( ! isset( $_REQUEST[ 'subaction' ] ) )
+			wp_die( 'No subaction.' );
+
+		$nonce = $_REQUEST[ 'nonce' ];
+		$r->subaction = $_REQUEST[ 'subaction' ];
+		if ( ! wp_verify_nonce( $nonce, 'broadcast_post_bulk_action' . $r->subaction ) )
+			wp_die( 'Invalid nonce.' );
+
+		if ( ! isset( $_REQUEST[ 'post_ids' ] ) )
+			wp_die( 'No post IDs' );
+		$r->post_ids = $_REQUEST[ 'post_ids' ];
+		$r->post_ids = explode( ',', $r->post_ids );
+
+		$r->blog_id = get_current_blog_id();
+
+		switch( $r->subaction )
+		{
+			// Delete all children
+			case 'delete':
+				foreach( $r->post_ids as $post_id )
+				{
+					$broadcast_data = $this->get_post_broadcast_data( $r->blog_id, $post_id );
+					foreach( $broadcast_data->get_linked_children() as $child_blog_id => $child_post_id )
+					{
+						switch_to_blog( $child_blog_id );
+						wp_delete_post( $child_post_id, true );
+						$broadcast_data->remove_linked_child( $child_blog_id );
+						restore_current_blog();
+					}
+					$broadcast_data = $this->set_post_broadcast_data( $r->blog_id, $post_id, $broadcast_data );
+				}
+			break;
+			case 'link_unlinked':
+				foreach( $r->post_ids as $post_id )
+				{
+					$post = get_post( $post_id );
+					$broadcast_data = $this->get_post_broadcast_data( $r->blog_id, $post_id );
+					// Get a list of blogs that this user can link to.
+					$filter = new actions\get_user_writable_blogs( $this->user_id() );
+					$blogs = $filter->execute()->blogs;
+					foreach( $blogs as $blog )
+					{
+						if ( $blog->id == $r->blog_id )
+							continue;
+
+						if ( $broadcast_data->has_linked_child_on_this_blog( $blog->id ) )
+							continue;
+
+						$blog->switch_to();
+
+						$args = array(
+							'cache_results' => false,
+							'name' => $post->post_name,
+							'numberposts' => 2,
+							'post_type'=> $post->post_type,
+						);
+						$posts = get_posts( $args );
+
+						// An exact match was found.
+						if ( count( $posts ) == 1 )
+						{
+							$unlinked = reset( $posts );
+							$broadcast_data->add_linked_child( $blog->id, $unlinked->ID );
+
+							// Add link info for the new child.
+							$child_broadcast_data = $this->get_post_broadcast_data( $blog->id, $unlinked->ID );
+							$child_broadcast_data->set_linked_parent( $r->blog_id, $post_id );
+							$this->set_post_broadcast_data( $blog->id, $unlinked->ID, $child_broadcast_data );
+						}
+
+						$blog->switch_from();
+					}
+					$broadcast_data = $this->set_post_broadcast_data( $r->blog_id, $post_id, $broadcast_data );
+				}
+			break;
+			case 'restore':
+				foreach( $r->post_ids as $post_id )
+				{
+					$broadcast_data = $this->get_post_broadcast_data( $r->blog_id, $post_id );
+					foreach( $broadcast_data->get_linked_children() as $child_blog_id => $child_post_id )
+					{
+						switch_to_blog( $child_blog_id );
+						wp_publish_post( $child_post_id );
+						restore_current_blog();
+					}
+				}
+			break;
+			case 'trash':
+				foreach( $r->post_ids as $post_id )
+				{
+					$broadcast_data = $this->get_post_broadcast_data( $r->blog_id, $post_id );
+					foreach( $broadcast_data->get_linked_children() as $child_blog_id => $child_post_id )
+					{
+						switch_to_blog( $child_blog_id );
+						wp_trash_post( $child_post_id );
+						restore_current_blog();
+					}
+				}
+			break;
+			case 'unlink':
+				// TODO: Make this more flexible when we add parent / siblings.
+				foreach( $r->post_ids as $post_id )
+				{
+					$broadcast_data = $this->get_post_broadcast_data( $r->blog_id, $post_id );
+					$linked_children = $broadcast_data->get_linked_children();
+
+					foreach( $linked_children as $linked_child_blog_id => $linked_child_post_id)
+						$this->delete_post_broadcast_data( $linked_child_blog_id, $linked_child_post_id );
+
+					$broadcast_data->remove_linked_children();
+					$this->set_post_broadcast_data( $r->blog_id, $post_id, $broadcast_data );
+				}
+			break;
+		}
+
+		$r->json->output();
+	}
+
 	public function trash_post( $post_id)
 	{
 		$this->trash_untrash_delete_post( 'wp_trash_post', $post_id );
@@ -342,164 +481,6 @@ trait post_methods
 	}
 
 	/**
-		@brief		Deletes all of a post's children.
-		@since		20131031
-	**/
-	public function user_delete_all()
-	{
-		// Nonce check
-		global $blog_id;
-		$nonce = $_GET[ '_wpnonce' ];
-		$post_id = $_GET[ 'post' ];
-
-		// Generate the nonce key to check against.
-		$nonce_key = 'broadcast_delete_all';
-		$nonce_key .= '_' . $post_id;
-
-		if ( ! wp_verify_nonce( $nonce, $nonce_key) )
-			die( __method__ . " security check failed." );
-
-		$broadcast_data = $this->get_post_broadcast_data( $blog_id, $post_id );
-		foreach( $broadcast_data->get_linked_children() as $child_blog_id => $child_post_id )
-		{
-			switch_to_blog( $child_blog_id );
-			wp_delete_post( $child_post_id, true );
-			$broadcast_data->remove_linked_child( $child_blog_id );
-			restore_current_blog();
-		}
-
-		$broadcast_data = $this->set_post_broadcast_data( $blog_id, $post_id, $broadcast_data );
-
-		$message = $this->_( "All of the child posts have been deleted." );
-
-		echo $this->message( $message);
-		echo sprintf( '<p><a href="%s">%s</a></p>',
-			wp_get_referer(),
-			$this->_( 'Back to post overview' )
-		);
-	}
-
-	/**
-		Finds orphans for a specific post.
-	**/
-	public function user_find_orphans()
-	{
-		$current_blog_id = get_current_blog_id();
-		$nonce = $_GET[ '_wpnonce' ];
-		$post_id = $_GET[ 'post' ];
-
-		// Generate the nonce key to check against.
-		$nonce_key = 'broadcast_find_orphans_' . $post_id;
-
-		if ( ! wp_verify_nonce( $nonce, $nonce_key) )
-			die( __method__ . " security check failed." );
-
-		$form = $this->form2();
-		$post = get_post( $post_id );
-		$r = '';
-		$table = $this->table();
-
-		$row = $table->head()->row();
-		$table->bulk_actions()
-			->form( $form )
-			->add( $this->_( 'Create link' ), 'create_link' )
-			->cb( $row );
-		$row->th()->text_( 'Domain' );
-
-		$broadcast_data = $this->get_post_broadcast_data( $current_blog_id, $post_id );
-
-		// Get a list of blogs that this user can link to.
-		$filter = new actions\get_user_writable_blogs( $this->user_id() );
-		$blogs = $filter->execute()->blogs;
-
-		$orphans = [];
-
-		foreach( $blogs as $blog )
-		{
-			if ( $blog->id == $current_blog_id )
-				continue;
-
-			if ( $broadcast_data->has_linked_child_on_this_blog( $blog->id ) )
-				continue;
-
-			$blog->switch_to();
-
-			$args = array(
-				'cache_results' => false,
-				'name' => $post->post_name,
-				'numberposts' => 2,
-				'post_type'=> $post->post_type,
-				'post_status' => $post->post_status,
-			);
-			$posts = get_posts( $args );
-
-			if ( count( $posts ) == 1 )
-			{
-				$orphan = reset( $posts );
-				$orphan->permalink = get_permalink( $orphan->ID );
-				$orphans[ $blog->id ] = $orphan;
-			}
-
-			$blog->switch_from();
-		}
-
-		if ( $form->is_posting() )
-		{
-			$form->post();
-			if ( $table->bulk_actions()->pressed() )
-			{
-				switch ( $table->bulk_actions()->get_action() )
-				{
-					case 'create_link':
-						$ids = $table->bulk_actions()->get_rows();
-
-						foreach( $orphans as $blog_id => $orphan )
-						{
-							$bulk_id = sprintf( '%s_%s', $blog_id, $orphan->ID );
-							if ( ! in_array( $bulk_id, $ids ) )
-								continue;
-
-							$broadcast_data->add_linked_child( $blog_id, $orphan->ID );
-							unset( $orphans[ $blog_id ] );		// There can only be one orphan per blog, so we're not interested in the blog anymore.
-
-							// Update the child's broadcast data.
-							$child_broadcast_data = $this->get_post_broadcast_data( $blog_id, $orphan->ID );
-							$child_broadcast_data->set_linked_parent( $current_blog_id, $post_id );
-							$this->set_post_broadcast_data( $blog_id, $orphan->ID, $child_broadcast_data );
-						}
-
-						// Update the broadcast data for the parent post.
-						$this->set_post_broadcast_data( $current_blog_id, $post_id, $broadcast_data );
-						echo $this->message_( 'The selected children were linked!' );
-					break;
-				}
-			}
-		}
-
-		if ( count( $orphans ) < 1 )
-		{
-			$r .= $this->_( 'No possible child posts were found on the other blogs you have write access to. Either there are no posts with the same title as this one, or all possible orphans have already been linked.' );
-		}
-		else
-		{
-			foreach( $orphans as $blog_id => $orphan )
-			{
-				$row = $table->body()->row();
-				$bulk_id = sprintf( '%s_%s', $blog_id, $orphan->ID );
-				$table->bulk_actions()->cb( $row, $bulk_id );
-				$row->td()->text( '<a href="' . $orphan->permalink . '">' . $blogs[ $blog_id ]->blogname . '</a>' );
-			}
-			$r .= $form->open_tag();
-			$r .= $table;
-			$r .= $form->close_tag();
-		}
-
-		echo $r;
-
-		echo '<p><a href="edit.php?post_type='.$post->post_type.'">Back to post overview</a></p>';
-	}
-
-	/**
 		@brief		Restores a trashed post.
 		@since		20131031
 	**/
@@ -538,41 +519,6 @@ trait post_methods
 	}
 
 	/**
-		@brief		Restores all of the children from the trash.
-		@since		20131031
-	**/
-	public function user_restore_all()
-	{
-		// Nonce check
-		global $blog_id;
-		$nonce = $_GET[ '_wpnonce' ];
-		$post_id = $_GET[ 'post' ];
-
-		// Generate the nonce key to check against.
-		$nonce_key = 'broadcast_restore_all';
-		$nonce_key .= '_' . $post_id;
-
-		if ( ! wp_verify_nonce( $nonce, $nonce_key) )
-			die( __method__ . " security check failed." );
-
-		$broadcast_data = $this->get_post_broadcast_data( $blog_id, $post_id );
-		foreach( $broadcast_data->get_linked_children() as $child_blog_id => $child_post_id )
-		{
-			switch_to_blog( $child_blog_id );
-			wp_publish_post( $child_post_id );
-			restore_current_blog();
-		}
-
-		$message = $this->_( 'The child posts have been restored.' );
-
-		echo $this->message( $message);
-		echo sprintf( '<p><a href="%s">%s</a></p>',
-			wp_get_referer(),
-			$this->_( 'Back to post overview' )
-		);
-	}
-
-	/**
 		Trashes a broadcasted post.
 	**/
 	public function user_trash()
@@ -598,40 +544,6 @@ trait post_methods
 		restore_current_blog();
 
 		$message = $this->_( 'The broadcasted child post has been put in the trash.' );
-
-		echo $this->message( $message);
-		echo sprintf( '<p><a href="%s">%s</a></p>',
-			wp_get_referer(),
-			$this->_( 'Back to post overview' )
-		);
-	}
-
-	/**
-		Trashes a broadcasted post.
-	**/
-	public function user_trash_all()
-	{
-		// Nonce check
-		global $blog_id;
-		$nonce = $_GET[ '_wpnonce' ];
-		$post_id = $_GET[ 'post' ];
-
-		// Generate the nonce key to check against.
-		$nonce_key = 'broadcast_trash_all';
-		$nonce_key .= '_' . $post_id;
-
-		if ( ! wp_verify_nonce( $nonce, $nonce_key) )
-			die( __method__ . " security check failed." );
-
-		$broadcast_data = $this->get_post_broadcast_data( $blog_id, $post_id );
-		foreach( $broadcast_data->get_linked_children() as $child_blog_id => $child_post_id )
-		{
-			switch_to_blog( $child_blog_id );
-			wp_trash_post( $child_post_id );
-			restore_current_blog();
-		}
-
-		$message = $this->_( 'The child posts have been put in the trash.' );
 
 		echo $this->message( $message);
 		echo sprintf( '<p><a href="%s">%s</a></p>',
