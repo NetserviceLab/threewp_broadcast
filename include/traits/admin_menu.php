@@ -29,7 +29,7 @@ trait admin_menu
 	public function admin_print_styles()
 	{
 		$this->enqueue_js();
-		wp_enqueue_style( 'threewp_broadcast', $this->paths[ 'url' ] . '/css/css.scss.min.css', '', $this->plugin_version  );
+		wp_enqueue_style( 'threewp_broadcast', $this->paths[ 'url' ] . '/css/css.css', '', $this->plugin_version  );
 	}
 
 	public function admin_menu_broadcast_info()
@@ -372,7 +372,7 @@ This can be increased by adding the following to your wp-config.php:
 			$this->update_site_option( 'clear_post', $clear_post->is_checked() );
 			$this->update_site_option( 'save_post_priority', $save_post_priority->get_post_value() );
 			$this->update_site_option( 'blogs_to_hide', $blogs_to_hide->get_post_value() );
-			$this->update_site_option( 'blogs_hide_overview', $blogs_to_hide->get_post_value() );
+			$this->update_site_option( 'blogs_hide_overview', $blogs_hide_overview->get_post_value() );
 			$this->update_site_option( 'existing_attachments', $existing_attachments->get_post_value() );
 
 			$this->save_debug_settings_from_form( $form );

@@ -54,7 +54,7 @@ class get_post_bulk_actions
 		$array = [];
 		foreach( $this->bulk_post_actions as $bulk_action )
 		{
-			$array[] = sprintf( '"%s" : { "name" : "%s", "callback" : function( post_bulk_actions ){ %s } }',
+			$array[] = sprintf( '"%s" : { "name" : "%s", "callback" : function( broadcast_post_bulk_actions ){ %s } }',
 				md5( $bulk_action->get_name() ),
 				$bulk_action->get_name(),
 				$bulk_action->get_javascript_function()

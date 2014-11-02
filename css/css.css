@@ -31,3 +31,11 @@
 #toplevel_page_threewp_broadcast .wp-menu-image {
   background-image: url('../assets/icon.svg');
   background-size: contain; }
+
+.broadcast_popup {
+  background: white;
+  position: relative;
+  padding: 2em;
+  width: 40em;
+  max-width: 95%;
+  margin: auto; }

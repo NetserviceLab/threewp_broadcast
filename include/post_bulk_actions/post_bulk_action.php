@@ -20,7 +20,7 @@ class post_bulk_action
 	**/
 	public function get_javascript_function()
 	{
-		return "document.title = window.broadcast.post_bulk_actions.get_ids();";
+		return "document.title = broadcast_post_bulk_actions.get_ids();";
 	}
 
 	/**

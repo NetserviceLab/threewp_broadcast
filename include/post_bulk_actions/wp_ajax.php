@@ -17,26 +17,9 @@ class wp_ajax
 
 	public function get_javascript_function()
 	{
-		return '
-			var $ = jQuery;
-			var data = ' . json_encode( $this->data ) . ';
-			data[ "post_ids" ] = window.broadcast.post_bulk_actions.get_ids();
-			$.ajax( {
-				"data" : data,
-				"dataType" : "json",
-				"type" : "post",
-				"url" : ajaxurl,
-			} )
-			.done( function( data )
-			{
-				// Click the filter button to reload the page
-				$( "#post-query-submit" ).click();
-			} )
-			.fail( function( jqXHR )
-			{
-				alert( "Ajax error: " + jqXHR.responseText );
-			} );
-		';
+		$contents = file_get_contents( __DIR__ . '/wp_ajax.js' );
+		$contents = sprintf( $contents, json_encode( $this->data ) );
+		return $contents;
 	}
 
 	/**
