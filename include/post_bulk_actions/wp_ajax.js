@@ -9,8 +9,8 @@ $.ajax( {
 } )
 .done( function( data )
 {
-	broadcast_post_bulk_actions.busy( false );
-	return;
+	// DEBUG
+	// broadcast_post_bulk_actions.busy( false ); return;
 	// Click the filter button to reload the page
 	$( "#post-query-submit" ).click();
 } )
