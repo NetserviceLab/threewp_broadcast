@@ -2,10 +2,6 @@
 	@brief		Subclass for handling of post bulk actions.
 	@since		2014-10-31 23:15:10
 **/
-/**
-	@brief		Ajaxify the settings page.
-	@since		2014-11-02 09:47:46
-**/
 ;(function( $ )
 {
     $.fn.extend(
@@ -50,6 +46,11 @@
 
 				if ( typeof broadcast_bulk_post_actions === "undefined" )
 					return;
+
+				// Don't add bulk post options several times.
+				if( $this.data( 'broadcast_post_bulk_actions' ) !== undefined )
+					return;
+				$this.data( 'broadcast_post_bulk_actions', true )
 
 				// Begin by adding the broadcast optgroup.
 				var $select = $( '.bulkactions select' );

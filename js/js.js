@@ -2,13 +2,14 @@
 	@brief		Offer a popup SDK, based on Magnific.
 	@since		2014-11-02 10:25:38
 **/
-broadcast_popup = function()
+broadcast_popup = function( options )
 {
 	$ = jQuery;
 
-	var $popup;
-	var html = '';
-	var title = '';
+	this.$popup = undefined;
+	this.html = '';
+	this.title = '';
+	this.options = options;
 
 	/**
 		@brief		Close the popup.
@@ -41,15 +42,18 @@ broadcast_popup = function()
 	{
 		this.update();
 
-		$.magnificPopup.open(
+		options = $.extend( this.options,
 		{
-			items:
+			'items' :
 			{
 				'overflowY' : 'scroll',
 				'src' : this.$popup,
 				'type' : 'inline'
 			}
-		} );
+		}
+		);
+
+		$.magnificPopup.open( options );
 		return this;
 	}
 
@@ -90,6 +94,102 @@ broadcast_popup = function()
 }
 ;
 /**
+	@brief		Subclass for handling of post bulk actions.
+	@since		2014-10-31 23:15:10
+**/
+;(function( $ )
+{
+    $.fn.extend(
+    {
+        broadcast_post_actions: function()
+        {
+            return this.each( function()
+            {
+                var $this = $( this );
+
+				// Don't add bulk post options several times.
+				if( $this.data( 'broadcast_post_actions' ) !== undefined )
+					return;
+				$this.data( 'broadcast_post_actions', true )
+
+                $this.submitted = false;
+
+                $this.unbind( 'click' );
+
+                $this.click( function()
+                {
+                	// Get the post ID.
+                	$tr = $this.parentsUntil( 'tr.level-0' ).parent();
+                	var id = $tr.prop( 'id' ).replace( 'post-', '' );
+
+                	$this.$popup = broadcast_popup({
+                			'callbacks' : {
+                				'close' : function()
+                				{
+                					if ( ! $this.submitted )
+                						return;
+                					// Reload the page by submitting the filter.
+									$( '#post-query-submit' ).click();
+                				}
+                			},
+                		})
+						.set_title( 'Post actions' )
+						.open();
+
+					$this.fetch_form( {
+						'action' : 'broadcast_post_action_form',
+						'nonce' : $this.data( 'nonce' ),
+						'post_id' : id,
+					} );
+                } );
+
+                $this.display_form = function( json )
+                {
+					$this.$popup.set_html( json.html );
+
+					// Take over the submit button.
+					var $form = $( '#broadcast_post_action_form' );
+					$( 'input.submit', $form ).click( function()
+ 					{
+ 						$this.submitted = true;
+						// Assemble the form.
+						$this.fetch_form( $form.serialize() + '&submit=submit' );
+						return false;
+					} );
+                }
+
+                /**
+                	@brief		Fetch the form via ajax.
+                	@since		2014-11-02 22:24:07
+                **/
+                $this.fetch_form = function( data )
+                {
+					$this.$popup.set_html( 'Loading...' );
+
+                	// Fetch the post link editor.
+                	$.ajax( {
+                		'data' : data,
+                		"dataType" : "json",
+                		'type' : 'post',
+                		'url' : ajaxurl,
+                	} )
+                	.done( function( data )
+                	{
+                		$this.display_form( data );
+                	} )
+					.fail( function( jqXHR )
+					{
+						$this.$popup
+							.set_html( jqXHR.responseText )
+							.set_title( 'Ajax error' );
+					} );
+                }
+            }); // return this.each( function()
+        } // plugin: function()
+    }); // $.fn.extend({
+} )( jQuery );
+;
+/**
 	@brief		Handles the postbox (meta box).
 	@since		2014-11-02 09:54:16
 **/
@@ -109,8 +209,6 @@ broadcast_popup = function()
 				var $select_all;
 				var $selection_change_container;
 				var $show_hide;
-
-				document.title += 'postboxing';
 
 				/**
 					Hides all the blogs ... except those that have been selected.
@@ -243,10 +341,6 @@ broadcast_popup = function()
 	@brief		Subclass for handling of post bulk actions.
 	@since		2014-10-31 23:15:10
 **/
-/**
-	@brief		Ajaxify the settings page.
-	@since		2014-11-02 09:47:46
-**/
 ;(function( $ )
 {
     $.fn.extend(
@@ -291,6 +385,11 @@ broadcast_popup = function()
 
 				if ( typeof broadcast_bulk_post_actions === "undefined" )
 					return;
+
+				// Don't add bulk post options several times.
+				if( $this.data( 'broadcast_post_bulk_actions' ) !== undefined )
+					return;
+				$this.data( 'broadcast_post_bulk_actions', true )
 
 				// Begin by adding the broadcast optgroup.
 				var $select = $( '.bulkactions select' );
@@ -396,5 +495,6 @@ jQuery(document).ready( function( $ )
 	$( 'form#broadcast_settings' ).broadcast_settings();
 	$( '#threewp_broadcast.postbox' ).broadcast_postbox();
 	$( '#posts-filter' ).broadcast_post_bulk_actions();
+	$( '#posts-filter td.3wp_broadcast a.broadcast.post' ).broadcast_post_actions();
 } );
 ;

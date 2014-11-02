@@ -28,7 +28,12 @@ class get_post_actions
 		@brief		Add a post action.
 		@since		2014-10-31 14:13:19
 	**/
-	public function add( \threewp_broadcast\post\actions\action $action )
+	/**
+		@brief		Adds an action.
+		@param		\threewp_broadcast\post\actions\action $action
+		@since		2014-11-02 21:13:36
+	**/
+	public function add( $action )
 	{
 		$this->actions->append( $action );
 	}

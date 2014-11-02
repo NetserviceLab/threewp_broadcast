@@ -1,6 +1,6 @@
 <?php
 
-namespace threewp_broadcast\post\actions\bulk;
+namespace threewp_broadcast\posts\actions\bulk;
 
 /**
 	@brief		A bulk post action that can be applied to the posts overview.
@@ -8,7 +8,7 @@ namespace threewp_broadcast\post\actions\bulk;
 	@since		2014-10-31 13:26:54
 **/
 class action
-	extends \threewp_broadcast\post\actions\action
+	extends \threewp_broadcast\posts\actions\generic
 {
 	/**
 		@brief		Return the javascript function that is called when the submit button is pressedn.

@@ -9,7 +9,12 @@ namespace threewp_broadcast\actions;
 class get_post_bulk_actions
 	extends get_post_actions
 {
-	public function add( \threewp_broadcast\post\actions\bulk\action $action )
+	/**
+		@brief		Adds a bulk action.
+		@param		\threewp_broadcast\post\actions\bulk\action $action
+		@since		2014-11-02 21:13:36
+	**/
+	public function add( $action )
 	{
 		$this->actions->append( $action );
 	}

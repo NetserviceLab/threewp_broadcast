@@ -2,13 +2,14 @@
 	@brief		Offer a popup SDK, based on Magnific.
 	@since		2014-11-02 10:25:38
 **/
-broadcast_popup = function()
+broadcast_popup = function( options )
 {
 	$ = jQuery;
 
-	var $popup;
-	var html = '';
-	var title = '';
+	this.$popup = undefined;
+	this.html = '';
+	this.title = '';
+	this.options = options;
 
 	/**
 		@brief		Close the popup.
@@ -41,15 +42,18 @@ broadcast_popup = function()
 	{
 		this.update();
 
-		$.magnificPopup.open(
+		options = $.extend( this.options,
 		{
-			items:
+			'items' :
 			{
 				'overflowY' : 'scroll',
 				'src' : this.$popup,
 				'type' : 'inline'
 			}
-		} );
+		}
+		);
+
+		$.magnificPopup.open( options );
 		return this;
 	}
 

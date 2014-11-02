@@ -1,6 +1,7 @@
 #threewp_broadcast.postbox .blogs.html_section {
   position: relative; }
   #threewp_broadcast.postbox .blogs.html_section .show_hide {
+    cursor: pointer;
     position: absolute;
     top: 0;
     right: 0; }

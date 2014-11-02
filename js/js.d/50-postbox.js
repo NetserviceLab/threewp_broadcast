@@ -19,8 +19,6 @@
 				var $selection_change_container;
 				var $show_hide;
 
-				document.title += 'postboxing';
-
 				/**
 					Hides all the blogs ... except those that have been selected.
 				**/

@@ -1,12 +1,12 @@
 <?php
 
-namespace threewp_broadcast\post\actions;
+namespace threewp_broadcast\posts\actions;
 
 /**
-	@brief		A bulk post action that can be applied to the posts overview.
-	@since		2014-10-31 13:26:54
+	@brief		A base, generic post action.
+	@since		2014-11-02 21:33:57
 **/
-class action
+class generic
 {
 	/**
 		@brief		A short name / verb that describes the action.

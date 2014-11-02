@@ -1,6 +1,6 @@
 <?php
 
-namespace threewp_broadcast\post\actions\bulk;
+namespace threewp_broadcast\posts\actions\bulk;
 
 /**
 	@brief		A post bulk action that uses Wordpress ajax.

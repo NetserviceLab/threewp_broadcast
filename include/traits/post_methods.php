@@ -2,9 +2,10 @@
 
 namespace threewp_broadcast\traits;
 
-use threewp_broadcast\actions;
-use threewp_broadcast\ajax;
-use \threewp_broadcast\post\actions\bulk\wp_ajax;
+use \threewp_broadcast\actions;
+use \threewp_broadcast\ajax;
+use \threewp_broadcast\posts\actions\action as post_action;
+use \threewp_broadcast\posts\actions\bulk\wp_ajax;
 
 /**
 	@brief		Methods that have to do with posts and their broadcast data.
@@ -85,6 +86,29 @@ trait post_methods
 	}
 
 	/**
+		@brief		Fill the action with all of the post actions we offer.
+		@since		2014-11-02 21:29:15
+	**/
+	public function threewp_broadcast_get_post_actions( $action )
+	{
+		$ajax_action = 'broadcast_post_bulk_action';
+
+		foreach( [
+			'delete' => 'Delete',
+			'link_unlinked' => 'Link unlinked',
+			'restore' => 'Restore',
+			'trash' => 'Trash',
+			'unlink' => 'Unlink',
+		] as $slug => $name )
+		{
+			$a = new post_action;
+			$a->set_action( $slug );
+			$a->set_name( $name );
+			$action->add( $a );
+		}
+	}
+
+	/**
 		@brief		Fill the action with all of the bulk actions we offer.
 		@since		2014-10-31 14:11:10
 	**/
@@ -115,13 +139,17 @@ trait post_methods
 	**/
 	public function threewp_broadcast_manage_posts_custom_column( $action )
 	{
+		$title = $this->_( "Click to modify the post's linkage" );
+		$nonce = wp_create_nonce( 'broadcast_post_action_form' . $action->post->ID );
+		$nonce = sprintf( 'data-nonce="%s"', $nonce );
+
 		if ( $action->broadcast_data->get_linked_parent() !== false )
 		{
 			$parent = $action->broadcast_data->get_linked_parent();
 			$parent_blog_id = $parent[ 'blog_id' ];
 			switch_to_blog( $parent_blog_id );
 
-			$html = $this->_(sprintf( '&#x21e6; %s', '<a href="' . get_bloginfo( 'url' ) . '/wp-admin/post.php?post=' .$parent[ 'post_id' ] . '&action=edit">' . get_bloginfo( 'name' ) . '</a>' ) );
+			$html = $this->_(sprintf( '<a class="broadcast post" href="#" %s title="%s">&#x21e6; %s</a>', $nonce, $title, get_bloginfo( 'name' ) ) );
 			$action->html->put( 'linked_from', $html );
 			restore_current_blog();
 		}
@@ -137,7 +165,7 @@ trait post_methods
 				$max = $this->get_site_option( 'blogs_hide_overview' );
 				if( count( $children ) > $max )
 				{
-					$html = sprintf( '<span class="broadcast_counter">&#x21e8; %s</span>', count( $children ) );
+					$html = sprintf( '<a class="broadcast post counter" href="#" %s title="%s">&#x21e8; %s</a>', $nonce, $title, count( $children ) );
 				}
 				else
 				{
@@ -146,19 +174,21 @@ trait post_methods
 					{
 						switch_to_blog( $child_blog_id );
 						$blogname = get_bloginfo( 'blogname' );
-						$links[ $blogname ] = sprintf( '<a href="%s">&#x21e8; %s</a>',
-							get_bloginfo( 'url' ),
-							$blogname
-						);
+						$links[ $blogname ] = sprintf( '&#x21e8; %s', $blogname );
 						restore_current_blog();
 					}
 					ksort( $links );
-					$html = implode( '<br/>', $links );
+					$html = sprintf( '<a class="broadcast post" href="#" %s title="%s">%s</a>',
+						$nonce,
+						$title,
+						implode( '<br/>', $links )
+					);
 				}
 				$action->html->put( 'broadcasted_to', $html );
 			}
 
 		}
+
 		$action->finish();
 	}
 
@@ -225,6 +255,7 @@ trait post_methods
 				}
 				$broadcast_data = $this->set_post_broadcast_data( $blog_id, $post_id, $broadcast_data );
 			break;
+			// Restore all children
 			case 'restore':
 				$broadcast_data = $this->get_post_broadcast_data( $blog_id, $post_id );
 				foreach( $broadcast_data->get_linked_children() as $child_blog_id => $child_post_id )
@@ -234,6 +265,7 @@ trait post_methods
 					restore_current_blog();
 				}
 			break;
+			// Trash all children
 			case 'trash':
 				$broadcast_data = $this->get_post_broadcast_data( $blog_id, $post_id );
 				foreach( $broadcast_data->get_linked_children() as $child_blog_id => $child_post_id )
@@ -243,15 +275,33 @@ trait post_methods
 					restore_current_blog();
 				}
 			break;
+			// Unlink all children
 			case 'unlink':
 				// TODO: Make this more flexible when we add parent / siblings.
 				$broadcast_data = $this->get_post_broadcast_data( $blog_id, $post_id );
-				$linked_children = $broadcast_data->get_linked_children();
 
-				foreach( $linked_children as $linked_child_blog_id => $linked_child_post_id)
-					$this->delete_post_broadcast_data( $linked_child_blog_id, $linked_child_post_id );
+				$parent = $broadcast_data->get_linked_parent();
+				if ( $parent !== false )
+				{
+					// Remove the link to this child from the parent.
+					$parent = (object)$parent;
+					$parent_broadcast_data = $this->get_post_broadcast_data( $parent->blog_id, $parent->post_id );
+					$parent_broadcast_data->remove_linked_child( $blog_id );
+					$this->set_post_broadcast_data( $parent->blog_id, $parent->post_id, $parent_broadcast_data );
 
-				$broadcast_data->remove_linked_children();
+					// And now we remove the link to the parent.
+					$broadcast_data->remove_linked_parent();
+				}
+
+				if ( $broadcast_data->has_linked_children() )
+				{
+					$linked_children = $broadcast_data->get_linked_children();
+
+					foreach( $linked_children as $linked_child_blog_id => $linked_child_post_id)
+						$this->delete_post_broadcast_data( $linked_child_blog_id, $linked_child_post_id );
+
+					$broadcast_data->remove_linked_children();
+				}
 				$this->set_post_broadcast_data( $blog_id, $post_id, $broadcast_data );
 			break;
 		}
@@ -343,6 +393,117 @@ trait post_methods
 			$action->post_id = $post_id;
 			$action->execute();
 		}
+		$json->output();
+	}
+
+	/**
+		@brief		Display and handle the actions available for a post.
+		@since		2014-11-02 20:44:32
+	**/
+	public function wp_ajax_broadcast_post_action_form()
+	{
+		if ( ! isset( $_REQUEST[ 'nonce' ] ) )
+			wp_die( 'No nonce.' );
+		$nonce = $_REQUEST[ 'nonce' ];
+
+		if ( ! isset( $_REQUEST[ 'post_id' ] ) )
+			wp_die( 'No nonce.' );
+		$post_id = $_REQUEST[ 'post_id' ];
+
+		$action = 'broadcast_post_action_form';
+		if ( ! wp_verify_nonce( $nonce, $action . $post_id ) )
+			wp_die( 'Invalid nonce.' );
+
+		// Everything is good to go.
+		$blog_id = get_current_blog_id();
+		$broadcast_data = $this->get_post_broadcast_data( $blog_id, $post_id );
+		$form = $this->form2();
+		$form->hidden_input( 'action', $nonce );
+		$form->hidden_input( 'nonce', $nonce );
+		$form->hidden_input( 'post_id', $post_id );
+		$form->id( 'broadcast_post_action_form' );
+		$json = new ajax\json();
+		$json->html = '';
+		$has_links = false;
+
+		// Linked to a parent.
+		if ( $broadcast_data->get_linked_parent() !== false )
+		{
+			$unlink = $form->checkbox( 'unlink' )
+				->description_( 'Unlink this post from its parent.' )
+				->label( 'Unlink' );
+			$has_links = true;
+		}
+
+		if ( $broadcast_data->has_linked_children() )
+		{
+			$form->blogs = [];
+			// Find all options for posts.
+			$action = new actions\get_post_actions();
+			$action->post = get_post( $post_id );
+			$action->execute();
+			$options = [ '' => 'No change' ];
+			foreach( $action->actions as $post_action )
+			{
+				$options[ $post_action->action ] = $post_action->get_name();
+			}
+			ksort( $options );
+			$options = array_flip( $options );
+
+			$children = $broadcast_data->get_linked_children();
+			foreach( $children as $child_blog_id => $child_post_id )
+			{
+				switch_to_blog( $child_blog_id );
+				$select = $form->select( $child_blog_id )
+					->label( get_bloginfo( 'blogname' ) )
+					->prefix( 'blogs' )
+					->options( $options )
+					;
+				$select->blog_id = $child_blog_id;
+				$select->post_id = $child_post_id;
+				$form->blogs []= $select;
+				restore_current_blog();
+			}
+			$has_links = true;
+		}
+
+		if ( ! $has_links )
+			$json->html .= $this->p_( 'This post has no broadcast links.' );
+
+		$submit = $form->primary_button( 'submit' )
+			->value( 'Submit' );
+
+		if ( $form->is_posting() )
+		{
+			$form->post()->use_post_values();
+			// We have to check specifically for the submit.
+			if ( $submit->pressed() )
+			{
+				if ( isset( $unlink ) && $unlink->is_checked() )
+				{
+					$post_action = new actions\post_action;
+					$post_action->action = 'unlink';
+					$post_action->post_id = $post_id;
+					$post_action->execute();
+				}
+				if ( isset( $form->blogs ) )
+				{
+					foreach( $form->blogs as $select )
+					{
+						$value = $select->get_post_value();
+						if( $value == '' )
+							continue;
+						ddd( '%s on %s %s', $value, $select->blog_id, $select->post_id );
+					}
+				}
+				unset( $_POST[ 'submit' ] );
+				$this->wp_ajax_broadcast_post_action_form();
+			}
+		}
+
+		$json->html .= $form->open_tag();
+		$json->html .= $form->display_form_table();
+		$json->html .= $form->open_tag();
 		$json->output();
 	}
 }
