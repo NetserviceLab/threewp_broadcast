@@ -4,7 +4,7 @@ namespace threewp_broadcast\traits;
 
 use threewp_broadcast\actions;
 use threewp_broadcast\ajax;
-use threewp_broadcast\post_bulk_actions;
+use \threewp_broadcast\post\actions\bulk\wp_ajax;
 
 /**
 	@brief		Methods that have to do with posts and their broadcast data.
@@ -93,15 +93,15 @@ trait post_methods
 		$ajax_action = 'broadcast_post_bulk_action';
 
 		foreach( [
-			'delete' => 'Delete broadcasts',
-			'link_unlinked' => 'Link unlinked broadcasts',
-			'restore' => 'Restore broadcasts',
-			'trash' => 'Trash broadcasts',
-			'unlink' => 'Unlink broadcasts',
+			'delete' => 'Delete',
+			'link_unlinked' => 'Link unlinked',
+			'restore' => 'Restore',
+			'trash' => 'Trash',
+			'unlink' => 'Unlink',
 		] as $subaction => $name )
 		{
-			$a = new post_bulk_actions\wp_ajax;
-			$a->set_action( $ajax_action );
+			$a = new wp_ajax;
+			$a->set_ajax_action( $ajax_action );
 			$a->set_data( 'subaction', $subaction );
 			$a->set_name( $name );
 			$a->set_nonce( $ajax_action . $subaction );

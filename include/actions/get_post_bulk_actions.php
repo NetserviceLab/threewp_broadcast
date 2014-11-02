@@ -7,30 +7,11 @@ namespace threewp_broadcast\actions;
 	@since		2014-10-31 13:19:09
 **/
 class get_post_bulk_actions
-	extends action
+	extends get_post_actions
 {
-	/**
-		@brief		OUT: A collection of bulk actions.
-		@since		2014-10-31 13:19:48
-	**/
-	public $bulk_post_actions;
-
-	/**
-		@brief		Constructor.
-		@since		2014-10-31 13:20:10
-	**/
-	public function _construct()
+	public function add( \threewp_broadcast\post\actions\bulk\action $action )
 	{
-		$this->bulk_post_actions = ThreeWP_Broadcast()->collection();
-	}
-
-	/**
-		@brief		Add a bulk post action.
-		@since		2014-10-31 14:13:19
-	**/
-	public function add( $bulk_post_action )
-	{
-		$this->bulk_post_actions->append( $bulk_post_action );
+		$this->actions->append( $action );
 	}
 
 	/**
@@ -40,11 +21,11 @@ class get_post_bulk_actions
 	public function get_js()
 	{
 		// TODO: < 1
-		if ( count( $this->bulk_post_actions ) < -1 )
+		if ( count( $this->actions ) < -1 )
 			return;
 
 		// Sort them using the name.
-		$this->bulk_post_actions->sort_by( function( $item )
+		$this->actions->sort_by( function( $item )
 		{
 			return $item->get_name();
 		} );
@@ -52,7 +33,7 @@ class get_post_bulk_actions
 		$r = '<script type="text/javascript">';
 		$r .= 'broadcast_bulk_post_actions = {';
 		$array = [];
-		foreach( $this->bulk_post_actions as $bulk_action )
+		foreach( $this->actions as $bulk_action )
 		{
 			$array[] = sprintf( '"%s" : { "name" : "%s", "callback" : function( broadcast_post_bulk_actions ){ %s } }',
 				md5( $bulk_action->get_name() ),

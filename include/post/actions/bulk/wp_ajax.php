@@ -1,13 +1,13 @@
 <?php
 
-namespace threewp_broadcast\post_bulk_actions;
+namespace threewp_broadcast\post\actions\bulk;
 
 /**
 	@brief		A post bulk action that uses Wordpress ajax.
 	@since		2014-10-31 22:57:59
 **/
 class wp_ajax
-	extends post_bulk_action
+	extends action
 {
 	/**
 		@brief		The data array sent to Wordpress in the POST.
@@ -27,7 +27,7 @@ class wp_ajax
 		@see		set_data()
 		@since		2014-10-31 22:58:41
 	**/
-	public function set_action( $action )
+	public function set_ajax_action( $action )
 	{
 		$this->set_data( 'action', $action );
 		$this->set_nonce( $action );
