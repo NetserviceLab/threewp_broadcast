@@ -95,7 +95,7 @@ trait post_methods
 
 		foreach( [
 			'delete' => 'Delete',
-			'link_unlinked' => 'Link unlinked',
+			'find_unlinked' => 'Find unlinked',
 			'restore' => 'Restore',
 			'trash' => 'Trash',
 			'unlink' => 'Unlink',
@@ -118,7 +118,7 @@ trait post_methods
 
 		foreach( [
 			'delete' => 'Delete',
-			'link_unlinked' => 'Link unlinked',
+			'find_unlinked' => 'Find unlinked',
 			'restore' => 'Restore',
 			'trash' => 'Trash',
 			'unlink' => 'Unlink',
@@ -201,6 +201,11 @@ trait post_methods
 		$blog_id = get_current_blog_id();
 		$post_id = $action->post_id;
 
+		// In order for this method to be usable for both single and bulk post actions, do some footwork here so that we can help the actions decide whether to work on a specific child or not.
+		$on_child_blog_id = 0;
+		if ( isset( $action->child_blog_id ) && $action->child_blog_id > 0 )
+			$on_child_blog_id = $action->child_blog_id;
+
 		switch( $action->action )
 		{
 			// Delete all children
@@ -208,6 +213,8 @@ trait post_methods
 				$broadcast_data = $this->get_post_broadcast_data( $blog_id, $post_id );
 				foreach( $broadcast_data->get_linked_children() as $child_blog_id => $child_post_id )
 				{
+					if ( ( $on_child_blog_id > 0 ) && ( $child_blog_id != $on_child_blog_id ) )
+						continue;
 					switch_to_blog( $child_blog_id );
 					wp_delete_post( $child_post_id, true );
 					$broadcast_data->remove_linked_child( $child_blog_id );
@@ -215,7 +222,7 @@ trait post_methods
 				}
 				$broadcast_data = $this->set_post_broadcast_data( $blog_id, $post_id, $broadcast_data );
 			break;
-			case 'link_unlinked':
+			case 'find_unlinked':
 				$post = get_post( $post_id );
 				$broadcast_data = $this->get_post_broadcast_data( $blog_id, $post_id );
 				// Get a list of blogs that this user can link to.
@@ -255,27 +262,31 @@ trait post_methods
 				}
 				$broadcast_data = $this->set_post_broadcast_data( $blog_id, $post_id, $broadcast_data );
 			break;
-			// Restore all children
+			// Restore children
 			case 'restore':
 				$broadcast_data = $this->get_post_broadcast_data( $blog_id, $post_id );
 				foreach( $broadcast_data->get_linked_children() as $child_blog_id => $child_post_id )
 				{
+					if ( ( $on_child_blog_id > 0 ) && ( $child_blog_id != $on_child_blog_id ) )
+						continue;
 					switch_to_blog( $child_blog_id );
 					wp_publish_post( $child_post_id );
 					restore_current_blog();
 				}
 			break;
-			// Trash all children
+			// Trash children
 			case 'trash':
 				$broadcast_data = $this->get_post_broadcast_data( $blog_id, $post_id );
 				foreach( $broadcast_data->get_linked_children() as $child_blog_id => $child_post_id )
 				{
+					if ( ( $on_child_blog_id > 0 ) && ( $child_blog_id != $on_child_blog_id ) )
+						continue;
 					switch_to_blog( $child_blog_id );
 					wp_trash_post( $child_post_id );
 					restore_current_blog();
 				}
 			break;
-			// Unlink all children
+			// Unlink children
 			case 'unlink':
 				// TODO: Make this more flexible when we add parent / siblings.
 				$broadcast_data = $this->get_post_broadcast_data( $blog_id, $post_id );
@@ -296,11 +307,13 @@ trait post_methods
 				if ( $broadcast_data->has_linked_children() )
 				{
 					$linked_children = $broadcast_data->get_linked_children();
-
-					foreach( $linked_children as $linked_child_blog_id => $linked_child_post_id)
-						$this->delete_post_broadcast_data( $linked_child_blog_id, $linked_child_post_id );
-
-					$broadcast_data->remove_linked_children();
+					foreach( $linked_children as $child_blog_id => $child_post_id )
+					{
+						if ( ( $on_child_blog_id > 0 ) && ( $child_blog_id != $on_child_blog_id ) )
+							continue;
+						$broadcast_data->remove_linked_child( $child_blog_id );
+						$this->delete_post_broadcast_data( $child_blog_id, $child_post_id );
+					}
 				}
 				$this->set_post_broadcast_data( $blog_id, $post_id, $broadcast_data );
 			break;
@@ -493,7 +506,11 @@ trait post_methods
 						$value = $select->get_post_value();
 						if( $value == '' )
 							continue;
-						ddd( '%s on %s %s', $value, $select->blog_id, $select->post_id );
+						$post_action = new actions\post_action;
+						$post_action->action = $value;
+						$post_action->post_id = $post_id;
+						$post_action->child_blog_id = $select->blog_id;
+						$post_action->execute();
 					}
 				}
 				unset( $_POST[ 'submit' ] );
