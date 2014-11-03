@@ -5,7 +5,9 @@
         "This file is @generated automatically"
     ],
     "hash": "b62cb00ad4ca63880e8b88d33fbd3db2",
-    "packages": [],
+    "packages": [
+
+    ],
     "packages-dev": [
         {
             "name": "plainview/sdk",
@@ -13,12 +15,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/the-plainview/sdk.git",
-                "reference": "c78b86a30eab4d280e9fbf5c1c696f0f8d4357be"
+                "reference": "0ccdffb025b636e55571eb8a58a0158a2befc875"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/the-plainview/sdk/zipball/c78b86a30eab4d280e9fbf5c1c696f0f8d4357be",
-                "reference": "c78b86a30eab4d280e9fbf5c1c696f0f8d4357be",
+                "url": "https://api.github.com/repos/the-plainview/sdk/zipball/0ccdffb025b636e55571eb8a58a0158a2befc875",
+                "reference": "0ccdffb025b636e55571eb8a58a0158a2befc875",
                 "shasum": ""
             },
             "require": {
@@ -44,16 +46,20 @@
                 }
             ],
             "description": "Plainview SDK",
-            "time": "2014-11-03 10:40:36"
+            "time": "2014-10-28 21:38:39"
         }
     ],
-    "aliases": [],
+    "aliases": [
+
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
         "plainview/sdk": 20
     },
     "prefer-stable": false,
-    "platform": [],
+    "platform": [
+
+    ],
     "platform-dev": {
         "php": ">=5.4.0"
     }
