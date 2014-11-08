@@ -13,7 +13,7 @@ class ThreeWP_Broadcast
 	use traits\broadcast_data;
 	use traits\broadcasting;
 	use traits\meta_boxes;
-	use traits\post_methods;
+	use traits\post_actions;
 	use traits\terms_and_taxonomies;
 
 	/**

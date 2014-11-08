@@ -397,8 +397,8 @@ This can be increased by adding the following to your wp-config.php:
 
 		$tabs = $this->tabs();
 		$tabs->tab( 'settings' )		->callback_this( 'admin_menu_settings' )		->name_( 'Settings' );
-		$tabs->tab( 'maintenance' )		->callback_this( 'admin_menu_maintenance' )		->name_( 'Maintenance' );
 		$tabs->tab( 'post_types' )		->callback_this( 'admin_menu_post_types' )		->name_( 'Custom post types' );
+		$tabs->tab( 'maintenance' )		->callback_this( 'admin_menu_maintenance' )		->name_( 'Maintenance' );
 		$tabs->tab( 'uninstall' )		->callback_this( 'admin_uninstall' )			->name_( 'Uninstall' );
 
 		echo $tabs;
