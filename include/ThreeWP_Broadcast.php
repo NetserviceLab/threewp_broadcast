@@ -141,13 +141,6 @@ class ThreeWP_Broadcast
 			$this->delete_site_option( 'activity_monitor_group_changes' );
 			$this->delete_site_option( 'activity_monitor_unlinks' );
 
-			$this->query("CREATE TABLE IF NOT EXISTS `".$this->wpdb->base_prefix."_3wp_broadcast` (
-			  `user_id` int(11) NOT NULL COMMENT 'User ID',
-			  `data` text NOT NULL COMMENT 'User''s data',
-			  PRIMARY KEY (`user_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Contains the group settings for all the users';
-			");
-
 			$this->query("CREATE TABLE IF NOT EXISTS `". $this->broadcast_data_table() . "` (
 			  `blog_id` int(11) NOT NULL COMMENT 'Blog ID',
 			  `post_id` int(11) NOT NULL COMMENT 'Post ID',
@@ -204,12 +197,17 @@ class ThreeWP_Broadcast
 			$db_ver = 5;
 		}
 
+		if ( $db_ver < 6 )
+		{
+			$this->query("DROP TABLE IF EXISTS `".$this->wpdb->base_prefix."_3wp_broadcast`");
+			$db_ver = 6;
+		}
+
 		$this->update_site_option( 'database_version', $db_ver );
 	}
 
 	public function uninstall()
 	{
-		$this->query("DROP TABLE `".$this->wpdb->base_prefix."_3wp_broadcast`");
 		$query = sprintf( "DROP TABLE `%s`", $this->broadcast_data_table() );
 		$this->query( $query );
 	}
@@ -570,19 +568,18 @@ class ThreeWP_Broadcast
 
 	/**
 		@brief		Load the user's last used settings from the user meta table.
-		@details	Remove the sql_user_get call in v9 or v10, giving time for people to move the settings from the table to the user meta.
 		@since		2014-10-09 06:27:32
 	**/
 	public function load_last_used_settings( $user_id )
 	{
 		$settings = get_user_meta( $user_id, 'broadcast_last_used_settings', true );
-		if ( ! $settings )
-		{
-			$settings = $this->sql_user_get( $user_id );
-			$settings = @$settings[ 'last_used_settings' ];
-		}
 		if ( ! is_array( $settings ) )
-			$settings = [];
+			// Suggest some settings.
+			$settings = [
+				'custom_fields' => 'on',
+				'link' => 'on',
+				'taxonomies' => 'on',
+			];
 		return $settings;
 	}
 
@@ -700,38 +697,5 @@ class ThreeWP_Broadcast
 	public function yes_no( $value )
 	{
 		return $value ? 'yes' : 'no';
-	}
-
-	// --------------------------------------------------------------------------------------------
-	// ----------------------------------------- SQL
-	// --------------------------------------------------------------------------------------------
-
-	/**
-	 * Gets the user data.
-	 *
-	 * Returns an array of user data.
-	 */
-	public function sql_user_get( $user_id)
-	{
-		$r = $this->query("SELECT * FROM `".$this->wpdb->base_prefix."_3wp_broadcast` WHERE user_id = '$user_id'");
-		$r = @unserialize( base64_decode( $r[0][ 'data' ] ) );		// Unserialize the data column of the first row.
-		if ( $r === false)
-			$r = [];
-
-		// Merge/append any default values to the user's data.
-		return array_merge(array(
-			'groups' => [],
-		), $r);
-	}
-
-	/**
-	 * Saves the user data.
-	 */
-	public function sql_user_set( $user_id, $data)
-	{
-		$data = serialize( $data);
-		$data = base64_encode( $data);
-		$this->query("DELETE FROM `".$this->wpdb->base_prefix."_3wp_broadcast` WHERE user_id = '$user_id'");
-		$this->query("INSERT INTO `".$this->wpdb->base_prefix."_3wp_broadcast` (user_id, data) VALUES ( '$user_id', '$data' )");
 	}
 }
