@@ -198,6 +198,7 @@ APC works flawlessly.
 
 = 12 20141109 =
 * New: Post actions have been reworked. Documented here: http://plugins.plainview.se/threewp-broadcast/documentation/post-actions/
+* New: "Find orphans" is now "Find unlinked children" and is a bulk action.
 * New: Setting to choose how many children to view in the post overview, before displaying a child count.
 * Fix: Last used settings notice removed.
 * Code: _3wp_broadcast table for last used settings has been removed.
