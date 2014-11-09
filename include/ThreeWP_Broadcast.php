@@ -13,7 +13,7 @@ class ThreeWP_Broadcast
 	use traits\broadcast_data;
 	use traits\broadcasting;
 	use traits\meta_boxes;
-	use traits\post_methods;
+	use traits\post_actions;
 	use traits\terms_and_taxonomies;
 
 	/**
@@ -102,17 +102,22 @@ class ThreeWP_Broadcast
 		$this->add_filter( 'threewp_broadcast_add_meta_box' );
 		$this->add_filter( 'threewp_broadcast_admin_menu', 'add_post_row_actions_and_hooks', 100 );
 		$this->add_filter( 'threewp_broadcast_broadcast_post' );
+		$this->add_action( 'threewp_broadcast_get_post_actions' );
+		$this->add_action( 'threewp_broadcast_get_post_bulk_actions' );
 		$this->add_action( 'threewp_broadcast_get_user_writable_blogs', 11 );		// Allow other plugins to do this first.
 		$this->add_filter( 'threewp_broadcast_get_post_types', 9 );					// Add our custom post types to the array of broadcastable post types.
 		$this->add_action( 'threewp_broadcast_manage_posts_custom_column', 9 );		// Just before the standard 10.
 		$this->add_action( 'threewp_broadcast_maybe_clear_post', 11 );
 		$this->add_action( 'threewp_broadcast_menu', 9 );
 		$this->add_action( 'threewp_broadcast_menu', 'threewp_broadcast_menu_final', 100 );
+		$this->add_action( 'threewp_broadcast_post_action' );
 		$this->add_action( 'threewp_broadcast_prepare_broadcasting_data' );
 		$this->add_filter( 'threewp_broadcast_prepare_meta_box', 9 );
 		$this->add_filter( 'threewp_broadcast_prepare_meta_box', 'threewp_broadcast_prepared_meta_box', 100 );
 		$this->add_action( 'threewp_broadcast_wp_insert_term', 9 );
 		$this->add_action( 'threewp_broadcast_wp_update_term', 9 );
+		$this->add_action( 'wp_ajax_broadcast_post_action_form' );
+		$this->add_action( 'wp_ajax_broadcast_post_bulk_action' );
 
 		if ( $this->get_site_option( 'canonical_url' ) )
 			$this->add_action( 'wp_head', 1 );
@@ -367,6 +372,15 @@ class ThreeWP_Broadcast
 	// --------------------------------------------------------------------------------------------
 
 	/**
+		@brief		Convenience function to return a Plainview SDK Collection.
+		@since		2014-10-31 13:21:06
+	**/
+	public static function collection()
+	{
+		return new \plainview\sdk\collections\Collection();
+	}
+
+	/**
 		@brief		Creates a new attachment.
 		@details
 
@@ -463,7 +477,7 @@ class ThreeWP_Broadcast
 	{
 		if ( isset( $this->_js_enqueued ) )
 			return;
-		wp_enqueue_script( 'threewp_broadcast', $this->paths[ 'url' ] . '/js/user.min.js', '', $this->plugin_version );
+		wp_enqueue_script( 'threewp_broadcast', $this->paths[ 'url' ] . '/js/js.js', '', $this->plugin_version );
 		$this->_js_enqueued = true;
 	}
 
@@ -668,6 +682,7 @@ class ThreeWP_Broadcast
 	{
 		return array_merge( [
 			'blogs_to_hide' => 5,								// How many blogs to auto-hide
+			'blogs_hide_overview' => 5,							// Use a summary in the overview if more than this amount of children / siblings.
 			'broadcast_internal_custom_fields' => true,		// Broadcast internal custom fields?
 			'canonical_url' => true,							// Override the canonical URLs with the parent post's.
 			'clear_post' => true,								// Clear the post before broadcasting.
