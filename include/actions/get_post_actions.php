@@ -10,7 +10,7 @@ class get_post_actions
 	extends action
 {
 	/**
-		@brief		OUT: A collection of bulk actions.
+		@brief		OUT: A collection of post actions.
 		@since		2014-10-31 13:19:48
 	**/
 	public $actions;
