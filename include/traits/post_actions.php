@@ -91,8 +91,6 @@ trait post_actions
 	**/
 	public function threewp_broadcast_get_post_actions( $action )
 	{
-		$ajax_action = 'broadcast_post_bulk_action';
-
 		foreach( [
 			'delete' => 'Delete child',
 			'find_unlinked' => 'Find unlinked child',
@@ -398,8 +396,6 @@ trait post_actions
 
 		$post_ids = $_REQUEST[ 'post_ids' ];
 		$post_ids = explode( ',', $post_ids );
-
-		$blog_id = get_current_blog_id();		// Conv
 
 		foreach( $post_ids as $post_id )
 		{
