@@ -690,10 +690,7 @@ trait broadcasting
 
 		// No post?
 		if ( count( $_POST ) < 1 )
-		{
-			$this->debug( 'The POST is empty.' );
 			return;
-		}
 
 		// Is this post a child?
 		$broadcast_data = $this->get_post_broadcast_data( get_current_blog_id(), $post_id );
