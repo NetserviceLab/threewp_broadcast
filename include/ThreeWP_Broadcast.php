@@ -511,6 +511,19 @@ class ThreeWP_Broadcast
 	}
 
 	/**
+		@brief		Return an array of post types available on this blog.
+		@details	Excludes the nav menu item post type.
+		@since		2014-11-16 23:10:09
+	**/
+	public function get_blog_post_types()
+	{
+		$r = get_post_types();
+		unset( $r[ 'nav_menu_item' ] );
+		$r = array_keys( $r );
+		return $r;
+	}
+
+	/**
 		@brief		Return an array of all callbacks of a hook.
 		@since		2014-04-30 00:11:30
 	**/
@@ -526,15 +539,19 @@ class ThreeWP_Broadcast
 			foreach( $callbacks as $callback )
 			{
 				$function = $callback[ 'function' ];
+				if ( is_string( $function ) )
+					$function_name = $function;
 				if ( is_array( $function ) )
 				{
-					if ( is_object( $function[ 0 ] ) )
-						$function[ 0 ] = get_class( $function[ 0 ] );
-					$function = sprintf( '%s::%s', $function[ 0 ], $function[ 1 ] );
+					$function_name = $function[ 0 ];
+					if ( is_object( $function_name ) )
+						$function_name = get_class( $function_name );
+					else
+						$function_name = sprintf( '%s::%s', $function_name, $function[ 1 ] );
 				}
 				if ( is_a( $function, 'Closure' ) )
-					$function = '[Anonymous function]';
-				$hook_callbacks[] = $function;
+					$function_name = '[Anonymous function]';
+				$hook_callbacks[] = $function_name;
 			}
 		}
 		return $hook_callbacks;
