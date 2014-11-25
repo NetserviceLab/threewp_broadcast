@@ -54,6 +54,15 @@ trait post_actions
 		$action->execute();
 		echo $action->get_js();
 
+		echo '
+			<script type="text/javascript">
+				var broadcast_strings = {
+					broadcast : "' . $this->_( 'Broadcast' ) . '",
+					post_actions : "' . $this->_( 'Post actions' ) . '"
+				};
+			</script>
+		';
+
 		// Enqueue the popup js.
 		wp_enqueue_script( 'magnific-popup', $this->paths[ 'url' ] . '/js/jquery.magnific-popup.min.js', '', $this->plugin_version );
 		wp_enqueue_style( 'magnific-popup', $this->paths[ 'url' ] . '/css/magnific-popup.css', '', $this->plugin_version  );
@@ -115,11 +124,11 @@ trait post_actions
 		$ajax_action = 'broadcast_post_bulk_action';
 
 		foreach( [
-			'delete' => 'Delete children',
-			'find_unlinked' => 'Find unlinked children',
-			'restore' => 'Restore children',
-			'trash' => 'Trash children',
-			'unlink' => 'Unlink',
+			'delete' => $this->_( 'Delete children' ),
+			'find_unlinked' => $this->_( 'Find unlinked children' ),
+			'restore' => $this->_( 'Restore children' ),
+			'trash' => $this->_( 'Trash children' ),
+			'unlink' => $this->_( 'Unlink' ),
 		] as $subaction => $name )
 		{
 			$a = new wp_ajax;
@@ -424,6 +433,9 @@ trait post_actions
 			wp_die( 'Invalid nonce.' );
 
 		// Everything is good to go.
+
+		$this->load_language();
+
 		$blog_id = get_current_blog_id();
 		$broadcast_data = $this->get_post_broadcast_data( $blog_id, $post_id );
 		$form = $this->form2();
@@ -451,7 +463,7 @@ trait post_actions
 			$action = new actions\get_post_actions();
 			$action->post = get_post( $post_id );
 			$action->execute();
-			$options = [ '' => 'No change' ];
+			$options = [ '' => $this->_( 'No change' ) ];
 			foreach( $action->actions as $post_action )
 			{
 				$options[ $post_action->action ] = $post_action->get_name();

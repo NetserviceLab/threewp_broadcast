@@ -153,7 +153,7 @@ This can be increased by adding the following to your wp-config.php:
 
 		$post_types_input = $form->textarea( 'post_types' )
 			->cols( 20, 10 )
-			->label( 'Custom post types to broadcast' )
+			->label_( 'Custom post types to broadcast' )
 			->value( $post_types );
 		$label = $this->_( 'A list of custom post types that have broadcasting enabled. The default value is %s.', '<code>post<br/>page</code>' );
 		$post_types_input->description->set_unfiltered_label( $label );
@@ -167,12 +167,12 @@ This can be increased by adding the following to your wp-config.php:
 			$post_types = $form->input( 'post_types' )->get_value();
 			$post_types = $this->lines_to_string( $post_types );
 			$this->update_site_option( 'post_types', $post_types);
-			$this->message( 'Custom post types saved!' );
+			$this->message_( 'Custom post types saved!' );
 		}
 
 		$r .= $this->p_( 'Custom post types must be specified using their internal Wordpress names on a new line each. It is not possible to automatically make a list of available post types on the whole network because of a limitation within Wordpress (the current blog knows only of its own custom post types).' );
 
-		$this->get_blog_post_types();
+		$blog_post_types = $this->get_blog_post_types();
 		$r .= $this->p_( 'The custom post types registered on <em>this</em> blog are: <code>%s</code>', implode( ', ', $blog_post_types ) );
 
 		$r .= $form->open_tag();

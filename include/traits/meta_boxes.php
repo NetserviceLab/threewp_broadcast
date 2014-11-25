@@ -188,7 +188,7 @@ trait meta_boxes
 
 		$blogs_input = $form->checkboxes( 'blogs' )
 			->css_class( 'blogs checkboxes' )
-			->label( 'Broadcast to' )
+			->label_( 'Broadcast to' )
 			->prefix( 'blogs' );
 
 		// Preselect those children that this post has.

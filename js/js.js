@@ -133,7 +133,7 @@ broadcast_popup = function( options )
                 				}
                 			},
                 		})
-						.set_title( 'Post actions' )
+						.set_title( broadcast_strings.post_actions )
 						.open();
 
 					$this.fetch_form( {
@@ -405,7 +405,7 @@ broadcast_popup = function( options )
 				} );
 
 				// We appendTo here because otherwise it is only put in one place.
-				$optgroup.prop( 'label', 'Broadcast' );
+				$optgroup.prop( 'label', broadcast_strings.broadcast );
 				$optgroup.appendTo( $select );
 
 				// Take over the apply buttons
