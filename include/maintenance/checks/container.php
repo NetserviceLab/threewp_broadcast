@@ -3,7 +3,7 @@
 namespace threewp_broadcast\maintenance\checks;
 
 class container
-extends \plainview\sdk\collections\collection
+extends \plainview\sdk_broadcast\collections\collection
 {
 	/**
 		@brief		Link back to the controller.

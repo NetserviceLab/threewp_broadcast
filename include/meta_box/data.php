@@ -2,7 +2,7 @@
 
 namespace threewp_broadcast\meta_box;
 
-use \plainview\sdk\collections\collection;
+use \plainview\sdk_broadcast\collections\collection;
 
 /**
 	@brief		The data class that is passed around when creating the broadcast meta box.

@@ -3,7 +3,7 @@
 namespace threewp_broadcast\collections;
 
 class strings
-	extends \plainview\sdk\collections\collection
+	extends \plainview\sdk_broadcast\collections\collection
 {
 	/**
 		@brief		Converts each item to a string.

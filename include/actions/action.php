@@ -3,7 +3,7 @@
 namespace threewp_broadcast\actions;
 
 class action
-	extends \plainview\sdk\wordpress\actions\action
+	extends \plainview\sdk_broadcast\wordpress\actions\action
 {
 	// TODO: Remove this @ v11
 	public function execute()

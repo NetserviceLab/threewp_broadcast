@@ -5,9 +5,9 @@ namespace threewp_broadcast;
 use \threewp_broadcast\broadcast_data\blog;
 
 class ThreeWP_Broadcast
-	extends \plainview\sdk\wordpress\base
+	extends \plainview\sdk_broadcast\wordpress\base
 {
-	use \plainview\sdk\wordpress\traits\debug;
+	use \plainview\sdk_broadcast\wordpress\traits\debug;
 
 	use traits\admin_menu;
 	use traits\broadcast_data;
@@ -80,9 +80,6 @@ class ThreeWP_Broadcast
 	public $permalink_cache;
 
 	public $plugin_version = THREEWP_BROADCAST_VERSION;
-
-	// 20140501 when debug trait is moved to SDK.
-	protected $sdk_version_required = 20130505;		// add_action / add_filter
 
 	public function _construct()
 	{
@@ -377,7 +374,7 @@ class ThreeWP_Broadcast
 	**/
 	public static function collection()
 	{
-		return new \plainview\sdk\collections\Collection();
+		return new \plainview\sdk_broadcast\collections\Collection();
 	}
 
 	/**

@@ -16,7 +16,7 @@ use \Exception;
 
 class attachment_data
 {
-	use \plainview\sdk\traits\method_chaining;
+	use \plainview\sdk_broadcast\traits\method_chaining;
 
 	public $filename_base;					// img.jpg
 	public $filename_path;					// /var/www/wordpress/image.jpg

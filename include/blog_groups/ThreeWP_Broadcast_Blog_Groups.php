@@ -6,7 +6,7 @@ namespace threewp_broadcast\blog_groups;
 	@brief		Adds blog group support to Broadcast
 **/
 class ThreeWP_Broadcast_Blog_Groups
-	extends \plainview\sdk\wordpress\base
+	extends \plainview\sdk_broadcast\wordpress\base
 {
 	protected $sdk_version_required = 20131006;		// tabs->get_is()
 

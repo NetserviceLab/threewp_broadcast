@@ -2,7 +2,7 @@
 
 namespace threewp_broadcast\meta_box;
 
-use \plainview\sdk\collections\collection;
+use \plainview\sdk_broadcast\collections\collection;
 
 /**
 	@brief		HTML item.

@@ -11,7 +11,7 @@ trait metadata
 	public function metadata()
 	{
 		if ( ! isset( $this->__metadata ) )
-			$this->__metadata = new \plainview\sdk\collections\collection;
+			$this->__metadata = new \plainview\sdk_broadcast\collections\collection;
 		return $this->__metadata;
 	}
 }

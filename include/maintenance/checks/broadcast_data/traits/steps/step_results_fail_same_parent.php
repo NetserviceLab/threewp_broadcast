@@ -2,7 +2,7 @@
 
 namespace threewp_broadcast\maintenance\checks\broadcast_data\traits\steps;
 
-use \plainview\sdk\collections\collection;
+use \plainview\sdk_broadcast\collections\collection;
 
 trait step_results_fail_same_parent
 {

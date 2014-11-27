@@ -3,7 +3,7 @@
 namespace threewp_broadcast\meta_box;
 
 class html
-	extends \plainview\sdk\collections\collection
+	extends \plainview\sdk_broadcast\collections\collection
 {
 	/**
 		@brief		The [meta box] data container.

@@ -88,7 +88,7 @@ trait admin_menu
 		// SDK path
 		$row = $table->body()->row();
 		$row->td()->text( 'Plainview Wordpress SDK path' );
-		$object = new \ReflectionObject( new \plainview\sdk\wordpress\base );
+		$object = new \ReflectionObject( new \plainview\sdk_broadcast\wordpress\base );
 		$row->td()->text( $object->getFilename() );
 
 		// WP upload path
