@@ -32,5 +32,10 @@
 				}
 			}
 		}
-	]
+	],
+	"scripts" : {
+		"post-autoload-dump" : [
+			"scripts/sdk_rename.sh"
+		]
+	}
 }
