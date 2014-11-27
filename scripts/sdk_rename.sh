@@ -25,5 +25,5 @@ cd ../../
 
 # Rename the SDK in the psr4 autoload
 cd vendor/composer
-perl -pi -e "s/sdk/sdk_$SLUG/" `find ./ -type f`
+perl -pi -e "s/sdk/sdk_$SLUG/g" `find ./ -type f`
 cd ../../
