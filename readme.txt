@@ -85,6 +85,7 @@ Available in the following languages:
 * Italian
 * French
 * Romanian, Web Geek Sciense <a href="http://webhostinggeeks.com/">Web Hosting Geeks</a>
+* Spanish
 * Swedish
 
 The git repository can be found at: https://github.com/the-plainview/threewp_broadcast
