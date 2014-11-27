@@ -60,36 +60,10 @@ trait admin_menu
 		$row->td()->text( 'Broadcast version' );
 		$row->td()->text( $this->plugin_version );
 
-		// Broadcast file checksum
-		$row = $table->body()->row();
-		$row->td()->text( 'Broadcast file checksum' );
-		$text = md5( file_get_contents( __FILE__ ) );
-		$row->td()->text( $text );
-
 		// PHP version
 		$row = $table->body()->row();
 		$row->td()->text( 'PHP version' );
 		$row->td()->text( phpversion() );
-
-		// SDK version
-		$row = $table->body()->row();
-		$text = sprintf( '%sPlainview Wordpress SDK%s',
-			'<a href="https://github.com/the-plainview/sdk">',
-			'</a>'
-		);
-		$row->td()->text( $text );
-		$row->td()->text( $this->sdk_version );
-
-		// SDK version required
-		$row = $table->body()->row();
-		$row->td()->text( 'SDK version required' );
-		$row->td()->text( $this->sdk_version_required );
-
-		// SDK path
-		$row = $table->body()->row();
-		$row->td()->text( 'Plainview Wordpress SDK path' );
-		$object = new \ReflectionObject( new \plainview\sdk_broadcast\wordpress\base );
-		$row->td()->text( $object->getFilename() );
 
 		// WP upload path
 		$row = $table->body()->row();
