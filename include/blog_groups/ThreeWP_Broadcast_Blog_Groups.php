@@ -316,7 +316,7 @@ class ThreeWP_Broadcast_Blog_Groups
 
 		$fs = $edit_form->fieldset( 'general' )->label_( 'General settings' );
 
-		$fs->text( 'name' )
+		$name_input = $fs->text( 'name' )
 			->label_( 'Group name' )
 			->minlength( 2, 128 )
 			->size( 40, 128 )
@@ -362,6 +362,7 @@ class ThreeWP_Broadcast_Blog_Groups
 			if ( $input_save->pressed() )
 			{
 				$ids = $input_blogs->get_post_value();
+				$blog_group->data->name = $name_input->get_post_value();
 				$blog_group->data->blogs = $ids;
 				$blog_group->db_update();
 				$this->message_( 'Blog group saved!' );
