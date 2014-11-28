@@ -197,6 +197,9 @@ APC works flawlessly.
 
 == Changelog ==
 
+= 13 2014xxxx =
+* Fix: Blog groups: Group name can be changed again.
+
 = 12 20141109 =
 * New: Post actions have been reworked. Documented here: http://plugins.plainview.se/threewp-broadcast/documentation/post-actions/
 * New: "Find orphans" is now "Find unlinked children" and is a bulk action.
