@@ -29,7 +29,7 @@ trait broadcasting
 
 		$this->debug( 'Broadcasting the post %s <pre>%s</pre>', $bcd->post->ID, $bcd->post );
 
-		$this->debug( 'The POST was <pre>%s</pre>', $bcd->_POST );
+		$this->debug( 'The POST is <pre>%s</pre>', $bcd->_POST );
 
 		// For nested broadcasts. Just in case.
 		switch_to_blog( $bcd->parent_blog_id );
@@ -91,6 +91,8 @@ trait broadcasting
 
 			$this->debug( 'Custom fields: Will broadcast custom fields.' );
 			$bcd->post_custom_fields = get_post_custom( $bcd->post->ID );
+
+			$this->debug( 'The custom fields are <pre>%s</pre>', $bcd->post_custom_fields );
 
 			// Save the original custom fields for future use.
 			$bcd->custom_fields->original = $bcd->post_custom_fields;
