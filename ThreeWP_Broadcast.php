@@ -24,6 +24,6 @@ function ThreeWP_Broadcast()
 
 // For compatability with old SDK
 if ( ! class_exists( '\\plainview\\sdk\\collections\collection' ) )
-	require_once( 'include/old_sdk/collection.php' );
+	require_once( 'src/old_sdk/collection.php' );
 
 $threewp_broadcast = new threewp_broadcast\ThreeWP_Broadcast();

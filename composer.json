@@ -11,10 +11,11 @@
 	},
 	"autoload":
 	{
-		"psr-4": {
+		"psr-4":
+		{
 			"threewp_broadcast\\": "src/",
-			"plainview\\sdk_broadcast\\" : "src/sdk/
-        }
+			"plainview\\sdk_broadcast\\": "src/sdk/"
+		}
 	},
 	"minimum-stability": "dev",
 	"repositories": [
