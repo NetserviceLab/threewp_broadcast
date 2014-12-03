@@ -404,6 +404,7 @@ class ThreeWP_Broadcast
 		$target = $upload_dir[ 'path' ] . '/' . $o->attachment_data->filename_base;
 		$this->debug( 'Copy attachment: Copying from %s to %s', $source, $target );
 		copy( $source, $target );
+		$this->debug( 'Copy attachment: File sizes: %s %s ; %s %s', $source, filesize( $source ), $target, filesize( $target ) );
 
 		// And now create the attachment stuff.
 		// This is taken almost directly from http://codex.wordpress.org/Function_Reference/wp_insert_attachment
@@ -452,6 +453,7 @@ class ThreeWP_Broadcast
 			$this->debug( 'Copy attachment: Updating metadata.' );
 			wp_update_attachment_metadata( $o->attachment_id,  $attach_data );
 		}
+		$this->debug( 'Copy attachment: File sizes again: %s %s ; %s %s', $source, filesize( $source ), $target, filesize( $target ) );
 	}
 
 	/**
