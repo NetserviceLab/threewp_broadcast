@@ -10,6 +10,7 @@ class ThreeWP_Broadcast
 	use \plainview\sdk_broadcast\wordpress\traits\debug;
 
 	use traits\admin_menu;
+	use traits\admin_scripts;
 	use traits\broadcast_data;
 	use traits\broadcasting;
 	use traits\meta_boxes;
