@@ -198,6 +198,9 @@ APC works flawlessly.
 
 == Changelog ==
 
+= 14 201412xx =
+* Fix: Display bulk actions in a different way to increase compatability with Admin Columns Pro.
+
 = 13 20141201 =
 * Fix: Blog groups: Group name can be changed again.
 * Debug: Custom fields are shown in the debug dump.
