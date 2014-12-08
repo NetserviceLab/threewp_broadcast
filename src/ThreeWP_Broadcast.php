@@ -327,7 +327,10 @@ class ThreeWP_Broadcast
 	public function wp_head()
 	{
 		// Only override the canonical if we're looking at a single post.
-		if ( ! is_single() )
+		$override = false;
+		$override |= is_single();
+		$override |= is_page();
+		if ( ! $override )
 			return;
 
 		global $post;
