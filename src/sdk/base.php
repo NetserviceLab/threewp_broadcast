@@ -13,6 +13,7 @@ namespace plainview\sdk_broadcast;
 
 	This list only shows which classes were modified. For a detailed list, see the class' changelog.
 
+	- 20141205		Plugin pack must call internal plugin methods.
 	- 20141204		Added scripts/sdk_restore.sh. Updated rename and update scripts.
 	- 20141203		Removed SDK versioning from Wordpress base.
 	- 20141203		Added scripts/sdk_update.sh
@@ -141,7 +142,7 @@ class base
 		@since		20130416
 		@var		$sdk_version
 	**/
-	protected $sdk_version = 20141204;
+	protected $sdk_version = 20141205;
 
 	/**
 		@brief		Constructor.
