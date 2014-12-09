@@ -201,6 +201,7 @@ APC works flawlessly.
 = 14 201412xx =
 * Fix: Display bulk actions in a different way to increase compatability with Admin Columns Pro.
 * Fix: Override canonical URL for pages also.
+* New: Premium Pack Plugin: Lock Post
 
 = 13 20141201 =
 * Fix: Blog groups: Group name can be changed again.
