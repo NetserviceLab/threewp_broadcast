@@ -199,6 +199,9 @@ APC works flawlessly.
 
 == Changelog ==
 
+= 15 2014xxxx =
+* Code: Allow other plugins to prevent term creation.
+
 = 14 20141210 =
 * Fix: Display bulk actions in a different way to increase compatability with Admin Columns Pro.
 * Fix: Override canonical URL for pages also.
