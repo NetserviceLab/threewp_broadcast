@@ -349,7 +349,7 @@ trait broadcasting
 							}
 						}
 
-						// Should we create the taxonomy if it doesn't exist?
+						// Should we create the taxonomy term if it doesn't exist?
 						if ( ! $found )
 						{
 							// Does the term have a parent?
@@ -371,11 +371,14 @@ trait broadcasting
 							$action->taxonomy = $parent_post_taxonomy;
 							$action->term = $new_term;
 							$action->execute();
-							$new_taxonomy = $action->new_term;
-							$term_id = $new_taxonomy[ 'term_id' ];
-							$this->debug( 'Taxonomies: Created taxonomy %s (%s).', $parent_post_term->name, $term_id );
-
-							$taxonomies_to_add_to []= intval( $term_id );
+							if ( $action->new_term )
+							{
+								$term_id = intval( $action->new_term[ 'term_id' ] );
+								$taxonomies_to_add_to []= $term_id;
+								$this->debug( 'Taxonomies: Created taxonomy %s (%s).', $parent_post_term->name, $term_id );
+							}
+							else
+								$this->debug( 'Taxonomies: Taxonomy %s was not created.', $parent_post_term->name );
 						}
 					}
 
