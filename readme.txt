@@ -201,6 +201,7 @@ APC works flawlessly.
 
 = 15 2014xxxx =
 * Code: Allow other plugins to prevent term creation.
+* New: Premium Pack Plugin: No New Terms
 
 = 14 20141210 =
 * Fix: Display bulk actions in a different way to increase compatability with Admin Columns Pro.
