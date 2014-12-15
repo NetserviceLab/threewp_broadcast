@@ -229,6 +229,8 @@ trait broadcasting
 
 		$this->debug( 'The attachment data is: %s', $bcd->attachment_data );
 
+		$this->debug( 'Post sticky status: %s', $bcd->post_is_sticky );
+
 		$this->debug( 'Beginning child broadcast loop.' );
 
 		foreach( $bcd->blogs as $child_blog )
@@ -601,10 +603,17 @@ trait broadcasting
 
 			// Sticky behaviour
 			$child_post_is_sticky = is_sticky( $bcd->new_post[ 'ID' ] );
+			$this->debug( 'Sticky status: %s', $child_post_is_sticky );
 			if ( $bcd->post_is_sticky && ! $child_post_is_sticky )
+			{
+				$this->debug( 'Sticking post.' );
 				stick_post( $bcd->new_post[ 'ID' ] );
+			}
 			if ( ! $bcd->post_is_sticky && $child_post_is_sticky )
+			{
+				$this->debug( 'Unsticking post.' );
 				unstick_post( $bcd->new_post[ 'ID' ] );
+			}
 
 			if ( $bcd->link )
 			{
