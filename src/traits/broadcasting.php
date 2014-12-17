@@ -217,19 +217,29 @@ trait broadcasting
 		// To prevent recursion
 		array_push( $this->broadcasting, $bcd );
 
+		// Handle sticky.
+		$bcd->post_is_sticky = isset( $_POST[ 'sticky' ]  );
+		$this->debug( 'Post sticky status: %s', intval( $bcd->post_is_sticky ) );
+
 		// POST is no longer needed. Empty it so that other plugins don't use it.
 		$action = new actions\maybe_clear_post;
 		$action->post = $_POST;
 		$action->execute();
 		$_POST = $action->post;
 
+		// This is a stupid exception: edit_post() checks the _POST for the sticky checkbox.
+		// And edit_post() is run after save_post()... :(
+		// So if the post is sticky, we have to put the checkbox back in the post.
+		// This can be avoided by either not clearing the post or forcing the user to update twice.
+		// Neither solution is any good: not clearing the post makes _some_ plugins go crazy, updating twice is not expected behavior.
+		if ( $bcd->post_is_sticky )
+			$_POST[ 'sticky'] = 'sticky';
+
 		$action = new actions\broadcasting_started;
 		$action->broadcasting_data = $bcd;
 		$action->execute();
 
 		$this->debug( 'The attachment data is: %s', $bcd->attachment_data );
-
-		$this->debug( 'Post sticky status: %s', $bcd->post_is_sticky );
 
 		$this->debug( 'Beginning child broadcast loop.' );
 
@@ -603,7 +613,7 @@ trait broadcasting
 
 			// Sticky behaviour
 			$child_post_is_sticky = is_sticky( $bcd->new_post[ 'ID' ] );
-			$this->debug( 'Sticky status: %s', $child_post_is_sticky );
+			$this->debug( 'Sticky status: %s', intval( $child_post_is_sticky ) );
 			if ( $bcd->post_is_sticky && ! $child_post_is_sticky )
 			{
 				$this->debug( 'Sticking post.' );
@@ -843,10 +853,6 @@ trait broadcasting
 
 		$bcd->taxonomies = $form->checkbox( 'taxonomies' )->get_post_value()
 			&& ( is_super_admin() || $this->role_at_least( $this->get_site_option( 'role_taxonomies' ) ) );
-
-		// Is this post sticky? This info is hidden in a blog option.
-		$stickies = get_option( 'sticky_posts' );
-		$bcd->post_is_sticky = in_array( $bcd->post->ID, $stickies );
 	}
 
 }
