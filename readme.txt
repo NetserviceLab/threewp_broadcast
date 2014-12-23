@@ -4,7 +4,7 @@ License: GPLv3
 Requires at least: 3.3.1
 Stable tag: trunk
 Tags: broadcast, multipost, sharing, share content, duplicate, posts, marketing, threewp, linking, posts, multiple, blogs, sitepress, woocommerce, synchronize, event organiser, acf, all in one calendar, menu, copy menu, duplicate menu
-Tested up to: 4.0
+Tested up to: 4.1
 
 Network content sharing by multiposting between blogs for PHP v5.4+. Posts can be linked to each other and updated automatically.
 
@@ -56,6 +56,7 @@ For a complete list of features and more information, see <a href="http://plugin
 * <strong>Local Links</strong> automatically updates links to local posts on each child blog.
 * <strong>Lock Post</strong> allows users to lock editing of posts / pages to only themselves and super admins.
 * <strong>Menus</strong> can copy menus between blogs (overwrite / update), with support for equivalent child posts on the child blogs and equivalent taxonomies.
+* <strong>No New Terms</strong> prevents taxonomy terms from being created on child blogs.
 * <strong>Per Blog Taxonomies</strong> allows individual setting of child post taxonomies.
 * <strong>Permalinks</strong> enables more precise permalink control.
 * <strong>Polylang</strong> adds support for Broadcasting posts in different languages using Frédéric Demarle&#8217;s <a href="https://wordpress.org/plugins/polylang/">Polylang</a> translation plugin.
