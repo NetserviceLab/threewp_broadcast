@@ -2,6 +2,8 @@
 
 namespace threewp_broadcast\traits;
 
+use threewp_broadcast\actions;
+
 trait attachments
 {
 	/**
@@ -16,19 +18,24 @@ trait attachments
 		@since		20130530
 		@version	20131003
 	*/
-	public function copy_attachment( $o )
+	public function threewp_broadcast_copy_attachment( $action )
 	{
-		if ( ! file_exists( $o->attachment_data->filename_path ) )
+		if ( $action->is_finished() )
+			return;
+
+		$attachment_data = $action->attachment_data;
+
+		if ( ! file_exists( $attachment_data->filename_path ) )
 		{
-			$this->debug( 'Copy attachment: File "%s" does not exist!', $o->attachment_data->filename_path );
+			$this->debug( 'Copy attachment: File "%s" does not exist!', $attachment_data->filename_path );
 			return false;
 		}
 
 		// Copy the file to the blog's upload directory
 		$upload_dir = wp_upload_dir();
 
-		$source = $o->attachment_data->filename_path;
-		$target = $upload_dir[ 'path' ] . '/' . $o->attachment_data->filename_base;
+		$source = $attachment_data->filename_path;
+		$target = $upload_dir[ 'path' ] . '/' . $attachment_data->filename_base;
 		$this->debug( 'Copy attachment: Copying from %s to %s', $source, $target );
 		copy( $source, $target );
 		$this->debug( 'Copy attachment: File sizes: %s %s ; %s %s', $source, filesize( $source ), $target, filesize( $target ) );
@@ -39,30 +46,30 @@ trait attachments
 		$wp_filetype = wp_check_filetype( $target, null );
 		$attachment = [
 			'guid' => $upload_dir[ 'url' ] . '/' . $target,
-			'menu_order' => $o->attachment_data->post->menu_order,
-			'post_author' => $o->attachment_data->post->post_author,
-			'post_excerpt' => $o->attachment_data->post->post_excerpt,
+			'menu_order' => $attachment_data->post->menu_order,
+			'post_author' => $attachment_data->post->post_author,
+			'post_excerpt' => $attachment_data->post->post_excerpt,
 			'post_mime_type' => $wp_filetype[ 'type' ],
-			'post_title' => $o->attachment_data->post->post_title,
+			'post_title' => $attachment_data->post->post_title,
 			'post_content' => '',
 			'post_status' => 'inherit',
 		];
 		$this->debug( 'Copy attachment: Inserting attachment.' );
-		$o->attachment_id = wp_insert_attachment( $attachment, $target, $o->attachment_data->post->post_parent );
+		$action->set_attachment_id( wp_insert_attachment( $attachment, $target, $attachment_data->post->post_parent ) );
 
 		// Now to maybe handle the metadata.
-		if ( $o->attachment_data->file_metadata )
+		if ( $attachment_data->file_metadata )
 		{
 			$this->debug( 'Copy attachment: Handling metadata.' );
 			// 1. Create new metadata for this attachment.
 			$this->debug( 'Copy attachment: Requiring image.php.' );
 			require_once( ABSPATH . "wp-admin" . '/includes/image.php' );
 			$this->debug( 'Copy attachment: Generating metadata for %s.', $target );
-			$attach_data = wp_generate_attachment_metadata( $o->attachment_id, $target );
+			$attach_data = wp_generate_attachment_metadata( $action->attachment_id, $target );
 			$this->debug( 'Copy attachment: Metadata is %s', $attach_data );
 
 			// 2. Write the old metadata first.
-			foreach( $o->attachment_data->post_custom as $key => $value )
+			foreach( $attachment_data->post_custom as $key => $value )
 			{
 				$value = reset( $value );
 				$value = maybe_unserialize( $value );
@@ -73,14 +80,15 @@ trait attachments
 						$value = $attach_data[ 'file' ];
 						break;
 				}
-				update_post_meta( $o->attachment_id, $key, $value );
+				update_post_meta( $action->attachment_id, $key, $value );
 			}
 
 			// 3. Overwrite the metadata that needs to be overwritten with fresh data.
 			$this->debug( 'Copy attachment: Updating metadata.' );
-			wp_update_attachment_metadata( $o->attachment_id,  $attach_data );
+			wp_update_attachment_metadata( $action->attachment_id,  $attach_data );
 		}
 		$this->debug( 'Copy attachment: File sizes again: %s %s ; %s %s', $source, filesize( $source ), $target, filesize( $target ) );
+		$action->finish();
 	}
 
 	/**
@@ -88,6 +96,7 @@ trait attachments
 		@details	The return value is an object, with the most important property being ->attachment_id.
 
 		@param		object		$options		See the parameter for copy_attachment.
+		@return		object		$options		The attachment_id property should be > 0.
 	**/
 	public function maybe_copy_attachment( $options )
 	{
@@ -150,7 +159,9 @@ trait attachments
 
 		// Since it doesn't exist, copy it.
 		$this->debug( 'Maybe copy attachment: Really copying attachment.' );
-		$this->copy_attachment( $options );
-		return $options;
+		$copy_attachment_action = new actions\copy_attachment();
+		$copy_attachment_action->attachment_data = $attachment_data;
+		$copy_attachment_action->execute();
+		$options->attachment_id = $copy_attachment_action->attachment_id;
 	}
 }

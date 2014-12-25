@@ -101,6 +101,7 @@ class ThreeWP_Broadcast
 		$this->add_filter( 'threewp_broadcast_add_meta_box' );
 		$this->add_filter( 'threewp_broadcast_admin_menu', 'add_post_row_actions_and_hooks', 100 );
 		$this->add_filter( 'threewp_broadcast_broadcast_post' );
+		$this->add_action( 'threewp_broadcast_copy_attachment', 100 );
 		$this->add_action( 'threewp_broadcast_get_post_actions' );
 		$this->add_action( 'threewp_broadcast_get_post_bulk_actions' );
 		$this->add_action( 'threewp_broadcast_get_user_writable_blogs', 11 );		// Allow other plugins to do this first.
