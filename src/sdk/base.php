@@ -13,6 +13,7 @@ namespace plainview\sdk_broadcast;
 
 	This list only shows which classes were modified. For a detailed list, see the class' changelog.
 
+	- 20141228		Return false if no instance is available.
 	- 20141205		Plugin pack must call internal plugin methods.
 	- 20141204		Added scripts/sdk_restore.sh. Updated rename and update scripts.
 	- 20141203		Removed SDK versioning from Wordpress base.
@@ -142,7 +143,7 @@ class base
 		@since		20130416
 		@var		$sdk_version
 	**/
-	protected $sdk_version = 20141205;
+	protected $sdk_version = 20141228;
 
 	/**
 		@brief		Constructor.
@@ -489,6 +490,8 @@ class base
 	public static function instance()
 	{
 		$classname = get_called_class();
+		if ( ! isset( self::$instance[ $classname ] ) )
+			return false;
 		return self::$instance[ $classname ];
 	}
 

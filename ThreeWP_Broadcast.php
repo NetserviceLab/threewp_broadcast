@@ -11,7 +11,7 @@ Version:		15
 
 DEFINE( 'THREEWP_BROADCAST_VERSION', 15 );
 
-require_once( 'vendor/autoload.php' );
+require_once( __DIR__ . '/vendor/autoload.php' );
 
 /**
 	@brief		Return the instance of ThreeWP Broadcast.

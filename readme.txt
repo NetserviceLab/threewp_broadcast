@@ -200,6 +200,9 @@ APC works flawlessly.
 
 == Changelog ==
 
+= 16 2015xxxx =
+* Fixed autoloadiing for specific web hosts.
+
 = 15 20141218 =
 * Code: Allow other plugins to prevent term creation.
 * New: Premium Pack Plugin: No New Terms
