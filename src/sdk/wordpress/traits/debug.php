@@ -90,7 +90,8 @@ trait debug
 		// Date class: string
 		$text = sprintf( '%s <em>%s</em>: %s<br/>', $this->now(), $class_name, $text, "\n" );
 		echo $text;
-		ob_flush();
+		if ( ob_get_contents() )
+			ob_flush();
 	}
 
 	/**

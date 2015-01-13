@@ -190,6 +190,8 @@ WPML is semi-supported via a plugin in the premium pack.
 
 For more information, see WPML discussion here: http://wordpress.org/support/topic/wmpl-integration-not-working
 
+The author suggests using PolyLang instead due to superior support.
+
 = XCache vs APC opcode cache =
 
 Xcache v2 does not support PHP namespaces, which is a PHP 5.3 feature. Trying to enable Broadcast with Xcache v2 enabled will result in a PHP crash.
@@ -201,7 +203,11 @@ APC works flawlessly.
 == Changelog ==
 
 = 16 2015xxxx =
-* Fixed autoloadiing for specific web hosts.
+* Fix: Fixed autoloading error for specific web hosts.
+* Comments: Can now keep comments synced between linked posts.
+* New: Premium Pack Plugin: Duplicate Attachments drastically speeds up broadcasting when using attachments. Also retains any manual modifications to the attachment thumbnails.
+* User Blog Settings: "On" for checkboxes no longer forces the checkbox to be ticked.
+* Fix: Form actions were incorrect for some non-standard installations, causing forms to timeout.
 
 = 15 20141218 =
 * Code: Allow other plugins to prevent term creation.
