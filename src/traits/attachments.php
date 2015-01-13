@@ -45,7 +45,7 @@ trait attachments
 		$this->debug( 'Copy attachment: Checking filetype.' );
 		$wp_filetype = wp_check_filetype( $target, null );
 		$attachment = [
-			'guid' => $upload_dir[ 'url' ] . '/' . basename($target),
+			'guid' => $upload_dir[ 'url' ] . '/' . $attachment_data->filename_base,
 			'menu_order' => $attachment_data->post->menu_order,
 			'post_author' => $attachment_data->post->post_author,
 			'post_excerpt' => $attachment_data->post->post_excerpt,
