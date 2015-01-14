@@ -57,35 +57,24 @@ trait terms_and_taxonomies
 	{
 		// Fetch the parent of the current term among the source terms
 		foreach ( $parent_blog_taxonomy_terms as $term )
-		{
 			if ( $term[ 'term_id' ] == $source_post_term[ 'parent' ] )
-			{
 				$source_parent = $term;
-			}
-		}
 
 		if ( ! isset( $source_parent ) )
-		{
-			return 0; // Sanity check, the source term's parent doesn't exist! Orphan!
-		}
+			// Sanity check, the source term's parent doesn't exist! Orphan!
+			return 0;
 
 		// Check if the parent already exists at the target
 		foreach ( $target_blog_terms as $term )
-		{
 			if ( $term[ 'slug' ] === $source_parent[ 'slug' ] )
-			{
 				// The parent already exists, return its ID
 				return $term[ 'term_id' ];
-			}
-		}
 
 		// Does the parent also have a parent, and if so, should we create the parent?
 		$target_grandparent_id = 0;
 		if ( 0 != $source_parent[ 'parent' ] )
-		{
 			// Recursively insert ancestors, and get the newly inserted parent's ID
 			$target_grandparent_id = $this->insert_term_ancestors( $source_parent, $source_post_taxonomy, $target_blog_terms, $parent_blog_taxonomy_terms );
-		}
 
 		// Check if the parent exists at the target grandparent
 		$term_id = term_exists( $source_parent[ 'name' ], $source_post_taxonomy, $target_grandparent_id );
@@ -103,10 +92,8 @@ trait terms_and_taxonomies
 				$term_id = $action->new_term[ 'term_id' ];
 		}
 		elseif ( is_array( $term_id ) )
-		{
 			// The target parent exists and we got an array as response, extract parent id
 			$term_id = $term_id[ 'term_id' ];
-		}
 
 		return $term_id;
 	}
