@@ -1,11 +1,11 @@
 <?php
 /*
 Author:			edward_plainview
-Author Email:	edward@plainview.se
-Author URI:		http://www.plainview.se
+Author Email:	edward@plainviewplugins.com
+Author URI:		http://plainviewplugins.com
 Description:	Broadcast / multipost a post, with attachments, custom fields, tags and other taxonomies to other blogs in the network.
 Plugin Name:	ThreeWP Broadcast
-Plugin URI:		http://plainview.se/wordpress/threewp-broadcast/
+Plugin URI:		http://plainviewplugins.com/threewp-broadcast/
 Version:		15
 */
 

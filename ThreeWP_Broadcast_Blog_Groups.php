@@ -1,11 +1,11 @@
 <?php
 /*
 Author:			edward_plainview
-Author Email:	edward@plainview.se
-Author URI:		http://www.plainview.se
+Author Email:	edward@plainviewplugins.com
+Author URI:		http://plainviewplugins.com
 Description:	Allows users to create blog groups to ease blog selection when broadcasting.
 Plugin Name:	ThreeWP Broadcast Blog Groups
-Plugin URI:		http://plainview.se/wordpress/threewp-broadcast/
+Plugin URI:		http://plainviewplugins.com/threewp-broadcast/
 Version:		15
 */
 
