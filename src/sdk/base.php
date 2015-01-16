@@ -13,6 +13,7 @@ namespace plainview\sdk_broadcast;
 
 	This list only shows which classes were modified. For a detailed list, see the class' changelog.
 
+	- 20150116		array_rekey works with objects as values.
 	- 20150113		Wordpress forms should use the current scheme.
 	- 20150112		Wordpress debug flushes contents only if available. Thanks Flynsarmy.
 	- 20141228		Return false if no instance is available.
@@ -145,7 +146,7 @@ class base
 		@since		20130416
 		@var		$sdk_version
 	**/
-	protected $sdk_version = 20150113;
+	protected $sdk_version = 20150116;
 
 	/**
 		@brief		Constructor.
@@ -234,20 +235,19 @@ class base
 	}
 
 	/**
-		@brief		Make a value a key.
-		@details	Given an array of arrays, take the key from the subarray and makes it the key of the main array.
-		@param		$array		Array to rearrange.
-		@param		$key		Which if the subarray keys to make the key in the main array.
+		@brief		Rekey an array with the specified key/property of the array object.
+		@param		$array		Array to rekey.
+		@param		$key		Object key or array property to use as the new key.
 		@return		array		Rearranged array.
 		@since		20130416
 	**/
 	public static function array_rekey( $array, $key )
 	{
-		$r = array();
+		$r = [];
 		foreach( $array as $value )
 		{
-			$value = (array) $value;
-			$r[ $value[ $key ] ] = $value;
+			$object = (object)$value;
+			$r[ $object->$key ] = $value;
 		}
 		return $r;
 	}

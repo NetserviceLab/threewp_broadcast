@@ -202,12 +202,13 @@ APC works flawlessly.
 
 == Changelog ==
 
-= 16 2015xxxx =
+= 16 20150116 =
 * Fix: Fixed autoloading error for specific web hosts.
 * Comments: Can now keep comments synced between linked posts.
 * New: Premium Pack Plugin: Duplicate Attachments drastically speeds up broadcasting when using attachments. Also retains any manual modifications to the attachment thumbnails.
 * User Blog Settings: "On" for checkboxes no longer forces the checkbox to be ticked.
 * Fix: Form actions were incorrect for some non-standard installations, causing forms to timeout.
+* Optimization: Term syncing only syncs terms that are used. This should solve any out-of-memory errors that those with 39000+ terms were having.
 
 = 15 20141218 =
 * Code: Allow other plugins to prevent term creation.
