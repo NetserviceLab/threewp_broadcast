@@ -219,6 +219,7 @@ APC works flawlessly.
 
 = 17 2015xxxx =
 * Code: broadcasting_data now supplies new_child_created property.
+* Fix: Load translation javascript strings earlier. Credit Tobias.
 
 = 16 20150116 =
 * Fix: Fixed autoloading error for specific web hosts.
