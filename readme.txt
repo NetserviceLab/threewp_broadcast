@@ -217,6 +217,9 @@ APC works flawlessly.
 
 == Changelog ==
 
+= 17 2015xxxx =
+* Code: broadcasting_data now supplies new_child_created property.
+
 = 16 20150116 =
 * Fix: Fixed autoloading error for specific web hosts.
 * Fix: Form actions were incorrect for some non-standard installations, causing forms to timeout.
