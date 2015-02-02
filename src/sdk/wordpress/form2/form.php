@@ -99,7 +99,7 @@ class form
 
 				// If this is a container with a legend (fieldset) use the legend.
 				if ( isset( $input->legend ) )
-					$o2->header = $input->legend;
+					$o2->header = $input->legend->label->content;
 
 				$o2->inputs = $input->inputs;
 				$o2->r = '';
