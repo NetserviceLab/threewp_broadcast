@@ -107,7 +107,10 @@ class form
 				$this->display_form_table_inputs( $o2 );
 
 				$o->table = $this->base->table()->set_attribute( 'class', 'form-table' );
-				$o->r .= $o2->r;
+				$o->r .= sprintf( '<div class="fieldset fieldset_%s">%s</div>',
+					$input->get_name(),
+					$o2->r
+				);
 				continue;
 			}
 
