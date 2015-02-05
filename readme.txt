@@ -222,9 +222,9 @@ APC works flawlessly.
 * Fix: Load translation javascript strings earlier. Credit Tobias.
 * Fix: Added JS check for unreferenced broadcast_blogs_to_hide variable.
 * Fix: Corrected Exception class in terms_and_taxonomies trait.
+* Fix: No taxonomy terms on the parent will clear the taxonomy on the child also.
 * Premium Pack Plugin: Added "Social Networks Auto Poster" forces SNAP to use the unique social settings on each blog
 * Premium Pack Plugin: Added "Find Some Unlinked Children" selectively find unlinked children to link.
-
 
 = 16 20150116 =
 * Fix: Fixed autoloading error for specific web hosts.
