@@ -221,6 +221,7 @@ APC works flawlessly.
 * Code: broadcasting_data now supplies new_child_created property.
 * Fix: Load translation javascript strings earlier. Credit Tobias.
 * Fix: Added JS check for unreferenced broadcast_blogs_to_hide variable.
+* Fix: Corrected Exception class in terms_and_taxonomies trait.
 * Premium Pack Plugin: Added "Social Networks Auto Poster" forces SNAP to use the unique social settings on each blog
 * Premium Pack Plugin: Added "Find Some Unlinked Children" selectively find unlinked children to link.
 

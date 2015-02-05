@@ -311,7 +311,7 @@ trait terms_and_taxonomies
 			}
 			else
 			{
-				throw new Exception( 'Unable to create a new term.' );
+				throw new \Exception( 'Unable to create a new term.' );
 			}
 		}
 
