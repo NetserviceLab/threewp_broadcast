@@ -225,7 +225,6 @@ APC works flawlessly.
 * Premium Pack Plugin: Added "Social Networks Auto Poster" forces SNAP to use the unique social settings on each blog
 * Premium Pack Plugin: Added "Find Some Unlinked Children" selectively find unlinked children to link.
 
-
 = 16 20150116 =
 * Fix: Fixed autoloading error for specific web hosts.
 * Fix: Form actions were incorrect for some non-standard installations, causing forms to timeout.
