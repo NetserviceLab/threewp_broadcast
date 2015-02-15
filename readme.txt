@@ -223,6 +223,7 @@ APC works flawlessly.
 * Fix: Added JS check for unreferenced broadcast_blogs_to_hide variable.
 * Fix: Corrected Exception class in terms_and_taxonomies trait.
 * Fix: Javascript error on clicking child's "broadcasted by" link (for unlinking popup). Credit jaapbaardaap. See https://github.com/the-plainview/threewp_broadcast/issues/28
+* Fix: No taxonomy terms on the parent will clear the taxonomy on the child also.
 * Premium Pack Plugin: Added "Social Networks Auto Poster" forces SNAP to use the unique social settings on each blog
 * Premium Pack Plugin: Added "Find Some Unlinked Children" selectively find unlinked children to link.
 
