@@ -217,7 +217,7 @@ APC works flawlessly.
 
 == Changelog ==
 
-= 17 2015xxxx =
+= 17 20150216 =
 * Code: broadcasting_data now supplies new_child_created property.
 * Fix: Load translation javascript strings earlier. Credit Tobias.
 * Fix: Added JS check for unreferenced broadcast_blogs_to_hide variable.
@@ -226,6 +226,7 @@ APC works flawlessly.
 * Fix: No taxonomy terms on the parent will clear the taxonomy on the child also.
 * Premium Pack Plugin: Added "Social Networks Auto Poster" forces SNAP to use the unique social settings on each blog
 * Premium Pack Plugin: Added "Find Some Unlinked Children" selectively find unlinked children to link.
+* Premium Pack Plugin: User & Blog Settings: Able to hide post bulk actions from users.
 
 = 16 20150116 =
 * Fix: Fixed autoloading error for specific web hosts.

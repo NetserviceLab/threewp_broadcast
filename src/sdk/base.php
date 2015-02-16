@@ -13,6 +13,8 @@ namespace plainview\sdk_broadcast;
 
 	This list only shows which classes were modified. For a detailed list, see the class' changelog.
 
+	- 20150209		Collection->collection() added.
+	- 20150208		Wordpress udpater: Don't freeze if the server cannot be reached.
 	- 20150204		Wordpress widefat table has hover effect on rows.
 	- 20150202		Wrap the Wordpress input table fieldsets in a div.
 	- 20150202		Wordpress form table fieldset legends are displayed as plain h3.
@@ -149,7 +151,7 @@ class base
 		@since		20130416
 		@var		$sdk_version
 	**/
-	protected $sdk_version = 20150204;
+	protected $sdk_version = 20150209;
 
 	/**
 		@brief		Constructor.
