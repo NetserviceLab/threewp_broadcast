@@ -89,6 +89,7 @@ Available in the following languages:
 * Italian
 * French
 * Romanian, Web Geek Sciense <a href="http://webhostinggeeks.com/">Web Hosting Geeks</a>
+* Serbian, Borisa Djuraskovic at <a href="http://www.webhostinghub.com">www.webhostinghub.com</a>
 * Spanish
 * Swedish
 
@@ -216,6 +217,9 @@ Xcache v3, which does support namespaces, has not yet been tested. Anyone with X
 APC works flawlessly.
 
 == Changelog ==
+
+= 18 2015xxxx =
+* Serbian translation. Credit Borisa Djuraskovic at www.webhostinghub.com.
 
 = 17.1 20150219 =
 * Fix: No more warning when there are no terms in a taxonomy.
