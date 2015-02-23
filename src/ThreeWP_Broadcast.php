@@ -489,7 +489,6 @@ class ThreeWP_Broadcast
 	**/
 	public function hook_save_post()
 	{
-		$this->debug( 'Hooking into save post.' );
 		$this->add_action( 'save_post', intval( $this->get_site_option( 'save_post_priority' ) ) );
 	}
 
