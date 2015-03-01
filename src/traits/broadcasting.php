@@ -293,6 +293,11 @@ trait broadcasting
 						$bcd->new_post[ 'ID' ] = $child_post_id;
 						$need_to_insert_post = false;
 					}
+					else
+					{
+						$this->debug( 'Error: The child post has disappeared.', $child_post_id );
+						continue;
+					}
 				}
 
 			if ( $need_to_insert_post )
