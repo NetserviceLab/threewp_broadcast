@@ -295,8 +295,8 @@ trait broadcasting
 					}
 					else
 					{
-						$this->debug( 'Error: The child post has disappeared.', $child_post_id );
-						continue;
+						$this->debug( 'Warning: The child post has disappeared. Recreating.' );
+						$need_to_insert_post = true;
 					}
 				}
 

@@ -220,6 +220,7 @@ APC works flawlessly.
 
 = 18 2015xxxx =
 * Serbian translation. Credit Borisa Djuraskovic at www.webhostinghub.com.
+* Fix: Recreate child posts that have been deleted but not unlinked. This is a workaround for a rare condition.
 
 = 17.1 20150219 =
 * Fix: No more warning when there are no terms in a taxonomy.
