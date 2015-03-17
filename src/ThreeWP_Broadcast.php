@@ -528,7 +528,8 @@ class ThreeWP_Broadcast
 	**/
 	public static function get_user_capabilities()
 	{
-		$key = sprintf( 'wp_%s_capabilities', get_current_blog_id() );
+		global $wpdb;
+		$key = sprintf( '%scapabilities', $wpdb->prefix );
 		$r = get_user_meta( get_current_user_id(), $key, true );
 
 		if ( is_super_admin() )
