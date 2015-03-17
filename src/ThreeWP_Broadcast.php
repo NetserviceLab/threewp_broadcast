@@ -222,7 +222,7 @@ class ThreeWP_Broadcast
 				$old_value = $this->get_site_option( $old_role_option );
 				if ( is_array( $old_value ) )
 					continue;
-				$new_value = $this->convert_old_role( $old_value );
+				$new_value = static::convert_old_role( $old_value );
 				$this->update_site_option( $old_role_option, $new_value );
 			}
 			$db_ver = 7;
@@ -408,7 +408,7 @@ class ThreeWP_Broadcast
 		@details	Used to convert 'editor' to [ 'editor', 'author', 'contribuor', 'subscriber' ], for example.
 		@since		2015-03-17 18:09:27
 	**/
-	public function convert_old_role( $role )
+	public static function convert_old_role( $role )
 	{
 		$old_roles = [ 'super_admin', 'administrator', 'editor', 'author', 'contributor', 'subscriber' ];
 		foreach( $old_roles as $index => $old_role )
@@ -523,6 +523,21 @@ class ThreeWP_Broadcast
 	}
 
 	/**
+		@brief		Return the user's capabilities on this blog as an array.
+		@since		2015-03-17 18:56:30
+	**/
+	public static function get_user_capabilities()
+	{
+		$key = sprintf( 'wp_%s_capabilities', get_current_blog_id() );
+		$r = get_user_meta( get_current_user_id(), $key, true );
+
+		if ( is_super_admin() )
+			$r[ 'super_admin' ] = true;
+
+		return $r;
+	}
+
+	/**
 		@brief		Insert hook into save post action.
 		@since		2015-02-10 20:38:22
 	**/
@@ -623,6 +638,18 @@ class ThreeWP_Broadcast
 			'role_taxonomies' => [ 'super_admin' ],					// Role required to broadcast the taxonomies
 			'role_custom_fields' => [ 'super_admin' ],				// Role required to broadcast the custom fields
 		], parent::site_options() );
+	}
+
+	/**
+		@brief		Does the user have any of these roles?
+		@since		2015-03-17 18:57:33
+	**/
+	public static function user_has_roles( $roles )
+	{
+		$user_roles = static::get_user_capabilities();
+		$user_roles = array_keys ( $user_roles );
+		$intersect = array_intersect( $user_roles, $roles );
+		return count( $intersect ) > 0;
 	}
 
 	/**
