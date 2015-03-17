@@ -646,6 +646,8 @@ class ThreeWP_Broadcast
 	**/
 	public static function user_has_roles( $roles )
 	{
+		if ( ! is_array( $roles ) )
+			$roles = [ $roles ];
 		$user_roles = static::get_user_capabilities();
 		$user_roles = array_keys ( $user_roles );
 		$intersect = array_intersect( $user_roles, $roles );
