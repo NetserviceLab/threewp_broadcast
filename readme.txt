@@ -219,6 +219,7 @@ APC works flawlessly.
 == Changelog ==
 
 = 18 2015xxxx =
+* New: Multiple roles can now be selected. Check that your role settings are correct.
 * Serbian translation. Credit Borisa Djuraskovic at www.webhostinghub.com.
 * Fix: Recreate child posts that have been deleted but not unlinked. This is a workaround for a rare condition.
 
@@ -661,6 +662,10 @@ Skipping version 13.
 * Initial public release
 
 == Upgrade Notice ==
+
+= 18 =
+
+* Check that your role settings are correct.
 
 = 2.2 =
 
