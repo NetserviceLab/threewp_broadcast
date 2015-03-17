@@ -208,6 +208,26 @@ class ThreeWP_Broadcast
 			$db_ver = 6;
 		}
 
+		if ( $db_ver < 7 )
+		{
+			foreach( [
+				'role_broadcast',
+				'role_link',
+				'role_broadcast_as_draft',
+				'role_broadcast_scheduled_posts',
+				'role_taxonomies',
+				'role_custom_fields',
+			] as $old_role_option )
+			{
+				$old_value = $this->get_site_option( $old_role_option );
+				if ( is_array( $old_value ) )
+					continue;
+				$new_value = $this->convert_old_role( $old_value );
+				$this->update_site_option( $old_role_option, $new_value );
+			}
+			$db_ver = 7;
+		}
+
 		$this->update_site_option( 'database_version', $db_ver );
 	}
 
@@ -381,6 +401,25 @@ class ThreeWP_Broadcast
 	public static function collection()
 	{
 		return new \plainview\sdk_broadcast\collections\Collection();
+	}
+
+	/**
+		@brief		Convert old role to array of roles.
+		@details	Used to convert 'editor' to [ 'editor', 'author', 'contribuor', 'subscriber' ], for example.
+		@since		2015-03-17 18:09:27
+	**/
+	public function convert_old_role( $role )
+	{
+		$old_roles = [ 'super_admin', 'administrator', 'editor', 'author', 'contributor', 'subscriber' ];
+		foreach( $old_roles as $index => $old_role )
+		{
+			if ( $old_role != $role )
+				continue;
+			// The new roles are the rest of the array.
+			return array_slice( $old_roles, $index );
+		}
+		// Didn't find anything? Return the same role, but in an array.
+		return [ $role ];
 	}
 
 	/**
@@ -577,12 +616,12 @@ class ThreeWP_Broadcast
 			'override_child_permalinks' => false,				// Make the child's permalinks link back to the parent item?
 			'post_types' => 'post page',						// Custom post types which use broadcasting
 			'existing_attachments' => 'use',					// What to do with existing attachments: use, overwrite, randomize
-			'role_broadcast' => 'super_admin',					// Role required to use broadcast function
-			'role_link' => 'super_admin',						// Role required to use the link function
-			'role_broadcast_as_draft' => 'super_admin',			// Role required to broadcast posts as templates
-			'role_broadcast_scheduled_posts' => 'super_admin',	// Role required to broadcast scheduled, future posts
-			'role_taxonomies' => 'super_admin',					// Role required to broadcast the taxonomies
-			'role_custom_fields' => 'super_admin',				// Role required to broadcast the custom fields
+			'role_broadcast' => [ 'super_admin' ],					// Role required to use broadcast function
+			'role_link' => [ 'super_admin' ],						// Role required to use the link function
+			'role_broadcast_as_draft' => [ 'super_admin' ],			// Role required to broadcast posts as templates
+			'role_broadcast_scheduled_posts' => [ 'super_admin' ],	// Role required to broadcast scheduled, future posts
+			'role_taxonomies' => [ 'super_admin' ],					// Role required to broadcast the taxonomies
+			'role_custom_fields' => [ 'super_admin' ],				// Role required to broadcast the custom fields
 		], parent::site_options() );
 	}
 
