@@ -222,6 +222,7 @@ APC works flawlessly.
 * New: Multiple roles can now be selected. Check that your role settings are correct.
 * Serbian translation. Credit Borisa Djuraskovic at www.webhostinghub.com.
 * Fix: Recreate child posts that have been deleted but not unlinked. This is a workaround for a rare condition.
+* Fix: Broadcast data can be lookup up via blog+post ID, in addition to the row in the database.
 
 = 17.1 20150219 =
 * Fix: No more warning when there are no terms in a taxonomy.
