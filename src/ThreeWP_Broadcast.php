@@ -294,7 +294,7 @@ class ThreeWP_Broadcast
 		if ( $action->is_finished() )
 			return;
 
-		$blogs = get_blogs_of_user( $action->user_id, true );
+		$blogs = get_blogs_of_user( $action->user_id );
 		foreach( $blogs as $blog)
 		{
 			$blog = blog::make( $blog );

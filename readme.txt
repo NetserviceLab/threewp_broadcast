@@ -223,6 +223,7 @@ APC works flawlessly.
 * Serbian translation. Credit Borisa Djuraskovic at www.webhostinghub.com.
 * Fix: Recreate child posts that have been deleted but not unlinked. This is a workaround for a rare condition.
 * Fix: Broadcast data can be lookup up via blog+post ID, in addition to the row in the database.
+* Fix: Do not show archived, deleted and spammed blogs in the meta box.
 
 = 17.1 20150219 =
 * Fix: No more warning when there are no terms in a taxonomy.
