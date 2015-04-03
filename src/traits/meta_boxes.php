@@ -146,7 +146,7 @@ trait meta_boxes
 
 		if ( is_super_admin() || static::user_has_roles( $this->get_site_option( 'role_link' ) ) )
 		{
-			// Check the link box is the post has been published and has children OR it isn't published yet.
+			// Check the link box if the post has been published and has children OR it isn't published yet.
 			$linked = (
 				( $published && $meta_box_data->broadcast_data->has_linked_children() )
 				||
