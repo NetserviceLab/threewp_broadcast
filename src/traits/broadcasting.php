@@ -90,6 +90,13 @@ trait broadcasting
 				$bcd->custom_fields = (object)[];
 
 			$this->debug( 'Custom fields: Will broadcast custom fields.' );
+
+			if ( isset( $GLOBALS[ 'wpseo_metabox' ] ) )
+			{
+				$this->debug( 'Yoast SEO detected. Activating workaround. Asking metabox to save its settings.' );
+				$GLOBALS[ 'wpseo_metabox' ]->save_postdata( $bcd->post->ID );
+			}
+
 			$bcd->post_custom_fields = get_post_custom( $bcd->post->ID );
 
 			$this->debug( 'The custom fields are <pre>%s</pre>', $bcd->post_custom_fields );
