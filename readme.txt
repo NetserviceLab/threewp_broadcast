@@ -218,8 +218,8 @@ APC works flawlessly.
 
 == Changelog ==
 
-= 18 2015xxxx =
-* New: Multiple roles can now be selected. Check that your role settings are correct.
+= 18 20150412 =
+* New: Multiple roles can now be selected. Check that your role settings are correct after upgrading.
 * Serbian translation. Credit Borisa Djuraskovic at www.webhostinghub.com.
 * Fix: Recreate child posts that have been deleted but not unlinked. This is a workaround for a rare condition.
 * Fix: Broadcast data can be looked up up via blog+post ID, in addition to the row in the database. See the maintenance tab.
@@ -228,6 +228,8 @@ APC works flawlessly.
 * Fix: Workaround for Yoast SEO data not being saved.
 * Fix: Removed mysqli warnings when creating UBS modifications and queue objects.
 * Code: Equivalent terms are saved during term syncing.
+* Premium Pack Plugin: Added "Protect Child Author".
+
 
 = 17.1 20150219 =
 * Fix: No more warning when there are no terms in a taxonomy.
