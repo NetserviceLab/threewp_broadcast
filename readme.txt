@@ -228,6 +228,7 @@ APC works flawlessly.
 * Fix: Workaround for Yoast SEO data not being saved.
 * Fix: Removed mysqli warnings when creating UBS modifications and queue objects.
 * Code: Equivalent terms are saved during term syncing.
+* Premium Pack Plugin: Added "Blog Groups 2".
 * Premium Pack Plugin: Added "Protect Child Author".
 
 
