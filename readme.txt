@@ -226,6 +226,8 @@ APC works flawlessly.
 * Fix: Do not show archived, deleted and spammed blogs in the meta box.
 * Fix: Better temp-directory handling when running maintenance checks.
 * Fix: Workaround for Yoast SEO data not being saved.
+* Fix: Removed mysqli warnings when creating UBS modifications and queue objects.
+* Code: Equivalent terms are saved during term syncing.
 
 = 17.1 20150219 =
 * Fix: No more warning when there are no terms in a taxonomy.
