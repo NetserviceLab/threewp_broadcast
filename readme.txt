@@ -3,7 +3,7 @@ Contributors: edward_plainview
 License: GPLv3
 Requires at least: 3.3.1
 Stable tag: trunk
-Tags: broadcast, multipost, sharing, share content, duplicate, posts, marketing, threewp, linking, posts, multiple, blogs, sitepress, woocommerce, synchronize, event organiser, acf, all in one calendar, menu, copy menu, duplicate menu
+Tags: broadcast, multipost, sharing, share content, duplicate, posts, marketing, threewp, linking, posts, multiple, blogs, sitepress, woocommerce, synchronize, event organiser, acf, all in one calendar, menu, copy menu, duplicate menu, transmit, post, transmission, multisite, queue, parent, children
 Tested up to: 4.1
 
 Network content sharing by multiposting between blogs for PHP v5.4+. Posts can be linked to each other and updated automatically.
