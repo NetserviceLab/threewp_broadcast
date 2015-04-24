@@ -218,6 +218,9 @@ APC works flawlessly.
 
 == Changelog ==
 
+= 18.1 20150424 =
+* Fix: Network admin can do anything network admin wants.
+
 = 18 20150412 =
 * New: Multiple roles can now be selected. Check that your role settings are correct after upgrading.
 * Serbian translation. Credit Borisa Djuraskovic at www.webhostinghub.com.
