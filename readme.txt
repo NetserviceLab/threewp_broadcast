@@ -218,6 +218,9 @@ APC works flawlessly.
 
 == Changelog ==
 
+= 19 2015xxxx =
+* Code: New action: each_linked_post, used to modify all linked posts via a PHP callback.
+
 = 18.1 20150424 =
 * Fix: Network admin can do anything network admin wants.
 * Bump Wordpress version to 4.2
