@@ -220,6 +220,8 @@ APC works flawlessly.
 
 = 19 2015xxxx =
 * Code: New action: each_linked_post, used to modify all linked posts via a PHP callback.
+* Code: new_post_old_custom_fields in broadcasting_data object.
+* Code: broadcasting_data->new_post is now a post object. Retrieve using new_post() method. Retrieve keys using new_post( 'ID' ).
 
 = 18.1 20150424 =
 * Fix: Network admin can do anything network admin wants.
