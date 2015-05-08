@@ -1,10 +1,10 @@
 === ThreeWP Broadcast ===
 Contributors: edward_plainview
 License: GPLv3
-Requires at least: 3.3.1
+Requires at least: 3.9
 Stable tag: trunk
 Tags: broadcast, multipost, sharing, share content, duplicate, posts, marketing, threewp, linking, posts, multiple, blogs, sitepress, woocommerce, synchronize, event organiser, acf, all in one calendar, menu, copy menu, duplicate menu, transmit, post, transmission, multisite, queue, parent, children
-Tested up to: 4.2
+Tested up to: 4.2.2
 
 Network content sharing by multiposting between blogs for PHP v5.4+. Posts can be linked to each other and updated automatically.
 
@@ -118,15 +118,9 @@ The git repository can be found at: https://github.com/the-plainview/threewp_bro
 
 = I need support! =
 
-The easiest way to get my attention is to <a href="mailto:edward@plainviewplugins.com">contact me via e-mail</a> and ask how to donate a little something for my time.
+Broadcast is sporadically supported in my spare time on the Wordpress support forum.
 
-For contract work such as the following, contact me so we can come to an agreement:
-
-* Broadcast is missing a feature you need
-* Broadcast isn't properly interacting with other plugins
-* Broadcast doesn't work on your custom site
-
-If you're not into donations, try the support forum to see if other users can help you out.
+For users of the plugin pack, support is available via e-mail.
 
 = Debug dumps =
 
@@ -202,19 +196,17 @@ If you have a product gallery, use the "Custom Field Attachments" premium plugin
 
 = WPML Sitepress =
 
-WPML is semi-supported via a plugin in the premium pack.
-
-For more information, see WPML discussion here: http://wordpress.org/support/topic/wmpl-integration-not-working
+WPML is semi-supported via a plugin in the premium pack. For more information, see WPML discussion here: http://wordpress.org/support/topic/wmpl-integration-not-working
 
 The author suggests using PolyLang instead due to far superior support.
 
 = XCache vs APC opcode cache =
 
+APC works flawlessly.
+
 Xcache v2 does not support PHP namespaces, which is a PHP 5.3 feature. Trying to enable Broadcast with Xcache v2 enabled will result in a PHP crash.
 
 Xcache v3, which does support namespaces, has not yet been tested. Anyone with Xcache v3 experience is welcome to contact me with info.
-
-APC works flawlessly.
 
 == Changelog ==
 
@@ -222,6 +214,7 @@ APC works flawlessly.
 * Code: New action: each_linked_post, used to modify all linked posts via a PHP callback.
 * Code: new_post_old_custom_fields in broadcasting_data object.
 * Code: broadcasting_data->new_post is now a post object. Retrieve using new_post() method. Retrieve keys using new_post( 'ID' ).
+* Bump Wordpress version to 4.2.2
 
 = 18.1 20150424 =
 * Fix: Network admin can do anything network admin wants.
