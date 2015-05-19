@@ -79,7 +79,7 @@ Although Broadcast is relatively easy to understand by itself, for extra documen
 
 = Misc =
 
-Requires php v5.4 for trait support. PHP 5.3 is no longer officially supported.
+Requires PHP v5.4, since 5.3 is no longer officially supported.
 
 Available in the following languages:
 
@@ -158,6 +158,8 @@ If you have already created posts on other blogs that are supposed to be childre
 
 To be considered an orphan the orphaned posts must have the exact same title (name) as the soon-to-be parent and be of the same post type.
 
+You can also use the <em>Delete Before Broadcast</em> plugin from the pack to delete any similar posts on the child blog before broadcasting.
+
 = Timeout problems =
 
 If you have many attachments in your post, and are broadcasting the post to many blogs, you might encounter a PHP timeout. This means that broadcasting exceeded the PHP time limit and had to be aborted.
@@ -194,6 +196,8 @@ If your products have variations, or you want the attribute taxonomies to be syn
 
 If you have a product gallery, use the "Custom Field Attachments" premium plugin to broadcast the "_product_image_gallery" custom field.
 
+Need your stock or PDF vouchers synced upon each purchase? See the WooCommerce extras in the Plugin Pack.
+
 = WPML Sitepress =
 
 WPML is semi-supported via a plugin in the premium pack. For more information, see WPML discussion here: http://wordpress.org/support/topic/wmpl-integration-not-working
@@ -210,11 +214,13 @@ Xcache v3, which does support namespaces, has not yet been tested. Anyone with X
 
 == Changelog ==
 
-= 19 2015xxxx =
+= 19 20150519 =
 * Code: New action: each_linked_post, used to modify all linked posts via a PHP callback.
 * Code: new_post_old_custom_fields in broadcasting_data object.
-* Code: broadcasting_data->new_post is now a post object. Retrieve using new_post() method. Retrieve keys using new_post( 'ID' ).
+* Code: broadcasting_data->new_post is now a post object. Retrieve using ->new_post() method. Retrieve keys using ->new_post( 'ID' ).
 * Bump Wordpress version to 4.2.2
+* New Plugin Pack Plugins: Delete Before Broadcast, Protect Child Properties.
+* New Plugin Pack Extras: All Blogs cache clear, WooCommerce stock sync, Woocommerce PDF voucher sync
 
 = 18.1 20150424 =
 * Fix: Network admin can do anything network admin wants.
