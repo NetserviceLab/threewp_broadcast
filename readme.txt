@@ -214,7 +214,7 @@ Xcache v3, which does support namespaces, has not yet been tested. Anyone with X
 
 == Changelog ==
 
-= xx 2015xxxx =
+= 19.1 20150524 =
 * Fix: Find Unlinked Children will not add children that already have parents or are parents themselves.
 
 = 19 20150519 =
