@@ -214,6 +214,9 @@ Xcache v3, which does support namespaces, has not yet been tested. Anyone with X
 
 == Changelog ==
 
+= xx 2015xxxx =
+* Fix: Find Unlinked Children will not add children that already have parents or are parents themselves.
+
 = 19 20150519 =
 * Code: New action: each_linked_post, used to modify all linked posts via a PHP callback.
 * Code: new_post_old_custom_fields in broadcasting_data object.
