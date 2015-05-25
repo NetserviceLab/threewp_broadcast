@@ -274,6 +274,9 @@ trait broadcasting
 				continue;
 			}
 
+			// Force a reload the broadcast data.
+			$bcd->broadcast_data = $this->get_post_broadcast_data( $bcd->parent_blog_id, $bcd->post->ID );
+
 			// Post parent
 			if ( $bcd->link && isset( $parent_broadcast_data) )
 				if ( $parent_broadcast_data->has_linked_child_on_this_blog() )
@@ -646,6 +649,10 @@ trait broadcasting
 				$new_post_broadcast_data = $this->get_post_broadcast_data( $bcd->current_child_blog_id, $bcd->new_post( 'ID' ) );
 				$new_post_broadcast_data->set_linked_parent( $bcd->parent_blog_id, $bcd->post->ID );
 				$this->set_post_broadcast_data( $bcd->current_child_blog_id, $bcd->new_post( 'ID' ), $new_post_broadcast_data );
+
+				// Save the parent also.
+				$this->debug( 'Saving parent broadcast data.' );
+				$this->set_post_broadcast_data( $bcd->parent_blog_id, $bcd->post->ID, $bcd->broadcast_data );
 			}
 
 			$action = new actions\broadcasting_before_restore_current_blog;
@@ -657,13 +664,6 @@ trait broadcasting
 
 		// For nested broadcasts. Just in case.
 		restore_current_blog();
-
-		// Save the post broadcast data.
-		if ( $bcd->link )
-		{
-			$this->debug( 'Saving broadcast data.' );
-			$this->set_post_broadcast_data( $bcd->parent_blog_id, $bcd->post->ID, $bcd->broadcast_data );
-		}
 
 		$action = new actions\broadcasting_finished;
 		$action->broadcasting_data = $bcd;
