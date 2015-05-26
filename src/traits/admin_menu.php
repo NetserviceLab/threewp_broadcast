@@ -73,7 +73,7 @@ trait admin_menu
 		// PHP maximum execution time
 		$row = $table->body()->row();
 		$row->td()->text_( 'PHP maximum execution time' );
-		$text = sprintf( '%s seconds', ini_get ( 'max_execution_time' ) );
+		$text = $this->p_( '%s seconds', ini_get ( 'max_execution_time' ) );
 		$row->td()->text( $text );
 
 		// PHP maximum memory limit
@@ -85,23 +85,23 @@ trait admin_menu
 		// WP maximum memory limit
 		$row = $table->body()->row();
 		$row->td()->text_( 'Wordpress memory limit' );
-		$text = $this->p( WP_MEMORY_LIMIT . "
+		$text = wpautop( sprintf( WP_MEMORY_LIMIT . "
 
-This can be increased by adding the following to your wp-config.php:
+%s
 
 <code>define('WP_MEMORY_LIMIT', '512M');</code>
-" );
+",		$this->_( 'This can be increased by adding the following to your wp-config.php:' ) ) );
 		$row->td()->text( $text );
 
 		// Debug info
 		$row = $table->body()->row();
 		$row->td()->text_( 'Debug code' );
 		$text = WP_MEMORY_LIMIT;
-		$text = $this->p( "Add the following lines to your wp-config.php to help find out why errors or blank screens are occurring:
+		$text = wpautop( sprintf( "%s
 
 <code>ini_set('display_errors','On');</code>
 <code>define('WP_DEBUG', true);</code>
-" );
+",		$this->p_( 'Add the following lines to your wp-config.php to help find out why errors or blank screens are occurring:' ) ) );
 		$row->td()->text( $text );
 
 		echo $table;
@@ -177,7 +177,7 @@ This can be increased by adding the following to your wp-config.php:
 		$fs->legend->label_( 'Roles' );
 
 		$fs->markup( 'm_roles' )
-			->p( 'Multiple roles may be selected. Each role must be individually selected, since there is no automatic hierarchy where, for example, authors automatically include the editor role. Note that only the roles on this blog can be shown.' );
+			->p_( 'Multiple roles may be selected. Each role must be individually selected, since there is no automatic hierarchy where, for example, authors automatically include the editor role. Note that only the roles on this blog can be shown.' );
 
 		$role_broadcast = $fs->select( 'role_broadcast' )
 			->value( $this->get_site_option( 'role_broadcast' ) )
@@ -310,9 +310,9 @@ This can be increased by adding the following to your wp-config.php:
 		$existing_attachments = $fs->select( 'existing_attachments' )
 			->description_( 'Action to take when attachments with the same filename already exist on the child blog.' )
 			->label_( 'Existing attachments' )
-			->option( 'Use the existing attachment on the child blog', 'use' )
-			->option( 'Overwrite the attachment', 'overwrite' )
-			->option( 'Create a new attachment with a randomized suffix', 'randomize' )
+			->option_( 'Use the existing attachment on the child blog', 'use' )
+			->option_( 'Overwrite the attachment', 'overwrite' )
+			->option_( 'Create a new attachment with a randomized suffix', 'randomize' )
 			->required()
 			->value( $this->get_site_option( 'existing_attachments', 'use' ) );
 

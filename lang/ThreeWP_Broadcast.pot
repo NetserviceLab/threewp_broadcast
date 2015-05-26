@@ -13,6 +13,11 @@ msgstr ""
 msgid "%s rows left to check..."
 msgstr ""
 
+#: src/traits/admin_menu.php:76
+#, php-format
+msgid "%s seconds"
+msgstr ""
+
 #: src/traits/admin_menu.php:132
 #, php-format
 msgid "A list of custom post types that have broadcasting enabled. The default value is %s."
@@ -35,6 +40,10 @@ msgstr ""
 msgid "Activate plugin"
 msgstr ""
 
+#: src/traits/admin_menu.php:104
+msgid "Add the following lines to your wp-config.php to help find out why errors or blank screens are occurring:"
+msgstr ""
+
 #: src/sdk/wordpress/table/top/bulkactions.php:100
 msgid "Apply"
 msgstr ""
@@ -44,13 +53,13 @@ msgstr ""
 msgid "Beginning to check broadcast data. %s rows to check."
 msgstr ""
 
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:384
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:383
 msgid "Blog group saved!"
 msgstr ""
 
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:250
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:249
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:275
 #: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:276
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:277
 msgid "Blog groups"
 msgstr ""
 
@@ -59,7 +68,7 @@ msgid "Blog groups help you to quickly add blogs to the broadcast. First create 
 msgstr ""
 
 #: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:122
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:348
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:347
 msgid "Blogs"
 msgstr ""
 
@@ -160,8 +169,12 @@ msgstr ""
 msgid "Create a link to the children, which will be updated when this post is updated, trashed when this post is trashed, etc."
 msgstr ""
 
+#: src/traits/admin_menu.php:315
+msgid "Create a new attachment with a randomized suffix"
+msgstr ""
+
 #. Form to add a new blog group.
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:162
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:161
 msgid "Create a new blog group"
 msgstr ""
 
@@ -245,11 +258,11 @@ msgstr ""
 msgid "Delete the child post"
 msgstr ""
 
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:403
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:402
 msgid "Delete the group"
 msgstr ""
 
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:396
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:395
 msgid "Delete this blog group"
 msgstr ""
 
@@ -261,7 +274,7 @@ msgstr ""
 msgid "Display in overview"
 msgstr ""
 
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:222
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:221
 msgid "Edit blog group"
 msgstr ""
 
@@ -293,7 +306,7 @@ msgstr ""
 msgid "Force new version check"
 msgstr ""
 
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:333
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:332
 msgid "General settings"
 msgstr ""
 
@@ -302,7 +315,7 @@ msgid "Get link to latest version as zip"
 msgstr ""
 
 #: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:76
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:336
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:335
 msgid "Group name"
 msgstr ""
 
@@ -314,7 +327,7 @@ msgstr ""
 msgid "How many children to display in the overview before making the list into a summary."
 msgstr ""
 
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:399
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:398
 msgid "I want to delete this blog group"
 msgstr ""
 
@@ -386,6 +399,10 @@ msgstr ""
 msgid "Miscellaneous"
 msgstr ""
 
+#: src/traits/admin_menu.php:180
+msgid "Multiple roles may be selected. Each role must be individually selected, since there is no automatic hierarchy where, for example, authors automatically include the editor role. Note that only the roles on this blog can be shown."
+msgstr ""
+
 #: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:121
 msgid "Name"
 msgstr ""
@@ -398,7 +415,7 @@ msgstr ""
 msgid "No change"
 msgstr ""
 
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:251
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:250
 msgid "No group selected"
 msgstr ""
 
@@ -411,8 +428,12 @@ msgstr ""
 msgid "Only show debugging info to specific IP addresses. Use spaces between IPs. You can also specify part of an IP address. Your address is %s"
 msgstr ""
 
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:217
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:216
 msgid "Overview"
+msgstr ""
+
+#: src/traits/admin_menu.php:314
+msgid "Overwrite the attachment"
 msgstr ""
 
 #: src/traits/admin_menu.php:75
@@ -496,12 +517,12 @@ msgstr ""
 msgid "Restore the child post from the trash"
 msgstr ""
 
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:182
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:181
 msgid "Role needed to use the group function."
 msgstr ""
 
 #: src/traits/admin_menu.php:177
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:178
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:177
 msgid "Roles"
 msgstr ""
 
@@ -519,7 +540,7 @@ msgid "SS"
 msgstr ""
 
 #: src/traits/admin_menu.php:322
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:189
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:188
 msgid "Save settings"
 msgstr ""
 
@@ -532,7 +553,7 @@ msgid "Select / deselect all"
 msgstr ""
 
 #: src/traits/admin_menu.php:380
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:227
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:226
 msgid "Settings"
 msgstr ""
 
@@ -569,7 +590,7 @@ msgstr ""
 msgid "The blog group %s has been created!"
 msgstr ""
 
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:415
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:414
 msgid "The blog group has been deleted. Please return to the overview."
 msgstr ""
 
@@ -650,6 +671,10 @@ msgstr ""
 msgid "The value must be smaller or equal to"
 msgstr ""
 
+#: src/traits/admin_menu.php:93
+msgid "This can be increased by adding the following to your wp-config.php:"
+msgstr ""
+
 #: src/sdk/wordpress/form2/form.php:141
 msgid "This input is required."
 msgstr ""
@@ -699,7 +724,7 @@ msgid "Trash the child post"
 msgstr ""
 
 #: src/traits/admin_menu.php:383
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:228
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:227
 msgid "Uninstall"
 msgstr ""
 
@@ -732,16 +757,20 @@ msgstr ""
 msgid "Unlink this post from its parent."
 msgstr ""
 
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:370
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:369
 msgid "Update the blog group"
 msgstr ""
 
-#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:183
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:182
 msgid "Use groups"
 msgstr ""
 
 #: src/traits/admin_menu.php:230
 msgid "Use parent permalink"
+msgstr ""
+
+#: src/traits/admin_menu.php:313
+msgid "Use the existing attachment on the child blog"
 msgstr ""
 
 #: src/traits/admin_menu.php:229
