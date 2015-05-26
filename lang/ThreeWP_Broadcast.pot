@@ -1,559 +1,863 @@
-#: include/traits/admin_menu.php:158
+#: src/maintenance/checks/view_blog_access/check.php:65
+#, php-format
+msgid "%s does not have access to any blogs."
+msgstr ""
+
+#: src/maintenance/checks/view_blog_access/check.php:73
+#, php-format
+msgid "%s has access to the following blogs: %s%s%s"
+msgstr ""
+
+#: src/maintenance/checks/broadcast_data/check.php:225
+#, php-format
+msgid "%s rows left to check..."
+msgstr ""
+
+#: src/traits/admin_menu.php:132
 #, php-format
 msgid "A list of custom post types that have broadcasting enabled. The default value is %s."
 msgstr ""
 
-#: include/traits/admin_menu.php:328
+#: src/sdk/wordpress/traits/debug.php:45
+#, php-format
+msgid "According to the settings below, you are currently%s in debug mode. Don't forget to reload this page after saving the settings."
+msgstr ""
+
+#: src/traits/admin_menu.php:311
 msgid "Action to take when attachments with the same filename already exist on the child blog."
 msgstr ""
 
-#: include/traits/admin_menu.php:313
+#: src/sdk/wordpress/updater/edd.php:59 src/sdk/wordpress/updater/edd.php:85
+msgid "Activate license"
+msgstr ""
+
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:94
+msgid "Activate plugin"
+msgstr ""
+
+#: src/sdk/wordpress/table/top/bulkactions.php:100
+msgid "Apply"
+msgstr ""
+
+#: src/maintenance/checks/broadcast_data/check.php:313
+#, php-format
+msgid "Beginning to check broadcast data. %s rows to check."
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:384
+msgid "Blog group saved!"
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:250
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:276
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:277
+msgid "Blog groups"
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:105
+msgid "Blog groups help you to quickly add blogs to the broadcast. First create a blog group and select the blogs you want. When broadcasting the list of blog groups will appear above the blog list."
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:122
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:348
+msgid "Blogs"
+msgstr ""
+
+#: src/traits/admin_menu.php:296
 msgid "Blogs to hide"
 msgstr ""
 
-#: include/traits/admin_menu.php:208 include/traits/admin_menu.php:519
-#: include/traits/meta_boxes.php:29 include/traits/post_actions.php:60
+#: src/traits/meta_boxes.php:29 src/traits/post_actions.php:60
+#: src/traits/admin_menu.php:185 src/traits/admin_menu.php:502
 msgid "Broadcast"
 msgstr ""
 
-#: include/traits/admin_menu.php:262
+#: src/traits/admin_menu.php:245
 msgid "Broadcast all fields, including those beginning with underscores."
 msgstr ""
 
-#: include/traits/admin_menu.php:232
+#: src/traits/admin_menu.php:213
 msgid "Broadcast as draft"
 msgstr ""
 
-#: include/traits/admin_menu.php:220
+#: src/traits/admin_menu.php:199
 msgid "Broadcast custom fields"
 msgstr ""
 
-#: include/traits/admin_menu.php:470
+#: src/traits/admin_menu.php:453
 msgid "Broadcast information"
 msgstr ""
 
-#: include/traits/admin_menu.php:263
+#: src/traits/admin_menu.php:246
 msgid "Broadcast internal custom fields"
 msgstr ""
 
-#: include/traits/meta_boxes.php:99
+#: src/traits/meta_boxes.php:111
 msgid "Broadcast is in debug mode. More information than usual will be shown."
 msgstr ""
 
-#: include/traits/meta_boxes.php:104
+#: src/traits/meta_boxes.php:116
 msgid "Broadcast is not preparing the meta box because it has already been applied."
 msgstr ""
 
-#: include/ThreeWP_Broadcast.php:90
+#: src/ThreeWP_Broadcast.php:89
 msgid "Broadcast requires a Wordpress network to function."
 msgstr ""
 
-#: include/traits/admin_menu.php:238
+#: src/traits/admin_menu.php:220
 msgid "Broadcast scheduled posts"
 msgstr ""
 
-#: include/traits/admin_menu.php:226
+#: src/traits/admin_menu.php:206
 msgid "Broadcast taxonomies"
 msgstr ""
 
-#: include/traits/meta_boxes.php:191
+#: src/traits/meta_boxes.php:192
 msgid "Broadcast to"
 msgstr ""
 
-#: include/traits/post_actions.php:70
+#: src/traits/admin_menu.php:60
+msgid "Broadcast version"
+msgstr ""
+
+#: src/traits/post_actions.php:70
 msgid "Broadcasted"
 msgstr ""
 
-#: include/traits/admin_menu.php:252
+#: src/sdk/wordpress/table/top/bulkactions.php:103
+msgid "Bulk Actions"
+msgstr ""
+
+#: src/sdk/wordpress/table/top/bulkactions.php:102
+msgid "Bulk actions"
+msgstr ""
+
+#: src/traits/admin_menu.php:235
 msgid "Canonical URL"
 msgstr ""
 
-#: include/traits/admin_menu.php:251
+#: src/traits/admin_menu.php:234
 msgid "Child posts have their canonical URLs pointed to the URL of the parent post. This automatically disables the canonical URL from Yoast's Wordpress SEO plugin."
 msgstr ""
 
-#: include/traits/admin_menu.php:300
+#: src/traits/admin_menu.php:283
 msgid "Clear POST"
 msgstr ""
 
-#: include/traits/post_actions.php:149
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:113
+msgid "Click on the group name to edit or delete it."
+msgstr ""
+
+#: src/traits/post_actions.php:151
 msgid "Click to modify the post's linkage"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:910
+#: src/sdk/form.php:910
 msgid "Could not parse date"
 msgstr ""
 
-#: include/traits/meta_boxes.php:146
+#: src/traits/meta_boxes.php:158
 msgid "Create a link to the children, which will be updated when this post is updated, trashed when this post is trashed, etc."
 msgstr ""
 
-#: include/traits/admin_menu.php:255
+#. Form to add a new blog group.
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:162
+msgid "Create a new blog group"
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:82
+msgid "Create the blog group"
+msgstr ""
+
+#: src/traits/admin_menu.php:238
 msgid "Custom field handling"
 msgstr ""
 
-#: include/traits/meta_boxes.php:159
+#: src/traits/meta_boxes.php:171
 msgid "Custom fields"
 msgstr ""
 
-#: include/traits/admin_menu.php:398
+#: src/traits/admin_menu.php:381
 msgid "Custom post types"
 msgstr ""
 
-#: include/traits/admin_menu.php:173
+#: src/traits/admin_menu.php:147
 msgid "Custom post types must be specified using their internal Wordpress names on a new line each. It is not possible to automatically make a list of available post types on the whole network because of a limitation within Wordpress (the current blog knows only of its own custom post types)."
 msgstr ""
 
-#: include/traits/admin_menu.php:170
+#: src/traits/admin_menu.php:144
 msgid "Custom post types saved!"
 msgstr ""
 
-#: include/traits/admin_menu.php:156
+#: src/traits/admin_menu.php:130
 msgid "Custom post types to broadcast"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:397
+#: src/sdk/form.php:397
 msgid "DD"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:402
+#: src/sdk/form.php:402
 msgid "Date format"
 msgstr ""
 
-#: include/traits/admin_menu.php:428
+#: src/sdk/wordpress/updater/edd.php:66
+msgid "Deactivate license for this site"
+msgstr ""
+
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:95
+msgid "Deactivate plugin"
+msgstr ""
+
+#: src/sdk/wordpress/traits/debug.php:54
+msgid "Debug IPs"
+msgstr ""
+
+#: src/traits/admin_menu.php:98
+msgid "Debug code"
+msgstr ""
+
+#: src/traits/admin_menu.php:54 src/sdk/wordpress/traits/debug.php:42
+msgid "Debugging"
+msgstr ""
+
+#: src/traits/admin_menu.php:411
 msgid "Delete all child posts"
 msgstr ""
 
-#: include/traits/admin_menu.php:429
+#: src/traits/admin_menu.php:412
 msgid "Delete all children"
 msgstr ""
 
-#: include/traits/admin_menu.php:424
+#: src/traits/admin_menu.php:407
 msgid "Delete child"
 msgstr ""
 
-#: include/traits/post_actions.php:127
+#: src/traits/post_actions.php:128
 msgid "Delete children"
 msgstr ""
 
-#: include/traits/admin_menu.php:423
+#: src/sdk/wordpress/updater/edd.php:61
+msgid "Delete license data"
+msgstr ""
+
+#: src/traits/admin_menu.php:406
 msgid "Delete the child post"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:369
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:403
+msgid "Delete the group"
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:396
+msgid "Delete this blog group"
+msgstr ""
+
+#: src/sdk/form.php:369 src/sdk/wordpress/plugin_pack/plugin_pack.php:99
 msgid "Description"
 msgstr ""
 
-#: include/traits/admin_menu.php:321
+#: src/traits/admin_menu.php:304
 msgid "Display in overview"
 msgstr ""
 
-#: include/traits/admin_menu.php:329
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:222
+msgid "Edit blog group"
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:132
+msgid "Edit or delete this blog group"
+msgstr ""
+
+#: src/sdk/wordpress/traits/debug.php:49
+msgid "Enable debugging"
+msgstr ""
+
+#: src/traits/admin_menu.php:55
+msgid "Enabled"
+msgstr ""
+
+#: src/traits/admin_menu.php:312
 msgid "Existing attachments"
 msgstr ""
 
-#: include/traits/admin_menu.php:433 include/traits/admin_menu.php:434
+#: src/traits/admin_menu.php:416 src/traits/admin_menu.php:417
 msgid "Find orphans"
 msgstr ""
 
-#: include/traits/post_actions.php:128
+#: src/traits/post_actions.php:129
 msgid "Find unlinked children"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:398
+#: src/sdk/wordpress/updater/edd.php:96
+msgid "Force new version check"
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:333
+msgid "General settings"
+msgstr ""
+
+#: src/sdk/wordpress/updater/edd.php:69
+msgid "Get link to latest version as zip"
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:76
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:336
+msgid "Group name"
+msgstr ""
+
+#: src/sdk/form.php:398
 msgid "HH"
 msgstr ""
 
-#: include/traits/admin_menu.php:320
+#: src/traits/admin_menu.php:303
 msgid "How many children to display in the overview before making the list into a summary."
 msgstr ""
 
-#: include/traits/admin_menu.php:312
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:399
+msgid "I want to delete this blog group"
+msgstr ""
+
+#: src/traits/admin_menu.php:295
 msgid "In the broadcast meta box, after how many blogs the list should be auto-hidden."
 msgstr ""
 
-#: include/traits/admin_menu.php:270
+#: src/traits/admin_menu.php:44
+msgid "Information"
+msgstr ""
+
+#: src/traits/admin_menu.php:253
 msgid "Internal field blacklist"
 msgstr ""
 
-#: include/traits/admin_menu.php:279
+#: src/traits/admin_menu.php:262
 msgid "Internal field protectlist"
 msgstr ""
 
-#: include/traits/admin_menu.php:288
+#: src/traits/admin_menu.php:271
 msgid "Internal field whitelist"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:917
+#: src/sdk/form.php:917
 msgid "Invalid date"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:900
+#: src/sdk/form.php:900
 msgid "Invalid email address"
 msgstr ""
 
-#: include/traits/meta_boxes.php:179
+#: src/traits/meta_boxes.php:103
 msgid "Invert selection"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:405
+#: src/traits/admin_menu.php:47
+msgid "Key"
+msgstr ""
+
+#: src/sdk/form.php:405
 msgid "Latest valid date"
 msgstr ""
 
-#: include/traits/meta_boxes.php:145
+#: src/sdk/wordpress/updater/edd.php:77
+msgid "License key"
+msgstr ""
+
+#: src/traits/meta_boxes.php:157
 msgid "Link this post to its children"
 msgstr ""
 
-#: include/traits/admin_menu.php:214
+#: src/traits/admin_menu.php:192
 msgid "Link to child posts"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:396 vendor/plainview/sdk/form.php:399
+#: src/sdk/form.php:396 src/sdk/form.php:399
 msgid "MM"
 msgstr ""
 
-#: include/traits/admin_menu.php:399
+#: src/traits/admin_menu.php:382
 msgid "Maintenance"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:391
+#: src/sdk/form.php:391
 msgid "Minimum length"
 msgstr ""
 
-#: include/traits/admin_menu.php:296
+#: src/traits/admin_menu.php:279
 msgid "Miscellaneous"
 msgstr ""
 
-#: include/traits/post_actions.php:466
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:121
+msgid "Name"
+msgstr ""
+
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:107
+msgid "No action selected."
+msgstr ""
+
+#: src/traits/post_actions.php:473
 msgid "No change"
 msgstr ""
 
-#: vendor/plainview/sdk/form2/inputs/radios.php:59
-#: vendor/plainview/sdk/form2/inputs/traits/validation.php:182
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:251
+msgid "No group selected"
+msgstr ""
+
+#: src/traits/admin_menu.php:39
+msgid "No information available."
+msgstr ""
+
+#: src/sdk/wordpress/traits/debug.php:53
+#, php-format
+msgid "Only show debugging info to specific IP addresses. Use spaces between IPs. You can also specify part of an IP address. Your address is %s"
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:217
+msgid "Overview"
+msgstr ""
+
+#: src/traits/admin_menu.php:75
+msgid "PHP maximum execution time"
+msgstr ""
+
+#: src/traits/admin_menu.php:81
+msgid "PHP memory limit"
+msgstr ""
+
+#: src/traits/admin_menu.php:65
+msgid "PHP version"
+msgstr ""
+
+#: src/sdk/form2/inputs/radios.php:52
+#: src/sdk/form2/inputs/traits/validation.php:182
 #, php-format
 msgid "Please fill in %s."
 msgstr ""
 
-#: include/traits/meta_boxes.php:259
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:98
+msgid "Plugin"
+msgstr ""
+
+#: src/traits/meta_boxes.php:260
 msgid "Plugins that have hooked into save_post:"
 msgstr ""
 
-#: include/traits/post_actions.php:61
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_missing_children.php:46
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_missing_children.php:47
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_broken_bcd.php:39
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_missing_post.php:39
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_parent_is_unlinked.php:47
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_parent_is_unlinked.php:48
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_child_is_unlinked.php:48
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_child_is_unlinked.php:49
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_missing_parents.php:45
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_missing_parents.php:46
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_duplicate_bcd.php:39
+#, php-format
+msgid "Post %s on blog %s"
+msgstr ""
+
+#: src/traits/post_actions.php:61
 msgid "Post actions"
 msgstr ""
 
-#: include/traits/admin_menu.php:490
+#: src/traits/admin_menu.php:473
 msgid "Premium Pack"
 msgstr ""
 
-#: include/traits/admin_menu.php:489
+#: src/traits/admin_menu.php:472
 msgid "Premium Pack info"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:326
+#: src/sdk/wordpress/updater/edd.php:90
+msgid "Refresh license status"
+msgstr ""
+
+#: src/sdk/form.php:326
 msgid "Required field"
 msgstr ""
 
-#: include/traits/admin_menu.php:444
+#: src/traits/admin_menu.php:427
 msgid "Restore all"
 msgstr ""
 
-#: include/traits/admin_menu.php:443
+#: src/traits/admin_menu.php:426
 msgid "Restore all of the child posts from the trash"
 msgstr ""
 
-#: include/traits/admin_menu.php:439
+#: src/traits/admin_menu.php:422
 msgid "Restore child"
 msgstr ""
 
-#: include/traits/post_actions.php:129
+#: src/traits/post_actions.php:130
 msgid "Restore children"
 msgstr ""
 
-#: include/traits/admin_menu.php:438
+#: src/traits/admin_menu.php:421
 msgid "Restore the child post from the trash"
 msgstr ""
 
-#: include/traits/admin_menu.php:203
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:182
+msgid "Role needed to use the group function."
+msgstr ""
+
+#: src/traits/admin_menu.php:177
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:178
 msgid "Roles"
 msgstr ""
 
-#: include/traits/admin_menu.php:242
+#: src/maintenance/checks/view_broadcast_data/check.php:81
+#, php-format
+msgid "Row %s in the broadcast data table was not found!"
+msgstr ""
+
+#: src/traits/admin_menu.php:225
 msgid "SEO"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:400
+#: src/sdk/form.php:400
 msgid "SS"
 msgstr ""
 
-#: include/traits/admin_menu.php:339
+#: src/traits/admin_menu.php:322
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:189
 msgid "Save settings"
 msgstr ""
 
-#: include/traits/admin_menu.php:162
+#: src/traits/admin_menu.php:136
 msgid "Save the broadcastable custom post types"
 msgstr ""
 
-#: include/traits/meta_boxes.php:180
+#: src/traits/meta_boxes.php:104
 msgid "Select / deselect all"
 msgstr ""
 
-#: include/traits/admin_menu.php:397
+#: src/traits/admin_menu.php:380
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:227
 msgid "Settings"
 msgstr ""
 
-#: include/traits/post_actions.php:70
+#: src/sdk/wordpress/traits/debug.php:48
+msgid "Show debugging information in various places."
+msgstr ""
+
+#: src/traits/post_actions.php:70
 msgid "Shows which blogs have posts linked to this one"
 msgstr ""
 
-#: include/traits/admin_menu.php:258
+#: src/traits/admin_menu.php:241
 msgid "Some custom fields start with underscores. They are generally Wordpress internal fields and therefore not broadcasted. Some plugins store their information as underscored custom fields. If you wish them, or some of them, to be broadcasted, use either of the options below."
 msgstr ""
 
-#: vendor/plainview/sdk/wordpress/base.php:541
+#: src/sdk/wordpress/base.php:417
 msgid "Super admin"
 msgstr ""
 
-#: include/traits/meta_boxes.php:169
+#: src/traits/meta_boxes.php:181
 msgid "Taxonomies"
 msgstr ""
 
-#: include/traits/admin_menu.php:299
+#: src/maintenance/checks/broadcast_data/check.php:298
+msgid "The Broadcast Data table is missing the ID column."
+msgstr ""
+
+#: src/traits/admin_menu.php:282
 msgid "The POST PHP variable is data sent when updating posts. Most plugins are fine if the POST is cleared before broadcasting, while others require that the data remains intact. Uncheck this setting if you notice that child posts are not being treated the same on the child blogs as they are on the parent blog."
 msgstr ""
 
-#: include/traits/admin_menu.php:207
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:94
+#, php-format
+msgid "The blog group %s has been created!"
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:415
+msgid "The blog group has been deleted. Please return to the overview."
+msgstr ""
+
+#: src/traits/admin_menu.php:184
 msgid "The broadcast access role is the user role required to use the broadcast function at all."
 msgstr ""
 
-#: include/traits/admin_menu.php:176
+#: src/traits/admin_menu.php:150
 #, php-format
 msgid "The custom post types registered on <em>this</em> blog are: <code>%s</code>"
 msgstr ""
 
-#: include/traits/admin_menu.php:293
+#: src/traits/admin_menu.php:276
 #, php-format
 msgid "The default whitelist is: %s"
 msgstr ""
 
-#: vendor/plainview/sdk/form2/inputs/email.php:29
+#: src/sdk/form2/inputs/email.php:29
 #, php-format
 msgid "The e-mail address in %s is not valid!"
 msgstr ""
 
-#: vendor/plainview/sdk/wordpress/base.php:368
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:139
+msgid "The group has no blogs assigned."
+msgstr ""
+
+#: src/sdk/wordpress/updater/edd.php:152
+#, php-format
+msgid "The latest version of the plugin can be downloaded from <a href=\"%s\">here</a>."
+msgstr ""
+
+#: src/sdk/wordpress/base.php:244
 #, php-format
 msgid "The plugin and all associated settings and database tables have been removed. Please %sfollow this link to complete the uninstallation procedure%s."
 msgstr ""
 
-#: include/traits/admin_menu.php:304
+#: src/traits/admin_menu.php:287
 msgid "The priority for the save_post hook. Should be after all other plugins have finished modifying the post. Default is 640."
 msgstr ""
 
-#: vendor/plainview/sdk/form2/inputs/traits/maxlength.php:31
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:117
+msgid "The selected plugin(s) have been activated."
+msgstr ""
+
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:122
+msgid "The selected plugin(s) have been deactivated."
+msgstr ""
+
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:128
+msgid "The selected plugin(s) have been uninstalled."
+msgstr ""
+
+#: src/sdk/form2/inputs/traits/maxlength.php:31
 #, php-format
 msgid "The text in %s is too long!"
 msgstr ""
 
-#: vendor/plainview/sdk/form2/inputs/traits/minlength.php:42
+#: src/sdk/form2/inputs/traits/minlength.php:42
 #, php-format
 msgid "The text in %s is too short!"
 msgstr ""
 
-#: vendor/plainview/sdk/form2/inputs/traits/max.php:34
+#: src/sdk/form2/inputs/traits/max.php:34
 #, php-format
 msgid "The value in %s (%s) is larger than the allowed maximum of %s."
 msgstr ""
 
-#: vendor/plainview/sdk/form2/inputs/traits/min.php:34
+#: src/sdk/form2/inputs/traits/min.php:34
 #, php-format
 msgid "The value in %s (%s) is smaller than the allowed minimum of %s."
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:385
+#: src/sdk/form.php:385
 msgid "The value must be larger than or equal to"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:387
+#: src/sdk/form.php:387
 msgid "The value must be smaller or equal to"
 msgstr ""
 
-#: vendor/plainview/sdk/wordpress/base.php:369
+#: src/sdk/wordpress/form2/form.php:141
+msgid "This input is required."
+msgstr ""
+
+#: src/sdk/wordpress/base.php:245
 msgid "This link will take you to the index page"
 msgstr ""
 
-#: vendor/plainview/sdk/wordpress/base.php:344
+#: src/sdk/wordpress/base.php:220
 msgid "This page will remove all the plugin tables and settings from the database and then deactivate the plugin."
 msgstr ""
 
-#: include/traits/post_actions.php:492
+#: src/traits/post_actions.php:499
 msgid "This post has no broadcast links."
 msgstr ""
 
-#: include/traits/meta_boxes.php:111
+#: src/traits/meta_boxes.php:123
 msgid "This post is a broadcasted child post. It cannot be broadcasted further."
 msgstr ""
 
-#: include/traits/admin_menu.php:518
+#: src/traits/admin_menu.php:501
 msgid "ThreeWP Broadcast"
 msgstr ""
 
-#: include/traits/admin_menu.php:189
+#: src/traits/admin_menu.php:163
 msgid "ThreeWP Broadcast Premium Pack info"
 msgstr ""
 
-#: include/traits/admin_menu.php:453
+#: src/traits/admin_menu.php:436
 msgid "Trash all child posts"
 msgstr ""
 
-#: include/traits/admin_menu.php:454
+#: src/traits/admin_menu.php:437
 msgid "Trash all children"
 msgstr ""
 
-#: include/traits/admin_menu.php:449
+#: src/traits/admin_menu.php:432
 msgid "Trash child"
 msgstr ""
 
-#: include/traits/post_actions.php:130
+#: src/traits/post_actions.php:131
 msgid "Trash children"
 msgstr ""
 
-#: include/traits/admin_menu.php:448
+#: src/traits/admin_menu.php:431
 msgid "Trash the child post"
 msgstr ""
 
-#: include/traits/admin_menu.php:400
+#: src/traits/admin_menu.php:383
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:228
 msgid "Uninstall"
 msgstr ""
 
-#: vendor/plainview/sdk/wordpress/base.php:351
+#: src/sdk/wordpress/base.php:227
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:96
 msgid "Uninstall plugin"
 msgstr ""
 
-#: include/traits/post_actions.php:131
+#: src/traits/post_actions.php:132
 msgid "Unlink"
 msgstr ""
 
-#: include/traits/admin_menu.php:464
+#: src/traits/admin_menu.php:447
 msgid "Unlink all child posts"
 msgstr ""
 
-#: include/traits/admin_menu.php:465
+#: src/traits/admin_menu.php:448
 msgid "Unlink all children"
 msgstr ""
 
-#: include/traits/admin_menu.php:459
+#: src/traits/admin_menu.php:442
 msgid "Unlink child"
 msgstr ""
 
-#: include/traits/admin_menu.php:458
+#: src/traits/admin_menu.php:441
 msgid "Unlink the child post"
 msgstr ""
 
-#: include/traits/post_actions.php:454
+#: src/traits/post_actions.php:461
 msgid "Unlink this post from its parent."
 msgstr ""
 
-#: include/traits/admin_menu.php:247
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:370
+msgid "Update the blog group"
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:183
+msgid "Use groups"
+msgstr ""
+
+#: src/traits/admin_menu.php:230
 msgid "Use parent permalink"
 msgstr ""
 
-#: include/traits/admin_menu.php:246
+#: src/traits/admin_menu.php:229
 msgid "Use the parent post's permalink for the children. If checked, child posts will link back to the parent post."
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:389
+#: src/sdk/form.php:389
 msgid "Valid values"
 msgstr ""
 
-#: include/traits/admin_menu.php:213
+#: src/traits/admin_menu.php:48
+msgid "Value"
+msgstr ""
+
+#: src/traits/admin_menu.php:191
 msgid "When a post is linked with broadcasted posts, the child posts are updated / deleted when the parent is updated."
 msgstr ""
 
-#: include/traits/admin_menu.php:278
+#: src/traits/admin_menu.php:261
 msgid "When broadcasting internal custom fields, do not overwrite the following fields on the child blogs."
 msgstr ""
 
-#: include/traits/admin_menu.php:269
+#: src/traits/admin_menu.php:252
 msgid "When broadcasting internal custom fields, override and do not broadcast these fields."
 msgstr ""
 
-#: include/traits/admin_menu.php:287
+#: src/traits/admin_menu.php:270
 msgid "When not broadcasting internal custom fields, override and broadcast these fields."
 msgstr ""
 
-#: include/traits/admin_menu.php:219
+#: src/traits/admin_menu.php:198
 msgid "Which role is needed to allow custom field broadcasting?"
 msgstr ""
 
-#: include/traits/admin_menu.php:225
+#: src/traits/admin_menu.php:205
 msgid "Which role is needed to allow taxonomy broadcasting? The taxonomies must have the same slug on all blogs."
 msgstr ""
 
-#: include/traits/admin_menu.php:231
+#: src/traits/admin_menu.php:212
 msgid "Which role is needed to broadcast drafts?"
 msgstr ""
 
-#: include/traits/admin_menu.php:237
+#: src/traits/admin_menu.php:219
 msgid "Which role is needed to broadcast scheduled (future) posts?"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:401
+#: src/traits/admin_menu.php:87
+msgid "Wordpress memory limit"
+msgstr ""
+
+#: src/traits/admin_menu.php:70
+msgid "Wordpress upload directory array"
+msgstr ""
+
+#: src/sdk/form.php:401
 msgid "YYYY"
 msgstr ""
 
-#: vendor/plainview/sdk/wordpress/base.php:347
+#: src/sdk/wordpress/base.php:223
 msgid "Yes, I'm sure I want to remove all the plugin tables and settings."
 msgstr ""
 
-#: vendor/plainview/sdk/wordpress/base.php:359
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:109
+msgid "You have not created any blog groups yet."
+msgstr ""
+
+#: src/sdk/wordpress/base.php:235
 msgid "You have to check the checkbox in order to uninstall the plugin."
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:391
+#: src/sdk/form.php:391
 msgid "characters"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:927
+#: src/sdk/form.php:927
 msgid "characters long"
 msgstr ""
 
-#: include/traits/meta_boxes.php:178
+#. Convenience.
+#. Add translation strings
+#: src/traits/meta_boxes.php:102
 msgid "hide all"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:957
+#: src/sdk/form.php:957
 msgid "may not be empty"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:951
+#: src/sdk/form.php:951
 msgid "may not be larger than"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:939
+#: src/sdk/form.php:939
 msgid "may not be smaller than"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:927
+#: src/sdk/form.php:927
 msgid "must be at least"
 msgstr ""
 
-#: vendor/plainview/sdk/wordpress/base.php:2041
+#: src/sdk/wordpress/base.php:1842
 msgid "no"
 msgstr ""
 
-#: include/traits/admin_menu.php:305
+#: src/traits/admin_menu.php:288
 msgid "save_post priority"
 msgstr ""
 
-#: include/traits/meta_boxes.php:181
+#: src/traits/meta_boxes.php:105
 msgid "show all"
 msgstr ""
 
-#: vendor/plainview/sdk/form.php:389
+#: src/sdk/form.php:389
 msgid "to"
 msgstr ""
 
-#: vendor/plainview/sdk/wordpress/base.php:2041
+#: src/sdk/wordpress/base.php:1842
 msgid "yes"
 msgstr ""
