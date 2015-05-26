@@ -139,8 +139,11 @@ trait broadcasting
 				$this->debug( 'Custom fields: Post does not have a thumbnail (featured image).' );
 
 			$bcd->custom_fields->blacklist = array_filter( explode( ' ', $this->get_site_option( 'custom_field_blacklist' ) ) );
+			$this->debug( 'The custom field blacklist is: %s', $bcd->custom_fields->blacklist );
 			$bcd->custom_fields->protectlist = array_filter( explode( ' ', $this->get_site_option( 'custom_field_protectlist' ) ) );
+			$this->debug( 'The custom field protectlist is: %s', $bcd->custom_fields->protectlist );
 			$bcd->custom_fields->whitelist = array_filter( explode( ' ', $this->get_site_option( 'custom_field_whitelist' ) ) );
+			$this->debug( 'The custom field whitelist is: %s', $bcd->custom_fields->whitelist );
 
 			foreach( $bcd->post_custom_fields as $custom_field => $ignore )
 			{
