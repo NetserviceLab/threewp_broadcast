@@ -158,7 +158,6 @@ class ThreeWP_Broadcast_Blog_Groups
 		}
 
 		// Form to add a new blog group.
-
 		$r .= $this->h3( $this->_( 'Create a new blog group' ) );
 		$r .= $form->open_tag();
 		$r .= $form->display_form_table();
