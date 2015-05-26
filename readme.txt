@@ -249,7 +249,6 @@ Xcache v3, which does support namespaces, has not yet been tested. Anyone with X
 * Premium Pack Plugin: Added "Blog Groups 2".
 * Premium Pack Plugin: Added "Protect Child Author".
 
-
 = 17.1 20150219 =
 * Fix: No more warning when there are no terms in a taxonomy.
 
