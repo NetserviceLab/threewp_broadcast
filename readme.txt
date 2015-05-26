@@ -220,6 +220,7 @@ Xcache v3, which does support namespaces, has not yet been tested. Anyone with X
 
 = 19.x 2015xxxx =
 * Fix: Reload broadcast data upon switching blogs during broadcasting. This is probably the cause of half-linked children when broadcasting is interrupted or queued.
+* Updated .pot file for translations.
 
 = 19.1 20150524 =
 * Fix: Find Unlinked Children will not add children that already have parents or are parents themselves.
