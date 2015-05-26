@@ -3,15 +3,30 @@ msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: Edward Plainview <edward@plainviewplugins.com>\n"
+"Last-Translator: Edward Plainview <edward@plainview.se>\n"
 "Language-Team: Edward <edward@plainviewplugins.com>\n"
+"Language: sv-SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
-"Language: sv-SE\n"
 
-#: include/traits/admin_menu.php:158
+#: src/maintenance/checks/view_blog_access/check.php:65
+#, php-format
+msgid "%s does not have access to any blogs."
+msgstr "%s har inte tillgång till några bloggar."
+
+#: src/maintenance/checks/view_blog_access/check.php:73
+#, php-format
+msgid "%s has access to the following blogs: %s%s%s"
+msgstr "%s har tillgång till följande bloggar: %s%s%s"
+
+#: src/maintenance/checks/broadcast_data/check.php:225
+#, php-format
+msgid "%s rows left to check..."
+msgstr "%s rader kvar att kontrollera..."
+
+#: src/traits/admin_menu.php:132
 #, php-format
 msgid ""
 "A list of custom post types that have broadcasting enabled. The default "
@@ -19,79 +34,143 @@ msgid ""
 msgstr ""
 "En lista över vilka inläggstyper ska få multipostas. Standardvärdet är %s."
 
-#: include/traits/admin_menu.php:328
+#: src/sdk/wordpress/traits/debug.php:45
+#, php-format
+msgid ""
+"According to the settings below, you are currently%s in debug mode. Don't "
+"forget to reload this page after saving the settings."
+msgstr ""
+"Enligt inställningarna nedan är du%s i debugläge. Glöm inte att ladda om den "
+"här sidan efter du sparat inställningarna."
+
+#: src/traits/admin_menu.php:311
 msgid ""
 "Action to take when attachments with the same filename already exist on the "
 "child blog."
 msgstr ""
 "Vad för åtgärd skall tas när en fil med samma namn redan finns på bloggen."
 
-#: include/traits/admin_menu.php:313
+#: src/sdk/wordpress/updater/edd.php:59 src/sdk/wordpress/updater/edd.php:85
+msgid "Activate license"
+msgstr "Aktivera licens"
+
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:94
+msgid "Activate plugin"
+msgstr "Aktivera tillägg"
+
+#: src/sdk/wordpress/table/top/bulkactions.php:100
+msgid "Apply"
+msgstr "Verställ"
+
+#: src/maintenance/checks/broadcast_data/check.php:313
+#, php-format
+msgid "Beginning to check broadcast data. %s rows to check."
+msgstr "Börjar kontrollera multipostningsdatan. %s rader kvar att kontrollera."
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:384
+#, fuzzy
+msgid "Blog group saved!"
+msgstr "Ingen grupp vald"
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:250
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:276
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:277
+#, fuzzy
+msgid "Blog groups"
+msgstr "Dina grupper"
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:105
+msgid ""
+"Blog groups help you to quickly add blogs to the broadcast. First create a "
+"blog group and select the blogs you want. When broadcasting the list of blog "
+"groups will appear above the blog list."
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:122
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:348
+msgid "Blogs"
+msgstr "Bloggar"
+
+#: src/traits/admin_menu.php:296
 msgid "Blogs to hide"
 msgstr "Bloggar som göms"
 
-#: include/traits/admin_menu.php:208 include/traits/admin_menu.php:519
-#: include/traits/meta_boxes.php:29 include/traits/post_actions.php:60
+#: src/traits/meta_boxes.php:29 src/traits/post_actions.php:60
+#: src/traits/admin_menu.php:185 src/traits/admin_menu.php:502
 msgid "Broadcast"
 msgstr "Multiposta"
 
-#: include/traits/admin_menu.php:262
+#: src/traits/admin_menu.php:245
 msgid "Broadcast all fields, including those beginning with underscores."
 msgstr ""
 "Multiposta samtliga egna fält, inklusive de som börjar med understreck."
 
-#: include/traits/admin_menu.php:232
+#: src/traits/admin_menu.php:213
 msgid "Broadcast as draft"
 msgstr "Multiposta som utkast"
 
-#: include/traits/admin_menu.php:220
+#: src/traits/admin_menu.php:199
 msgid "Broadcast custom fields"
 msgstr "Multiposta egna fälten också"
 
-#: include/traits/admin_menu.php:470
+#: src/traits/admin_menu.php:453
 msgid "Broadcast information"
 msgstr "Multipostningsinformation"
 
-#: include/traits/admin_menu.php:263
+#: src/traits/admin_menu.php:246
 msgid "Broadcast internal custom fields"
 msgstr "Multiposta egna fälten"
 
-#: include/traits/meta_boxes.php:99
+#: src/traits/meta_boxes.php:111
 msgid "Broadcast is in debug mode. More information than usual will be shown."
 msgstr ""
 "Multipostning är i debug-läge. Du kommer få se mer information än vanligt."
 
-#: include/traits/meta_boxes.php:104
+#: src/traits/meta_boxes.php:116
 msgid ""
 "Broadcast is not preparing the meta box because it has already been applied."
 msgstr ""
 "Multipost gör ingenting med metaboxen eftersom den redan har behandlats."
 
-#: include/ThreeWP_Broadcast.php:90
+#: src/ThreeWP_Broadcast.php:89
 msgid "Broadcast requires a Wordpress network to function."
 msgstr "Multipostning kräver ett Wordpressnätverk."
 
-#: include/traits/admin_menu.php:238
+#: src/traits/admin_menu.php:220
 msgid "Broadcast scheduled posts"
 msgstr "Multiposta tidsinställda inlägg"
 
-#: include/traits/admin_menu.php:226
+#: src/traits/admin_menu.php:206
 msgid "Broadcast taxonomies"
 msgstr "Multiposta taxonomier"
 
-#: include/traits/meta_boxes.php:191
+#: src/traits/meta_boxes.php:192
 msgid "Broadcast to"
 msgstr "Multiposta till"
 
-#: include/traits/post_actions.php:70
+#: src/traits/admin_menu.php:60
+#, fuzzy
+msgid "Broadcast version"
+msgstr "Multiposta till"
+
+#: src/traits/post_actions.php:70
 msgid "Broadcasted"
 msgstr "Multipostat"
 
-#: include/traits/admin_menu.php:252
+#: src/sdk/wordpress/table/top/bulkactions.php:103
+msgid "Bulk Actions"
+msgstr ""
+
+#: src/sdk/wordpress/table/top/bulkactions.php:102
+#, fuzzy
+msgid "Bulk actions"
+msgstr "Åtgärder"
+
+#: src/traits/admin_menu.php:235
 msgid "Canonical URL"
 msgstr "Canonical URL"
 
-#: include/traits/admin_menu.php:251
+#: src/traits/admin_menu.php:234
 msgid ""
 "Child posts have their canonical URLs pointed to the URL of the parent post. "
 "This automatically disables the canonical URL from Yoast's Wordpress SEO "
@@ -101,19 +180,23 @@ msgstr ""
 "ursprungliga inlägget. Detta tar automatiskt bort canonical URL-"
 "inställningen från Yoasts Wordpress SEO-tillägg."
 
-#: include/traits/admin_menu.php:300
+#: src/traits/admin_menu.php:283
 msgid "Clear POST"
 msgstr "Töm POST"
 
-#: include/traits/post_actions.php:149
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:113
+msgid "Click on the group name to edit or delete it."
+msgstr ""
+
+#: src/traits/post_actions.php:151
 msgid "Click to modify the post's linkage"
 msgstr "Klicka för att ändra inläggets länkning"
 
-#: vendor/plainview/sdk/form.php:910
+#: src/sdk/form.php:910
 msgid "Could not parse date"
 msgstr "Kunde inte tolka datumet"
 
-#: include/traits/meta_boxes.php:146
+#: src/traits/meta_boxes.php:158
 msgid ""
 "Create a link to the children, which will be updated when this post is "
 "updated, trashed when this post is trashed, etc."
@@ -121,19 +204,28 @@ msgstr ""
 "Skapa en länk till barnen, vilka kommer att uppdateras när det här inlägget "
 "uppdateras, läggs i papperskorgen, osv."
 
-#: include/traits/admin_menu.php:255
+#. Form to add a new blog group.
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:162
+msgid "Create a new blog group"
+msgstr "Skapa en ny blogg-grupp"
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:82
+msgid "Create the blog group"
+msgstr "Skapa blogg-gruppen"
+
+#: src/traits/admin_menu.php:238
 msgid "Custom field handling"
 msgstr "Hantering av egna fält"
 
-#: include/traits/meta_boxes.php:159
+#: src/traits/meta_boxes.php:171
 msgid "Custom fields"
 msgstr "Egna fält"
 
-#: include/traits/admin_menu.php:398
+#: src/traits/admin_menu.php:381
 msgid "Custom post types"
 msgstr "Inläggstyper"
 
-#: include/traits/admin_menu.php:173
+#: src/traits/admin_menu.php:147
 msgid ""
 "Custom post types must be specified using their internal Wordpress names on "
 "a new line each. It is not possible to automatically make a list of "
@@ -144,213 +236,376 @@ msgstr ""
 "är omöjligt att visa samtliga inläggstyper på alla bloggar på grund av en "
 "begränsning i Wordpress (nuvarande bloggen vet bara om sina egna)."
 
-#: include/traits/admin_menu.php:170
+#: src/traits/admin_menu.php:144
 msgid "Custom post types saved!"
 msgstr "Inläggstyperna har sparats!"
 
-#: include/traits/admin_menu.php:156
+#: src/traits/admin_menu.php:130
 msgid "Custom post types to broadcast"
 msgstr "Inläggstyper att multiposta"
 
-#: vendor/plainview/sdk/form.php:397
+#: src/sdk/form.php:397
 msgid "DD"
 msgstr "DD"
 
-#: vendor/plainview/sdk/form.php:402
+#: src/sdk/form.php:402
 msgid "Date format"
 msgstr "Datumformat"
 
-#: include/traits/admin_menu.php:428
+#: src/sdk/wordpress/updater/edd.php:66
+msgid "Deactivate license for this site"
+msgstr ""
+
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:95
+msgid "Deactivate plugin"
+msgstr ""
+
+#: src/sdk/wordpress/traits/debug.php:54
+msgid "Debug IPs"
+msgstr "Felsöknings IPadresser"
+
+#: src/traits/admin_menu.php:98
+msgid "Debug code"
+msgstr "Felsökningskod"
+
+#: src/traits/admin_menu.php:54 src/sdk/wordpress/traits/debug.php:42
+msgid "Debugging"
+msgstr "Felsökning"
+
+#: src/traits/admin_menu.php:411
 msgid "Delete all child posts"
 msgstr "Ta bort samtliga inlägg"
 
-#: include/traits/admin_menu.php:429
+#: src/traits/admin_menu.php:412
 msgid "Delete all children"
 msgstr "Ta bort alla barninlägg"
 
-#: include/traits/admin_menu.php:424
+#: src/traits/admin_menu.php:407
 msgid "Delete child"
 msgstr "Ta bort inlägg"
 
-#: include/traits/post_actions.php:127
+#: src/traits/post_actions.php:128
 msgid "Delete children"
 msgstr "Ta bort länkade inlägg"
 
-#: include/traits/admin_menu.php:423
+#: src/sdk/wordpress/updater/edd.php:61
+msgid "Delete license data"
+msgstr ""
+
+#: src/traits/admin_menu.php:406
 msgid "Delete the child post"
 msgstr "Ta bort inlägget"
 
-#: vendor/plainview/sdk/form.php:369
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:403
+msgid "Delete the group"
+msgstr "Ta bort grupppen"
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:396
+msgid "Delete this blog group"
+msgstr "Ta bort den här blogg-gruppen"
+
+#: src/sdk/form.php:369 src/sdk/wordpress/plugin_pack/plugin_pack.php:99
 msgid "Description"
 msgstr "Beskrivning"
 
-#: include/traits/admin_menu.php:321
+#: src/traits/admin_menu.php:304
 msgid "Display in overview"
 msgstr "Visa i översikten"
 
-#: include/traits/admin_menu.php:329
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:222
+msgid "Edit blog group"
+msgstr "Redigera blogg-gruppen"
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:132
+msgid "Edit or delete this blog group"
+msgstr ""
+
+#: src/sdk/wordpress/traits/debug.php:49
+msgid "Enable debugging"
+msgstr "Slå på felsökning"
+
+#: src/traits/admin_menu.php:55
+msgid "Enabled"
+msgstr "Aktiverat"
+
+#: src/traits/admin_menu.php:312
 msgid "Existing attachments"
 msgstr "Befintliga mediafiler"
 
-#: include/traits/admin_menu.php:433 include/traits/admin_menu.php:434
+#: src/traits/admin_menu.php:416 src/traits/admin_menu.php:417
 msgid "Find orphans"
 msgstr "Hitta olänkade"
 
-#: include/traits/post_actions.php:128
+#: src/traits/post_actions.php:129
 msgid "Find unlinked children"
 msgstr "Hitta olänkade inlägg"
 
-#: vendor/plainview/sdk/form.php:398
+#: src/sdk/wordpress/updater/edd.php:96
+msgid "Force new version check"
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:333
+msgid "General settings"
+msgstr "Allmänna inställningar"
+
+#: src/sdk/wordpress/updater/edd.php:69
+msgid "Get link to latest version as zip"
+msgstr ""
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:76
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:336
+msgid "Group name"
+msgstr "Gruppens namn"
+
+#: src/sdk/form.php:398
 msgid "HH"
 msgstr "HH"
 
-#: include/traits/admin_menu.php:320
+#: src/traits/admin_menu.php:303
 msgid ""
 "How many children to display in the overview before making the list into a "
 "summary."
 msgstr "Hur många bloggar att visa innan en sammanfattning visas istället."
 
-#: include/traits/admin_menu.php:312
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:399
+msgid "I want to delete this blog group"
+msgstr ""
+
+#: src/traits/admin_menu.php:295
 msgid ""
 "In the broadcast meta box, after how many blogs the list should be auto-"
 "hidden."
 msgstr "Anger vid vilket antal blogglistan ska gömmas i multipostningsrutan."
 
-#: include/traits/admin_menu.php:270
+#: src/traits/admin_menu.php:44
+msgid "Information"
+msgstr "Information"
+
+#: src/traits/admin_menu.php:253
 msgid "Internal field blacklist"
 msgstr "Svartlistade interna fält"
 
-#: include/traits/admin_menu.php:279
+#: src/traits/admin_menu.php:262
 msgid "Internal field protectlist"
 msgstr "Skyddlista för interna fält"
 
-#: include/traits/admin_menu.php:288
+#: src/traits/admin_menu.php:271
 msgid "Internal field whitelist"
 msgstr "Vitlistade interna fält"
 
-#: vendor/plainview/sdk/form.php:917
+#: src/sdk/form.php:917
 msgid "Invalid date"
 msgstr "Ogiltigt datum"
 
-#: vendor/plainview/sdk/form.php:900
+#: src/sdk/form.php:900
 msgid "Invalid email address"
 msgstr "Ogiltig e-postadress"
 
-#: include/traits/meta_boxes.php:179
+#: src/traits/meta_boxes.php:103
 msgid "Invert selection"
 msgstr "Byt markeringar"
 
-#: vendor/plainview/sdk/form.php:405
+#: src/traits/admin_menu.php:47
+msgid "Key"
+msgstr "Nyckel"
+
+#: src/sdk/form.php:405
 msgid "Latest valid date"
 msgstr "Senaste giltiga datum"
 
-#: include/traits/meta_boxes.php:145
+#: src/sdk/wordpress/updater/edd.php:77
+msgid "License key"
+msgstr ""
+
+#: src/traits/meta_boxes.php:157
 msgid "Link this post to its children"
 msgstr "Länka det här inlägg till de multipostade inläggen"
 
-#: include/traits/admin_menu.php:214
+#: src/traits/admin_menu.php:192
 msgid "Link to child posts"
 msgstr "Länka till de multipostade inläggen"
 
-#: vendor/plainview/sdk/form.php:396 vendor/plainview/sdk/form.php:399
+#: src/sdk/form.php:396 src/sdk/form.php:399
 msgid "MM"
 msgstr "MM"
 
-#: include/traits/admin_menu.php:399
+#: src/traits/admin_menu.php:382
 msgid "Maintenance"
 msgstr "Underhåll"
 
-#: vendor/plainview/sdk/form.php:391
+#: src/sdk/form.php:391
 msgid "Minimum length"
 msgstr "Minimumlängd"
 
-#: include/traits/admin_menu.php:296
+#: src/traits/admin_menu.php:279
 msgid "Miscellaneous"
 msgstr "Övrigt"
 
-#: include/traits/post_actions.php:466
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:121
+msgid "Name"
+msgstr "Namn"
+
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:107
+#, fuzzy
+msgid "No action selected."
+msgstr "Ingen grupp vald"
+
+#: src/traits/post_actions.php:473
 msgid "No change"
 msgstr "Ingen förändring"
 
-#: vendor/plainview/sdk/form2/inputs/radios.php:59
-#: vendor/plainview/sdk/form2/inputs/traits/validation.php:182
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:251
+msgid "No group selected"
+msgstr "Ingen grupp vald"
+
+#: src/traits/admin_menu.php:39
+#, fuzzy
+msgid "No information available."
+msgstr "%sKö%s inte tillgänglig."
+
+#: src/sdk/wordpress/traits/debug.php:53
+#, php-format
+msgid ""
+"Only show debugging info to specific IP addresses. Use spaces between IPs. "
+"You can also specify part of an IP address. Your address is %s"
+msgstr ""
+"Visa felsökningsinformation endast för vissa IP-adresser. Skriv mellanslag "
+"mellan IPerna. Du kan också ange delar av en IP-adress. Din adress är %s"
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:217
+msgid "Overview"
+msgstr "Översikt"
+
+#: src/traits/admin_menu.php:75
+msgid "PHP maximum execution time"
+msgstr ""
+
+#: src/traits/admin_menu.php:81
+msgid "PHP memory limit"
+msgstr ""
+
+#: src/traits/admin_menu.php:65
+msgid "PHP version"
+msgstr ""
+
+#: src/sdk/form2/inputs/radios.php:52
+#: src/sdk/form2/inputs/traits/validation.php:182
 #, php-format
 msgid "Please fill in %s."
 msgstr "Du måste fylla i %s."
 
-#: include/traits/meta_boxes.php:259
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:98
+msgid "Plugin"
+msgstr ""
+
+#: src/traits/meta_boxes.php:260
 msgid "Plugins that have hooked into save_post:"
 msgstr "Tillägg som reagerar på save_post:"
 
-#: include/traits/post_actions.php:61
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_missing_children.php:46
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_missing_children.php:47
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_broken_bcd.php:39
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_missing_post.php:39
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_parent_is_unlinked.php:47
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_parent_is_unlinked.php:48
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_child_is_unlinked.php:48
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_child_is_unlinked.php:49
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_missing_parents.php:45
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_missing_parents.php:46
+#: src/maintenance/checks/broadcast_data/traits/steps/step_results_fail_duplicate_bcd.php:39
+#, php-format
+msgid "Post %s on blog %s"
+msgstr "Inlägg %s på blog %s"
+
+#: src/traits/post_actions.php:61
 msgid "Post actions"
 msgstr "Åtgärder"
 
-#: include/traits/admin_menu.php:490
+#: src/traits/admin_menu.php:473
 msgid "Premium Pack"
 msgstr "Premium Pack"
 
-#: include/traits/admin_menu.php:489
+#: src/traits/admin_menu.php:472
 msgid "Premium Pack info"
 msgstr "Info om Premium Pack"
 
-#: vendor/plainview/sdk/form.php:326
+#: src/sdk/wordpress/updater/edd.php:90
+msgid "Refresh license status"
+msgstr ""
+
+#: src/sdk/form.php:326
 msgid "Required field"
 msgstr "Måste fyllas i"
 
-#: include/traits/admin_menu.php:444
+#: src/traits/admin_menu.php:427
 msgid "Restore all"
 msgstr "Återställ alla"
 
-#: include/traits/admin_menu.php:443
+#: src/traits/admin_menu.php:426
 msgid "Restore all of the child posts from the trash"
 msgstr "Återställ samtliga inlägg"
 
-#: include/traits/admin_menu.php:439
+#: src/traits/admin_menu.php:422
 msgid "Restore child"
 msgstr "Återställ inlägg"
 
-#: include/traits/post_actions.php:129
+#: src/traits/post_actions.php:130
 msgid "Restore children"
 msgstr "Återställ inlägg"
 
-#: include/traits/admin_menu.php:438
+#: src/traits/admin_menu.php:421
 msgid "Restore the child post from the trash"
 msgstr "Återställ inlägget"
 
-#: include/traits/admin_menu.php:203
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:182
+msgid "Role needed to use the group function."
+msgstr ""
+
+#: src/traits/admin_menu.php:177
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:178
 msgid "Roles"
 msgstr "Roller"
 
-#: include/traits/admin_menu.php:242
+#: src/maintenance/checks/view_broadcast_data/check.php:81
+#, php-format
+msgid "Row %s in the broadcast data table was not found!"
+msgstr "Rad %s i multipostningstabellen hittades inte!"
+
+#: src/traits/admin_menu.php:225
 msgid "SEO"
 msgstr "Sökmotorsoptimering"
 
-#: vendor/plainview/sdk/form.php:400
+#: src/sdk/form.php:400
 msgid "SS"
 msgstr "SS"
 
-#: include/traits/admin_menu.php:339
+#: src/traits/admin_menu.php:322
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:189
 msgid "Save settings"
 msgstr "Spara inställningar"
 
-#: include/traits/admin_menu.php:162
+#: src/traits/admin_menu.php:136
 msgid "Save the broadcastable custom post types"
 msgstr "Spara listan över inläggstyperna som får multipostas"
 
-#: include/traits/meta_boxes.php:180
+#: src/traits/meta_boxes.php:104
 msgid "Select / deselect all"
 msgstr "Markera / avmarkera alla"
 
-#: include/traits/admin_menu.php:397
+#: src/traits/admin_menu.php:380
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:227
 msgid "Settings"
 msgstr "Inställningar"
 
-#: include/traits/post_actions.php:70
+#: src/sdk/wordpress/traits/debug.php:48
+msgid "Show debugging information in various places."
+msgstr "Visa felsökningsinfo här och var."
+
+#: src/traits/post_actions.php:70
 msgid "Shows which blogs have posts linked to this one"
 msgstr "Visar vilka bloggar har inlägg länkade till detta"
 
-#: include/traits/admin_menu.php:258
+#: src/traits/admin_menu.php:241
 msgid ""
 "Some custom fields start with underscores. They are generally Wordpress "
 "internal fields and therefore not broadcasted. Some plugins store their "
@@ -362,15 +617,19 @@ msgstr ""
 "data som fält med understreck. Om du vill att fälten, eller vissa av fälten, "
 "ska multipostas ändå, använd en kombination av nedanstående inställningar."
 
-#: vendor/plainview/sdk/wordpress/base.php:541
+#: src/sdk/wordpress/base.php:417
 msgid "Super admin"
 msgstr "Nätverksadmin"
 
-#: include/traits/meta_boxes.php:169
+#: src/traits/meta_boxes.php:181
 msgid "Taxonomies"
 msgstr "Taxonomier"
 
-#: include/traits/admin_menu.php:299
+#: src/maintenance/checks/broadcast_data/check.php:298
+msgid "The Broadcast Data table is missing the ID column."
+msgstr "Multipostningstabellen saknar ID-kolumnen."
+
+#: src/traits/admin_menu.php:282
 msgid ""
 "The POST PHP variable is data sent when updating posts. Most plugins are "
 "fine if the POST is cleared before broadcasting, while others require that "
@@ -383,30 +642,51 @@ msgstr ""
 "Bocka ur inställningen om du märker att multipostade inlägg inte ser "
 "likadant ut på alla bloggar."
 
-#: include/traits/admin_menu.php:207
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:94
+#, fuzzy, php-format
+msgid "The blog group %s has been created!"
+msgstr "Gruppen har skapats!"
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:415
+msgid "The blog group has been deleted. Please return to the overview."
+msgstr ""
+
+#: src/traits/admin_menu.php:184
 msgid ""
 "The broadcast access role is the user role required to use the broadcast "
 "function at all."
 msgstr "Vilken användarroll behövs för att använda multipostning alls."
 
-#: include/traits/admin_menu.php:176
+#: src/traits/admin_menu.php:150
 #, php-format
 msgid ""
 "The custom post types registered on <em>this</em> blog are: <code>%s</code>"
 msgstr ""
 "Inläggstyperna som finns på <em>den här</em> blogen är: <code>%s</code>"
 
-#: include/traits/admin_menu.php:293
+#: src/traits/admin_menu.php:276
 #, php-format
 msgid "The default whitelist is: %s"
 msgstr "Standardvärdet för vitlistan är: %s"
 
-#: vendor/plainview/sdk/form2/inputs/email.php:29
+#: src/sdk/form2/inputs/email.php:29
 #, php-format
 msgid "The e-mail address in %s is not valid!"
 msgstr "E-postadressen i fältet %s är inte giltig!"
 
-#: vendor/plainview/sdk/wordpress/base.php:368
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:139
+#, fuzzy
+msgid "The group has no blogs assigned."
+msgstr "Gruppen har skapats!"
+
+#: src/sdk/wordpress/updater/edd.php:152
+#, php-format
+msgid ""
+"The latest version of the plugin can be downloaded from <a href=\"%s\">here</"
+"a>."
+msgstr ""
+
+#: src/sdk/wordpress/base.php:244
 #, php-format
 msgid ""
 "The plugin and all associated settings and database tables have been "
@@ -416,7 +696,7 @@ msgstr ""
 "Tillägget och alla inställningar och databastabeller har tagits bort. Besök "
 "%sden här länken för att avsluta avinstallationsproceduren%s."
 
-#: include/traits/admin_menu.php:304
+#: src/traits/admin_menu.php:287
 msgid ""
 "The priority for the save_post hook. Should be after all other plugins have "
 "finished modifying the post. Default is 640."
@@ -424,39 +704,58 @@ msgstr ""
 "Prioritet för save_post händelsen. Detta bör vara efter samtliga andra "
 "tillägg är klara med att ändra i inlägget. Standardvärdet är 640."
 
-#: vendor/plainview/sdk/form2/inputs/traits/maxlength.php:31
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:117
+#, fuzzy
+msgid "The selected plugin(s) have been activated."
+msgstr "Inläggen har återställts."
+
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:122
+#, fuzzy
+msgid "The selected plugin(s) have been deactivated."
+msgstr "Inläggen har återställts."
+
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:128
+#, fuzzy
+msgid "The selected plugin(s) have been uninstalled."
+msgstr "Inläggen har återställts."
+
+#: src/sdk/form2/inputs/traits/maxlength.php:31
 #, php-format
 msgid "The text in %s is too long!"
 msgstr "Texten i %s är för lång!"
 
-#: vendor/plainview/sdk/form2/inputs/traits/minlength.php:42
+#: src/sdk/form2/inputs/traits/minlength.php:42
 #, php-format
 msgid "The text in %s is too short!"
 msgstr "Texten i %s är för kort!"
 
-#: vendor/plainview/sdk/form2/inputs/traits/max.php:34
+#: src/sdk/form2/inputs/traits/max.php:34
 #, php-format
 msgid "The value in %s (%s) is larger than the allowed maximum of %s."
 msgstr "Värdet i %s (%s) är större än maxvärdet %s."
 
-#: vendor/plainview/sdk/form2/inputs/traits/min.php:34
+#: src/sdk/form2/inputs/traits/min.php:34
 #, php-format
 msgid "The value in %s (%s) is smaller than the allowed minimum of %s."
 msgstr "Värdet i %s (%s) är mindre än minimumvärdet %s."
 
-#: vendor/plainview/sdk/form.php:385
+#: src/sdk/form.php:385
 msgid "The value must be larger than or equal to"
 msgstr "Värdet måste vara minst större eller lika med"
 
-#: vendor/plainview/sdk/form.php:387
+#: src/sdk/form.php:387
 msgid "The value must be smaller or equal to"
 msgstr "Värdet måste vara mindre eller lika med"
 
-#: vendor/plainview/sdk/wordpress/base.php:369
+#: src/sdk/wordpress/form2/form.php:141
+msgid "This input is required."
+msgstr "Här måste du ange något."
+
+#: src/sdk/wordpress/base.php:245
 msgid "This link will take you to the index page"
 msgstr "Den här länken tar dig till indexsidan"
 
-#: vendor/plainview/sdk/wordpress/base.php:344
+#: src/sdk/wordpress/base.php:220
 msgid ""
 "This page will remove all the plugin tables and settings from the database "
 "and then deactivate the plugin."
@@ -464,81 +763,93 @@ msgstr ""
 "Detta kommer att ta bort samtliga tilläggets databastabeller och "
 "inställningar, och sedan avaktivera tilläget."
 
-#: include/traits/post_actions.php:492
+#: src/traits/post_actions.php:499
 msgid "This post has no broadcast links."
 msgstr "Inlägget har inga länkar."
 
-#: include/traits/meta_boxes.php:111
+#: src/traits/meta_boxes.php:123
 msgid ""
 "This post is a broadcasted child post. It cannot be broadcasted further."
 msgstr ""
 "Det här inlägget är ett multipostat inlägg. Funktionen kan inte användas."
 
-#: include/traits/admin_menu.php:518
+#: src/traits/admin_menu.php:501
 msgid "ThreeWP Broadcast"
 msgstr "ThreeWP Multipost"
 
-#: include/traits/admin_menu.php:189
+#: src/traits/admin_menu.php:163
 msgid "ThreeWP Broadcast Premium Pack info"
 msgstr "ThreeWP Multipost Premium Pack-information"
 
-#: include/traits/admin_menu.php:453
+#: src/traits/admin_menu.php:436
 msgid "Trash all child posts"
 msgstr "Lägg samtliga inlägg i papperskorgen"
 
-#: include/traits/admin_menu.php:454
+#: src/traits/admin_menu.php:437
 msgid "Trash all children"
 msgstr "Ta bort alla inlägg"
 
-#: include/traits/admin_menu.php:449
+#: src/traits/admin_menu.php:432
 msgid "Trash child"
 msgstr "Lägg inlägget i papperskorgen"
 
-#: include/traits/post_actions.php:130
+#: src/traits/post_actions.php:131
 msgid "Trash children"
 msgstr "Lägg inläggen i papperskorgen"
 
-#: include/traits/admin_menu.php:448
+#: src/traits/admin_menu.php:431
 msgid "Trash the child post"
 msgstr "Lägg inlägget i papperskorgen"
 
-#: include/traits/admin_menu.php:400
+#: src/traits/admin_menu.php:383
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:228
 msgid "Uninstall"
 msgstr "Avinstallera"
 
-#: vendor/plainview/sdk/wordpress/base.php:351
+#: src/sdk/wordpress/base.php:227
+#: src/sdk/wordpress/plugin_pack/plugin_pack.php:96
 msgid "Uninstall plugin"
 msgstr "Avinstallera tillägget"
 
-#: include/traits/post_actions.php:131
+#: src/traits/post_actions.php:132
 msgid "Unlink"
 msgstr "Ta bort länk"
 
-#: include/traits/admin_menu.php:464
+#: src/traits/admin_menu.php:447
 msgid "Unlink all child posts"
 msgstr "Avlänka samtliga inlägg"
 
-#: include/traits/admin_menu.php:465
+#: src/traits/admin_menu.php:448
 msgid "Unlink all children"
 msgstr "Avlänka samtliga inlägg"
 
-#: include/traits/admin_menu.php:459
+#: src/traits/admin_menu.php:442
 msgid "Unlink child"
 msgstr "Avlänka inlägget"
 
-#: include/traits/admin_menu.php:458
+#: src/traits/admin_menu.php:441
 msgid "Unlink the child post"
 msgstr "Ta bort inlägget"
 
-#: include/traits/post_actions.php:454
+#: src/traits/post_actions.php:461
 msgid "Unlink this post from its parent."
 msgstr "Ta bort länkningen till det här inlägget."
 
-#: include/traits/admin_menu.php:247
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:370
+#, fuzzy
+msgid "Update the blog group"
+msgstr "Skapa en ny grupp"
+
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:183
+#, fuzzy
+msgid "Use groups"
+msgstr "Spara grupperna"
+
+#: src/traits/admin_menu.php:230
 msgid "Use parent permalink"
 msgstr "Använd källinläggets länk"
 
-#: include/traits/admin_menu.php:246
+#: src/traits/admin_menu.php:229
 msgid ""
 "Use the parent post's permalink for the children. If checked, child posts "
 "will link back to the parent post."
@@ -546,11 +857,15 @@ msgstr ""
 "Använd ursprungliga inläggets permalänk istället för de multipostade "
 "inläggens vanliga permalänk."
 
-#: vendor/plainview/sdk/form.php:389
+#: src/sdk/form.php:389
 msgid "Valid values"
 msgstr "Giltiga värden"
 
-#: include/traits/admin_menu.php:213
+#: src/traits/admin_menu.php:48
+msgid "Value"
+msgstr "Värde"
+
+#: src/traits/admin_menu.php:191
 msgid ""
 "When a post is linked with broadcasted posts, the child posts are updated / "
 "deleted when the parent is updated."
@@ -558,19 +873,19 @@ msgstr ""
 "När ett inlägg länkas till de multipostade inläggen, uppdateras / tas de "
 "multipostade inlägg bort samtidigt med ursprungliga inlägget."
 
-#: include/traits/admin_menu.php:278
+#: src/traits/admin_menu.php:261
 msgid ""
 "When broadcasting internal custom fields, do not overwrite the following "
 "fields on the child blogs."
 msgstr "När de interna egna fälten multipostas, skriv inte över följande fält."
 
-#: include/traits/admin_menu.php:269
+#: src/traits/admin_menu.php:252
 msgid ""
 "When broadcasting internal custom fields, override and do not broadcast "
 "these fields."
 msgstr "När de interna egna fälten multipostas, ignorera följande fält ändå."
 
-#: include/traits/admin_menu.php:287
+#: src/traits/admin_menu.php:270
 msgid ""
 "When not broadcasting internal custom fields, override and broadcast these "
 "fields."
@@ -578,11 +893,11 @@ msgstr ""
 "När de egna fälten inte multipostas, se till att multiposta följande egna "
 "fält ändå."
 
-#: include/traits/admin_menu.php:219
+#: src/traits/admin_menu.php:198
 msgid "Which role is needed to allow custom field broadcasting?"
 msgstr "Vilken roll behövs för att multiposta egna fält?"
 
-#: include/traits/admin_menu.php:225
+#: src/traits/admin_menu.php:205
 msgid ""
 "Which role is needed to allow taxonomy broadcasting? The taxonomies must "
 "have the same slug on all blogs."
@@ -590,73 +905,88 @@ msgstr ""
 "Vilken användarroll behövs för att kunna multiposta taxonomier? Taxonomierna "
 "måste ha exakt samma namn på samtliga bloggar."
 
-#: include/traits/admin_menu.php:231
+#: src/traits/admin_menu.php:212
 msgid "Which role is needed to broadcast drafts?"
 msgstr "Vilken roll behövs för att multiposta utkast?"
 
-#: include/traits/admin_menu.php:237
+#: src/traits/admin_menu.php:219
 msgid "Which role is needed to broadcast scheduled (future) posts?"
 msgstr "Vilken roll behövs för att multiposta framtida inlägg?"
 
-#: vendor/plainview/sdk/form.php:401
+#: src/traits/admin_menu.php:87
+msgid "Wordpress memory limit"
+msgstr "Wordpress' minnesbegränsning"
+
+#: src/traits/admin_menu.php:70
+msgid "Wordpress upload directory array"
+msgstr "Wordpress' uppladdningsmappar"
+
+#: src/sdk/form.php:401
 msgid "YYYY"
 msgstr "ÅÅÅÅ"
 
-#: vendor/plainview/sdk/wordpress/base.php:347
+#: src/sdk/wordpress/base.php:223
 msgid "Yes, I'm sure I want to remove all the plugin tables and settings."
 msgstr ""
 "Ja, jag är säker på att jag vill ta bort tillägget och samtliga "
 "inställningar."
 
-#: vendor/plainview/sdk/wordpress/base.php:359
+#: src/blog_groups/ThreeWP_Broadcast_Blog_Groups.php:109
+#, fuzzy
+msgid "You have not created any blog groups yet."
+msgstr "Du har inte skapat någon grupp än."
+
+#: src/sdk/wordpress/base.php:235
 msgid "You have to check the checkbox in order to uninstall the plugin."
 msgstr "Du måste kryssa i rutan för att avinstallera tillägget."
 
-#: vendor/plainview/sdk/form.php:391
+#: src/sdk/form.php:391
 msgid "characters"
 msgstr "tecken"
 
-#: vendor/plainview/sdk/form.php:927
+#: src/sdk/form.php:927
 msgid "characters long"
 msgstr "tecken långt"
 
-#: include/traits/meta_boxes.php:178
+#. Convenience.
+#. Add translation strings
+#: src/traits/meta_boxes.php:102
 msgid "hide all"
 msgstr "göm alla"
 
-#: vendor/plainview/sdk/form.php:957
+#: src/sdk/form.php:957
 msgid "may not be empty"
 msgstr "får inte lämnas tomt"
 
-#: vendor/plainview/sdk/form.php:951
+#: src/sdk/form.php:951
 msgid "may not be larger than"
 msgstr "får inte vara större än"
 
-#: vendor/plainview/sdk/form.php:939
+#: src/sdk/form.php:939
 msgid "may not be smaller than"
 msgstr "får inte vara mindre än"
 
-#: vendor/plainview/sdk/form.php:927
+#: src/sdk/form.php:927
 msgid "must be at least"
 msgstr "måste vara minst"
 
-#: vendor/plainview/sdk/wordpress/base.php:2041
+#: src/sdk/wordpress/base.php:1842
 msgid "no"
 msgstr "nej"
 
-#: include/traits/admin_menu.php:305
+#: src/traits/admin_menu.php:288
 msgid "save_post priority"
 msgstr "save_post prioritet"
 
-#: include/traits/meta_boxes.php:181
+#: src/traits/meta_boxes.php:105
 msgid "show all"
 msgstr "visa alla"
 
-#: vendor/plainview/sdk/form.php:389
+#: src/sdk/form.php:389
 msgid "to"
 msgstr "till"
 
-#: vendor/plainview/sdk/wordpress/base.php:2041
+#: src/sdk/wordpress/base.php:1842
 msgid "yes"
 msgstr "ja"
 
@@ -730,9 +1060,6 @@ msgstr "ja"
 #~ msgid "The child posts have been put in the trash."
 #~ msgstr "Inläggen har lagts i papperskorgen."
 
-#~ msgid "The child posts have been restored."
-#~ msgstr "Inläggen har återställts."
-
 #~ msgid "The selected children were linked!"
 #~ msgstr "De valda inläggen har länkats."
 
@@ -744,9 +1071,6 @@ msgstr "ja"
 
 #~ msgid "Unlink and delete this broadcasted child post"
 #~ msgstr "Ta bort länknen och ta bort det multipostade inlägget"
-
-#~ msgid "%sQueue%s not available."
-#~ msgstr "%sKö%s inte tillgänglig."
 
 #~ msgid "%sThreeWP Broadcast%s version %s is installed."
 #~ msgstr "%sThreeWP Broadcast%s version %s är installerat."
@@ -760,17 +1084,11 @@ msgstr "ja"
 #~ msgid "A Broadcast blog group was modified."
 #~ msgstr "En multipostningsgrupp har ändrats."
 
-#~ msgid "Apply"
-#~ msgstr "Verställ"
-
 #~ msgid "Do nothing"
 #~ msgstr "Gör inget"
 
 #~ msgid "Information about the Broadcast Queue Plugin"
 #~ msgstr "Information om Multipostningskötillägget"
-
-#~ msgid "Select blogs in group"
-#~ msgstr "Välj bloggarna i gruppen"
 
 #~ msgid "Selected"
 #~ msgstr "Vald"
@@ -787,14 +1105,8 @@ msgstr "ja"
 #~ msgid "Broadcast categories also"
 #~ msgstr "Multiposta kategorierna också"
 
-#~ msgid "Create a new group"
-#~ msgstr "Skapa en ny grupp"
-
 #~ msgid "Create taxonomies automatically"
 #~ msgstr "Skapa taxonomier automatiskt"
-
-#~ msgid "Create the new group"
-#~ msgstr "Skapa en ny grupp"
 
 #~ msgid "Group"
 #~ msgstr "Grupp"
@@ -821,12 +1133,6 @@ msgstr "ja"
 #~ "skriv in ett beskrivande gruppnamn i textrutan och tryck sedan på skapa-"
 #~ "knappen."
 
-#~ msgid "New group name"
-#~ msgstr "Nya gruppnamnet"
-
-#~ msgid "No group selected"
-#~ msgstr "Ingen grupp vald"
-
 #~ msgid "Options"
 #~ msgstr "Inställningar"
 
@@ -835,9 +1141,6 @@ msgstr "ja"
 
 #~ msgid "Required list"
 #~ msgstr "Tvingade bloggar"
-
-#~ msgid "Save groups"
-#~ msgstr "Spara grupperna"
 
 #~ msgid ""
 #~ "Simply choose it in the dropdown box and the blogs you specified will be "
@@ -854,9 +1157,6 @@ msgstr "ja"
 #~ "Det är möjligt att vissa inställningar har avaktiverats av "
 #~ "administratören. Har du inte skrivtillgång till fler än en blogg kommer "
 #~ "Multipostningsfönstret inte visas."
-
-#~ msgid "The group has been created!"
-#~ msgstr "Gruppen har skapats!"
 
 #~ msgid "The group name may not be empty!"
 #~ msgstr "Gruppens namn får ej vara tomt!"
@@ -945,12 +1245,6 @@ msgstr "ja"
 #~ "Med Multipostning kan du posta till flera bloggar samtidigt. "
 #~ "Multipostningsfönstret visas första gången längst ner till höger när du "
 #~ "skriver ett nytt inlägg."
-
-#~ msgid "You have not created any groups yet."
-#~ msgstr "Du har inte skapat någon grupp än."
-
-#~ msgid "Your groups"
-#~ msgstr "Dina grupper"
 
 #~ msgid "will also mark the broadcasted posts with the same tags."
 #~ msgstr "kommer att multiposta etiketterna tillsammans med själva inlägget."
