@@ -423,6 +423,11 @@ class ThreeWP_Broadcast_Blog_Groups
 	// ----------------------------------------- MISC
 	// --------------------------------------------------------------------------------------------
 
+	public function load_language( $domain = '' )
+	{
+		parent::load_language( 'ThreeWP_Broadcast' );
+	}
+
 	public function site_options()
 	{
 		return array_merge( [
