@@ -36,55 +36,55 @@ trait admin_menu
 	{
 		if ( ! is_super_admin() )
 		{
-			echo $this->p( 'No information available.' );
+			echo $this->p_( 'No information available.' );
 			return;
 		}
 
 		$table = $this->table();
-		$table->caption()->text( 'Information' );
+		$table->caption()->text_( 'Information' );
 
 		$row = $table->head()->row();
-		$row->th()->text( 'Key' );
-		$row->th()->text( 'Value' );
+		$row->th()->text_( 'Key' );
+		$row->th()->text_( 'Value' );
 
 		if ( $this->debugging() )
 		{
 			// Debug
 			$row = $table->body()->row();
-			$row->td()->text( 'Debugging' );
-			$row->td()->text( 'Enabled' );
+			$row->td()->text_( 'Debugging' );
+			$row->td()->text_( 'Enabled' );
 		}
 
 		// Broadcast version
 		$row = $table->body()->row();
-		$row->td()->text( 'Broadcast version' );
+		$row->td()->text_( 'Broadcast version' );
 		$row->td()->text( $this->plugin_version );
 
 		// PHP version
 		$row = $table->body()->row();
-		$row->td()->text( 'PHP version' );
+		$row->td()->text_( 'PHP version' );
 		$row->td()->text( phpversion() );
 
 		// WP upload path
 		$row = $table->body()->row();
-		$row->td()->text( 'Wordpress upload directory array' );
+		$row->td()->text_( 'Wordpress upload directory array' );
 		$row->td()->text( '<pre>' . var_export( wp_upload_dir(), true ) . '</pre>' );
 
 		// PHP maximum execution time
 		$row = $table->body()->row();
-		$row->td()->text( 'PHP maximum execution time' );
+		$row->td()->text_( 'PHP maximum execution time' );
 		$text = sprintf( '%s seconds', ini_get ( 'max_execution_time' ) );
 		$row->td()->text( $text );
 
 		// PHP maximum memory limit
 		$row = $table->body()->row();
-		$row->td()->text( 'PHP memory limit' );
+		$row->td()->text_( 'PHP memory limit' );
 		$text = ini_get( 'memory_limit' );
 		$row->td()->text( $text );
 
 		// WP maximum memory limit
 		$row = $table->body()->row();
-		$row->td()->text( 'Wordpress memory limit' );
+		$row->td()->text_( 'Wordpress memory limit' );
 		$text = $this->p( WP_MEMORY_LIMIT . "
 
 This can be increased by adding the following to your wp-config.php:
@@ -95,7 +95,7 @@ This can be increased by adding the following to your wp-config.php:
 
 		// Debug info
 		$row = $table->body()->row();
-		$row->td()->text( 'Debug code' );
+		$row->td()->text_( 'Debug code' );
 		$text = WP_MEMORY_LIMIT;
 		$text = $this->p( "Add the following lines to your wp-config.php to help find out why errors or blank screens are occurring:
 
