@@ -151,32 +151,48 @@ trait broadcasting
 
 			foreach( $bcd->post_custom_fields as $custom_field => $ignore )
 			{
-				// If the field does not start with an underscore, it is automatically valid.
-				if ( strpos( $custom_field, '_' ) !== 0 )
-					continue;
+				$internal = ( strpos( $custom_field, '_' ) === 0 );
 
-				$keep = true;
-
-				// Has the user requested that all internal fields be broadcasted?
-				if ( $broadcast_internal_custom_fields )
+				if ( $internal )
 				{
+					// Internal field.
+					// What we do with them depends on the setting.
+					$keep = $broadcast_internal_custom_fields;
+
+					// If we broadcast them...
+					if ( $keep )
+					{
+						// Skip the exceptions.
+						foreach( $bcd->custom_fields->blacklist as $exception)
+							if ( strpos( $custom_field, $exception) !== false )
+							{
+								$keep = false;
+								break;
+							}
+					}
+					else
+					{
+						// If we do not broadcast them, then check the whitelist.
+						foreach( $bcd->custom_fields->whitelist as $exception)
+							if ( strpos( $custom_field, $exception) !== false )
+							{
+								$keep = true;
+								break;
+							}
+					}
+				}
+				else
+				{
+					// All normal fields are kept per default.
+					$keep = true;
+
+					// Only exceptions are the blacklist.
 					foreach( $bcd->custom_fields->blacklist as $exception)
 						if ( strpos( $custom_field, $exception) !== false )
 						{
 							$keep = false;
 							break;
 						}
-				}
-				else
-				{
-					$keep = false;
-					foreach( $bcd->custom_fields->whitelist as $exception)
-						if ( strpos( $custom_field, $exception) !== false )
-						{
-							$keep = true;
-							break;
-						}
-
 				}
 
 				if ( ! $keep )

@@ -239,24 +239,6 @@ trait admin_menu
 			->description_( 'Broadcast all fields, including those beginning with underscores.' )
 			->label_( 'Broadcast internal custom fields' );
 
-		$blacklist = $this->get_site_option( 'custom_field_blacklist' );
-		$blacklist = str_replace( ' ', "\n", $blacklist );
-		$custom_field_blacklist = $fs->textarea( 'custom_field_blacklist' )
-			->cols( 40, 10 )
-			->description_( 'When broadcasting internal custom fields, override and do not broadcast these fields.' )
-			->label_( 'Internal field blacklist' )
-			->trim()
-			->value( $blacklist );
-
-		$protectlist = $this->get_site_option( 'custom_field_protectlist' );
-		$protectlist = str_replace( ' ', "\n", $protectlist );
-		$custom_field_protectlist = $fs->textarea( 'custom_field_protectlist' )
-			->cols( 40, 10 )
-			->description_( 'When broadcasting internal custom fields, do not overwrite the following fields on the child blogs.' )
-			->label_( 'Internal field protectlist' )
-			->trim()
-			->value( $protectlist );
-
 		$whitelist = $this->get_site_option( 'custom_field_whitelist' );
 		$whitelist = str_replace( ' ', "\n", $whitelist );
 		$custom_field_whitelist = $fs->textarea( 'custom_field_whitelist' )
@@ -268,6 +250,24 @@ trait admin_menu
 
 		$fs->markup( 'whitelist_defaults' )
 			->p_( 'The default whitelist is: %s', "<code>\n_wp_page_template\n_wplp_\n_aioseop_</code>" );
+
+		$blacklist = $this->get_site_option( 'custom_field_blacklist' );
+		$blacklist = str_replace( ' ', "\n", $blacklist );
+		$custom_field_blacklist = $fs->textarea( 'custom_field_blacklist' )
+			->cols( 40, 10 )
+			->description_( 'Do not broadcast these custom fields.' )
+			->label_( 'Custom field blacklist' )
+			->trim()
+			->value( $blacklist );
+
+		$protectlist = $this->get_site_option( 'custom_field_protectlist' );
+		$protectlist = str_replace( ' ', "\n", $protectlist );
+		$custom_field_protectlist = $fs->textarea( 'custom_field_protectlist' )
+			->cols( 40, 10 )
+			->description_( 'Do not overwrite the following fields on the child blogs if they exist.' )
+			->label_( 'Custom field protectlist' )
+			->trim()
+			->value( $protectlist );
 
 		$fs = $form->fieldset( 'misc' );
 		$fs->legend->label_( 'Miscellaneous' );

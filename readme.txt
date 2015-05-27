@@ -220,6 +220,7 @@ Xcache v3, which does support namespaces, has not yet been tested. Anyone with X
 == Changelog ==
 
 = 19.x 2015xxxx =
+* New: Blacklist and protect list now apply to all custom fields, not just internals. The whitelist still only applies to internal fields.
 * Fix: Reload broadcast data upon switching blogs during broadcasting. This is probably the cause of half-linked children when broadcasting is interrupted or queued.
 * Code: More debug info. Custom field lists are dumped.
 * Updated .pot file for translations.
