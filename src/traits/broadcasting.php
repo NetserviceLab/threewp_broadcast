@@ -145,6 +145,10 @@ trait broadcasting
 			$bcd->custom_fields->whitelist = array_filter( explode( ' ', $this->get_site_option( 'custom_field_whitelist' ) ) );
 			$this->debug( 'The custom field whitelist is: %s', $bcd->custom_fields->whitelist );
 
+			// Has the user requested that all internal fields be broadcasted?
+			$broadcast_internal_custom_fields = $this->get_site_option( 'broadcast_internal_custom_fields' );
+			$this->debug( 'Broadcast internal custom fields: %d', $broadcast_internal_custom_fields );
+
 			foreach( $bcd->post_custom_fields as $custom_field => $ignore )
 			{
 				// If the field does not start with an underscore, it is automatically valid.
@@ -154,7 +158,6 @@ trait broadcasting
 				$keep = true;
 
 				// Has the user requested that all internal fields be broadcasted?
-				$broadcast_internal_custom_fields = $this->get_site_option( 'broadcast_internal_custom_fields' );
 				if ( $broadcast_internal_custom_fields )
 				{
 					foreach( $bcd->custom_fields->blacklist as $exception)
