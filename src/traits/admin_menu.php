@@ -36,11 +36,13 @@ trait admin_menu
 	{
 		if ( ! is_super_admin() )
 		{
+			// Not displaying the blog / PHP information table since the user is not a super admin.
 			echo $this->p_( 'No information available.' );
 			return;
 		}
 
 		$table = $this->table();
+		// Caption for the blog / PHP information table
 		$table->caption()->text_( 'Information' );
 
 		$row = $table->head()->row();
@@ -49,40 +51,33 @@ trait admin_menu
 
 		if ( $this->debugging() )
 		{
-			// Debug
 			$row = $table->body()->row();
 			$row->td()->text_( 'Debugging' );
 			$row->td()->text_( 'Enabled' );
 		}
 
-		// Broadcast version
 		$row = $table->body()->row();
 		$row->td()->text_( 'Broadcast version' );
 		$row->td()->text( $this->plugin_version );
 
-		// PHP version
 		$row = $table->body()->row();
 		$row->td()->text_( 'PHP version' );
 		$row->td()->text( phpversion() );
 
-		// WP upload path
 		$row = $table->body()->row();
 		$row->td()->text_( 'Wordpress upload directory array' );
 		$row->td()->text( '<pre>' . var_export( wp_upload_dir(), true ) . '</pre>' );
 
-		// PHP maximum execution time
 		$row = $table->body()->row();
 		$row->td()->text_( 'PHP maximum execution time' );
 		$text = $this->p_( '%s seconds', ini_get ( 'max_execution_time' ) );
 		$row->td()->text( $text );
 
-		// PHP maximum memory limit
 		$row = $table->body()->row();
 		$row->td()->text_( 'PHP memory limit' );
 		$text = ini_get( 'memory_limit' );
 		$row->td()->text( $text );
 
-		// WP maximum memory limit
 		$row = $table->body()->row();
 		$row->td()->text_( 'Wordpress memory limit' );
 		$text = wpautop( sprintf( WP_MEMORY_LIMIT . "
@@ -93,7 +88,6 @@ trait admin_menu
 ",		$this->_( 'This can be increased by adding the following to your wp-config.php:' ) ) );
 		$row->td()->text( $text );
 
-		// Debug info
 		$row = $table->body()->row();
 		$row->td()->text_( 'Debug code' );
 		$text = WP_MEMORY_LIMIT;
