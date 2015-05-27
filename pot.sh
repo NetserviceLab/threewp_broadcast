@@ -4,9 +4,15 @@
 
 # Collect a list of all PHP files
 PHPFILES=""
+# This is an array of files to ignore.
+IGNORE=( "./src/sdk/form.php" )
 # Find all PHP files
 for file in `find ./ -type f -name "*php"` ; do
-	PHPFILES="$PHPFILES $file"
+	match=$(echo "${IGNORE[@]:0}" | grep -o $file)
+	if [ "$match" == "" ]; then
+		echo Will parse $file
+		PHPFILES="$PHPFILES $file"
+	fi
 done
 
 POT="ThreeWP_Broadcast.pot"
