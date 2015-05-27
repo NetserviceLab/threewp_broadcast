@@ -87,6 +87,7 @@ Requires PHP v5.4, since 5.3 is no longer officially supported.
 
 Available in the following languages:
 
+* Czech - <a href="https://profiles.wordpress.org/melangercz/">Melanger.cz</a>
 * English
 * Dutch
 * French - Seb giss <sgissinger@gmail.com>
