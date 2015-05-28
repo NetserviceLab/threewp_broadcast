@@ -733,7 +733,10 @@ trait broadcasting
 	{
 		// We must be on the source blog.
 		if ( ms_is_switched() )
+		{
+			$this->debug( 'Blog is switched. Not broadcasting.' );
 			return;
+		}
 
 		// Loop check.
 		if ( $this->is_broadcasting() )
