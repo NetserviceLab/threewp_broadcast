@@ -3,14 +3,19 @@ Contributors: edward_plainview
 License: GPLv3
 Requires at least: 3.9
 Stable tag: trunk
-Tags: broadcast, multipost, sharing, share content, duplicate, posts, syndicate, syndication, marketing, threewp, linking, multiple, blogs, woocommerce, synchronize, acf, menu, copy menu, duplicate menu
+Tags: broadcast, multipost, sharing, share content, duplicate, posts, syndicate, syndication, marketing, threewp, linking, woocommerce, acf, syndicator, aggregator, aggregation, autoblogging, news, content hub, push, pull, publishing
 Tested up to: 4.2.2
 
 Network content sharing by multiposting between blogs for PHP v5.4+. Posts can be linked to each other and updated automatically.
 
 == Description ==
 
-Network content sharing by multiposting between blogs for PHP v5.4+. Broadcast can be used to copy posts to other blogs, link posts between blogs, share content as templates, etc. Broadcastable features include:
+Network content sharing by multiposting between blogs for PHP v5.4+. Broadcast can be used to copy posts to other blogs, link posts between blogs, share content as templates, etc.
+
+xxx
+
+
+Broadcastable features include:
 
 * Parent post links to child posts
 * Posts, pages
