@@ -77,7 +77,7 @@ trait debug
 			$export |= is_array( $arg );
 			$export |= is_object( $arg );
 			if ( $export )
-				$args[ $index ] = sprintf( '<pre><code>%s</code></pre>', var_export( $arg, true ) );
+				$args[ $index ] = sprintf( '<pre><code>%s</code></pre>', htmlspecialchars( var_export( $arg, true ) ) );
 		}
 
 		// Put all of the arguments into one string.

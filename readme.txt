@@ -228,6 +228,7 @@ Xcache v3, which does support namespaces, has not yet been tested. Anyone with X
 * Fix: Reload broadcast data upon switching blogs during broadcasting. This is probably the cause of half-linked children when broadcasting is interrupted or queued.
 * Code: More debug info. Custom field lists are dumped.
 * Code: Fix saving of broadcast data so that it can be resaved during the same broadcast.
+* Code: Debug dump now shows HTML tags.
 * Updated .pot file for translations.
 
 = 19.1 20150524 =
