@@ -231,25 +231,11 @@ trait admin_menu
 		$fs = $form->fieldset( 'custom_field_handling' );
 		$fs->legend->label_( 'Custom field handling' );
 
-		$fs->markup( 'internal_field_info' )
-			->p_( 'Some custom fields start with underscores. They are generally Wordpress internal fields and therefore not broadcasted. Some plugins store their information as underscored custom fields. If you wish them, or some of them, to be broadcasted, use either of the options below.' );
+		$fs->markup( 'custom_field_listing' )
+			->p_( 'All custom fields are passed through the blacklist and then the whitelist. If the field exists in the blacklist, it will not be broadcast - unless it is specified in the whitelist.' );
 
-		$broadcast_internal_custom_fields = $fs->checkbox( 'broadcast_internal_custom_fields' )
-			->checked( $this->get_site_option( 'broadcast_internal_custom_fields' ) )
-			->description_( 'Broadcast all fields, including those beginning with underscores.' )
-			->label_( 'Broadcast internal custom fields' );
-
-		$whitelist = $this->get_site_option( 'custom_field_whitelist' );
-		$whitelist = str_replace( ' ', "\n", $whitelist );
-		$custom_field_whitelist = $fs->textarea( 'custom_field_whitelist' )
-			->cols( 40, 10 )
-			->description_( 'When not broadcasting internal custom fields, override and broadcast these fields.' )
-			->label_( 'Internal field whitelist' )
-			->trim()
-			->value( $whitelist );
-
-		$fs->markup( 'whitelist_defaults' )
-			->p_( 'The default whitelist is: %s', "<code>\n_wp_page_template\n_wplp_\n_aioseop_</code>" );
+		$fs->markup( 'custom_field_wildcards' )
+			->p_( 'You can use wildcards: <code>field_*123</code> will match all fields that start with <code>field_</code> and end with <code>123</code>. If you wish to match all fields except a few, use <code>*</code> in the blacklist and then the exceptions in the whitelist.' );
 
 		$blacklist = $this->get_site_option( 'custom_field_blacklist' );
 		$blacklist = str_replace( ' ', "\n", $blacklist );
@@ -259,6 +245,15 @@ trait admin_menu
 			->label_( 'Custom field blacklist' )
 			->trim()
 			->value( $blacklist );
+
+		$whitelist = $this->get_site_option( 'custom_field_whitelist' );
+		$whitelist = str_replace( ' ', "\n", $whitelist );
+		$custom_field_whitelist = $fs->textarea( 'custom_field_whitelist' )
+			->cols( 40, 10 )
+			->description_( 'Exceptions to the blacklist.' )
+			->label_( 'Custom field whitelist' )
+			->trim()
+			->value( $whitelist );
 
 		$protectlist = $this->get_site_option( 'custom_field_protectlist' );
 		$protectlist = str_replace( ' ', "\n", $protectlist );
@@ -329,8 +324,6 @@ trait admin_menu
 
 			$this->update_site_option( 'override_child_permalinks', $override_child_permalinks->is_checked() );
 			$this->update_site_option( 'canonical_url', $canonical_url->is_checked() );
-
-			$this->update_site_option( 'broadcast_internal_custom_fields', $broadcast_internal_custom_fields->is_checked() );
 
 			$blacklist = $custom_field_blacklist->get_post_value();
 			$blacklist = $this->lines_to_string( $blacklist );

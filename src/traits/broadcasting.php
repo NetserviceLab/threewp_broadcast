@@ -145,55 +145,17 @@ trait broadcasting
 			$bcd->custom_fields->whitelist = array_filter( explode( ' ', $this->get_site_option( 'custom_field_whitelist' ) ) );
 			$this->debug( 'The custom field whitelist is: %s', $bcd->custom_fields->whitelist );
 
-			// Has the user requested that all internal fields be broadcasted?
-			$broadcast_internal_custom_fields = $this->get_site_option( 'broadcast_internal_custom_fields' );
-			$this->debug( 'Broadcast internal custom fields: %d', $broadcast_internal_custom_fields );
-
 			foreach( $bcd->post_custom_fields as $custom_field => $ignore )
 			{
-				$internal = ( strpos( $custom_field, '_' ) === 0 );
+				$keep = true;
 
-				if ( $internal )
-				{
-					// Internal field.
-					// What we do with them depends on the setting.
-					$keep = $broadcast_internal_custom_fields;
+				// Skip the exceptions.
+				if ( $bcd->custom_fields()->blacklist_has( $custom_field ) )
+					$keep = false;
 
-					// If we broadcast them...
-					if ( $keep )
-					{
-						// Skip the exceptions.
-						foreach( $bcd->custom_fields->blacklist as $exception)
-							if ( strpos( $custom_field, $exception) !== false )
-							{
-								$keep = false;
-								break;
-							}
-					}
-					else
-					{
-						// If we do not broadcast them, then check the whitelist.
-						foreach( $bcd->custom_fields->whitelist as $exception)
-							if ( strpos( $custom_field, $exception) !== false )
-							{
-								$keep = true;
-								break;
-							}
-					}
-				}
-				else
-				{
-					// All normal fields are kept per default.
+				// If we do not broadcast them, then check the whitelist.
+				if ( ! $keep AND $bcd->custom_fields()->whitelist_has( $custom_field ) )
 					$keep = true;
-
-					// Only exceptions are the blacklist.
-					foreach( $bcd->custom_fields->blacklist as $exception)
-						if ( strpos( $custom_field, $exception) !== false )
-						{
-							$keep = false;
-							break;
-						}
-				}
 
 				if ( ! $keep )
 				{
@@ -579,7 +541,7 @@ trait broadcasting
 					$delete = true;
 
 					// For the protectlist to work the custom field has to already exist on the child.
-					if ( in_array( $key, $bcd->custom_fields->protectlist ) )
+					if ( $bcd->custom_fields()->protectlist_has( $key ) )
 					{
 						if ( ! isset( $bcd->new_post_old_custom_fields[ $key ] ) )
 							continue;
