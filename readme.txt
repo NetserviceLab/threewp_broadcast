@@ -235,6 +235,7 @@ Custom fields are now handled in this order: first check the blacklist, if black
 The protect list is applied to the surviving custom fields specified to be protected.
 
 * Fix: Reload broadcast data upon switching blogs during broadcasting. This is probably the cause of half-linked children when broadcasting is interrupted or queued.
+* Fix: Posts can have several thousand child posts now. The database column was set too small to allow for all too many child links.
 * Code: More debug info. Custom field lists are dumped.
 * Code: Fix saving of broadcast data so that it can be resaved during the same broadcast.
 * Code: Debug dump now shows HTML tags.

@@ -150,7 +150,7 @@ class ThreeWP_Broadcast
 			$this->query("CREATE TABLE IF NOT EXISTS `". $this->broadcast_data_table() . "` (
 			  `blog_id` int(11) NOT NULL COMMENT 'Blog ID',
 			  `post_id` int(11) NOT NULL COMMENT 'Post ID',
-			  `data` text NOT NULL COMMENT 'Serialized BroadcastData',
+			  `data` longtext NOT NULL COMMENT 'Serialized BroadcastData',
 			  KEY `blog_id` (`blog_id`,`post_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 			");
@@ -231,6 +231,9 @@ class ThreeWP_Broadcast
 
 		if ( $db_ver < 8 )
 		{
+			// Make the table a longtext for those posts with many links.
+			$this->query("ALTER TABLE `". $this->broadcast_data_table() . "` CHANGE `data` `data` LONGTEXT");
+
 			// We have deleted the extra internal custom field setting. If the user does NOT want the fields broadcasted, add them to the blacklist.
 			$internal_fields = $this->get_site_option( 'broadcast_internal_custom_fields', true );
 			if ( $internal_fields == false )
@@ -240,6 +243,7 @@ class ThreeWP_Broadcast
 				$blacklist = trim( $blacklist );
 				$this->update_site_option( 'custom_field_blacklist', $blacklist );
 			}
+			$db_ver = 8;
 		}
 
 		$this->update_site_option( 'database_version', $db_ver );
