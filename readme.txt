@@ -197,8 +197,7 @@ Make sure that:
 Broadcast is capable of handling WooCommerce products.
 
 1. In the custom post type settings: Add "product"
-2. In the settings: select broadcast internal custom fields.
-3. When broadcasting, select custom fields and taxonomies.
+2. When broadcasting, select custom fields and taxonomies.
 
 This will broadcast all normal product settings: SKU, price, etc.
 
@@ -225,6 +224,16 @@ Xcache v3, which does support namespaces, has not yet been tested. Anyone with X
 == Changelog ==
 
 = 19.x 2015xxxx =
+* New: Custom field handling has been simplified. The "broadcast internal field" setting has been removed and the blacklist, whitelist and protect list now apply to all fields.
+
+The custom field settings can now handle wildcards.
+
+If you do not wish the internal custom fields (the ones that start with an underscore) to be broadcasted, check that you now have _* in the blacklist.
+
+Custom fields are now handled in this order: first check the blacklist, if blacklisted checked the whitelist.
+
+The protect list is applied to the surviving custom fields specified to be protected.
+
 * Fix: Reload broadcast data upon switching blogs during broadcasting. This is probably the cause of half-linked children when broadcasting is interrupted or queued.
 * Code: More debug info. Custom field lists are dumped.
 * Code: Fix saving of broadcast data so that it can be resaved during the same broadcast.
