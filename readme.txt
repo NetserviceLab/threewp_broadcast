@@ -6,41 +6,31 @@ Stable tag: trunk
 Tags: broadcast, multipost, sharing, share content, duplicate, posts, syndicate, syndication, marketing, threewp, linking, woocommerce, acf, syndicator, aggregator, aggregation, autoblogging, news, content hub, push, pull, publishing
 Tested up to: 4.2.2
 
-Network content sharing by multiposting between blogs for PHP v5.4+. Posts can be linked to each other and updated automatically.
+Network Content Syndication Made Easy! Automatically share content by multiposting between multisite blogs.
 
 == Description ==
 
-Network content sharing by multiposting between blogs for PHP v5.4+. Broadcast can be used to copy posts to other blogs, link posts between blogs, share content as templates, etc.
+= Network Content Syndication Made Easy! =
 
-xxx
+Automatically share content by multiposting between multisite blogs. Syndicate posts to other blogs, update posts between blogs, share content templates, etc. Broadcasted posts can be linked to their parents, which updates child posts when the parent post is updated. This includes all data: title, slug, content, custom fields, attachments, etc.
 
+Requires PHP version 5.4 or higher.
 
-Broadcastable features include:
-
-* Parent post links to child posts
-* Posts, pages
+= Broadcast =
+* Posts, pages, custom post types
 * Taxonomies (categories, tags, etc)
 * Custom fields
 * Attached images
 * Featured images
 * Galleries
-
-Broadcasted posts can be linked to their parents, which updates child posts when the parent post is updated. This includes all data: title, slug, content, custom fields, attachments, etc.
+* Custom field blacklist, whitelist, and protect list.
+* User role access granularity
+* Many extra features in the premium pack
 
 = SEO support =
-
-* Permalinks of child posts (also see Permalinks plugin in the Premium Pack)
 * Canonical URLs of child posts.
-
-For those who have Yoast's Wordpress SEO plugin installed, if the Broadcast's canonical URL is selected (which will point to the parent post), it will simultaneously disable Yoast's canonical link. This will prevent search engine penalties.
-
-= Other features =
-
-* Groups plugin enables blog grouping for easy selection
-* Custom field blacklist, whitelist and protect list.
-* Last used settings are remembered
-* User role access granularity
-* An enormous amount of extra features in the premium pack
+* Permalinks of child posts (also see Permalinks plugin in the Premium Pack)
+* Yoast's Wordpress SEO plugin integration and support
 
 = Premium Pack =
 
