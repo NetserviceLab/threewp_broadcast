@@ -34,9 +34,9 @@ Requires PHP version 5.4 or higher.
 
 = Premium Pack =
 
-The <a href="http://plainviewplugins.com/threewp-broadcast-premium-pack/" title="Premium Pack's page on the web"><em>Broadcast Premium Pack</em></a> is an actively maintained collection of plugins that expand the functionality of Broadcast.
+The <a href="https://plainviewplugins.com/threewp-broadcast-premium-pack/" title="Premium Pack's page on the web"><em>Broadcast Premium Pack</em></a> is an actively maintained collection of plugins that expand the functionality of Broadcast.
 
-For a complete list of features and more information, see <a href="http://plainviewplugins.com/threewp-broadcast-premium-pack/" title="Premium Pack's page on the web"><em>Broadcast Premium Pack</em>'s page on the web</a>. Currently the Premium Pack offers:
+For a complete list of features and more information, see <a href="https://plainviewplugins.com/threewp-broadcast-premium-pack/" title="Premium Pack's page on the web"><em>Broadcast Premium Pack</em>'s page on the web</a>. Currently the Premium Pack offers:
 
 * <strong>Advanced Custom Fields</strong> adds support for correctly broadcasting attachment field types using the ACF plugin.
 * <strong>All Blogs</strong> allows admins or users to broadcast to all blogs in the network without having to be a user of the blog.
@@ -74,7 +74,7 @@ For a complete list of features and more information, see <a href="http://plainv
 
 = Documentation =
 
-Although Broadcast is relatively easy to understand by itself, for extra documentation see <a href="http://plainviewplugins.com/threewp-broadcast/">Broadcast's online documentation</a>.
+Although Broadcast is relatively easy to understand by itself, for extra documentation see <a href="https://plainviewplugins.com/threewp-broadcast/">Broadcast's online documentation</a>.
 
 = Misc =
 
@@ -130,11 +130,11 @@ To switch on debug mode, see the admin settings. If your site is live it would b
 
 = Blacklist, whitelisting, force broadcast =
 
-Broadcasting to specific blogs, hiding blogs and forcing blogs can be acheived with the <em>User & Blog Settings</em> plugin in the <a href="http://plainviewplugins.com/threewp-broadcast-premium-pack/" title="Premium Pack's page on the web"><em>Broadcast Premium Pack</em></a>.
+Broadcasting to specific blogs, hiding blogs and forcing blogs can be acheived with the <em>User & Blog Settings</em> plugin in the <a href="https://plainviewplugins.com/threewp-broadcast-premium-pack/" title="Premium Pack's page on the web"><em>Broadcast Premium Pack</em></a>.
 
 = Bulk broadcast existing pages =
 
-To broadcast many posts at once, see the <em>Send To Many</em> plugin in the <a href="http://plainviewplugins.com/threewp-broadcast-premium-pack/" title="Premium Pack's page on the web"><em>Broadcast Premium Pack</em></a>.
+To broadcast many posts at once, see the <em>Send To Many</em> plugin in the <a href="https://plainviewplugins.com/threewp-broadcast-premium-pack/" title="Premium Pack's page on the web"><em>Broadcast Premium Pack</em></a>.
 
 = Galleries and attachments =
 
@@ -146,7 +146,7 @@ If you have manually modified the thumbnails on the parent blog, you might want 
 
 = Hide broadcast from the users =
 
-The broadcast meta box, menu and columns in the post view can be hidden from users / roles / blogs using <em>User & Blog Settings</em> plugin in the <a href="http://plainviewplugins.com/threewp-broadcast-premium-pack/" title="Premium Pack's page on the web"><em>Broadcast Premium Pack</em></a>.
+The broadcast meta box, menu and columns in the post view can be hidden from users / roles / blogs using <em>User & Blog Settings</em> plugin in the <a href="https://plainviewplugins.com/threewp-broadcast-premium-pack/" title="Premium Pack's page on the web"><em>Broadcast Premium Pack</em></a>.
 
 = Is php v5.4 really necessary? =
 
@@ -303,7 +303,7 @@ The protect list is applied to the surviving custom fields specified to be prote
 * Code: Uses Plainview SDK with custom namespace for future-proofing and conflict avoidance.
 
 = 12 20141109 =
-* New: Post actions have been reworked. Documented here: http://plainviewplugins.com/threewp-broadcast/documentation/post-actions/
+* New: Post actions have been reworked. Documented here: https://plainviewplugins.com/threewp-broadcast/documentation/post-actions/
 * New: "Find orphans" is now "Find unlinked children" and is a bulk action.
 * New: Setting to choose how many children to view in the post overview, before displaying a child count.
 * Fix: Last used settings notice removed.
