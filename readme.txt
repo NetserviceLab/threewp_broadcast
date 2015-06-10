@@ -74,7 +74,12 @@ For a complete list of features and more information, see <a href="https://plain
 
 = Documentation =
 
-Although Broadcast is relatively easy to understand by itself, for extra documentation see <a href="https://plainviewplugins.com/threewp-broadcast/">Broadcast's online documentation</a>.
+Although Broadcast is relatively easy to understand by itself, for extra documentation see <a href="https://plainviewplugins.com/threewp-broadcast/documentation/">Broadcast's online documentation</a>, which covers:
+
+* <a href="https://plainviewplugins.com/threewp-broadcast/documentation/attachments-images-and-media/">Attachments, images and media</a>
+* <a href="https://plainviewplugins.com/threewp-broadcast/documentation/custom-fields/">Custom fields</a>
+* <a href="https://plainviewplugins.com/threewp-broadcast/documentation/linking/">Linking</a>
+* <a href="https://plainviewplugins.com/threewp-broadcast/documentation/post-actions/">Post actions and the bulk action dropdown</a>
 
 = Misc =
 
