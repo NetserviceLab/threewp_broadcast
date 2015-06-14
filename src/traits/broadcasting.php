@@ -629,13 +629,13 @@ trait broadcasting
 
 			if ( $bcd->link )
 			{
-				$this->debug( 'Saving broadcast data of child.' );
 				$new_post_broadcast_data = $this->get_post_broadcast_data( $bcd->current_child_blog_id, $bcd->new_post( 'ID' ) );
 				$new_post_broadcast_data->set_linked_parent( $bcd->parent_blog_id, $bcd->post->ID );
+				$this->debug( 'Saving broadcast data of child: %s', $new_post_broadcast_data );
 				$this->set_post_broadcast_data( $bcd->current_child_blog_id, $bcd->new_post( 'ID' ), $new_post_broadcast_data );
 
 				// Save the parent also.
-				$this->debug( 'Saving parent broadcast data.' );
+				$this->debug( 'Saving parent broadcast data: %s', $bcd->broadcast_data );
 				$this->set_post_broadcast_data( $bcd->parent_blog_id, $bcd->post->ID, $bcd->broadcast_data );
 			}
 
