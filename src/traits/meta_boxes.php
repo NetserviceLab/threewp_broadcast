@@ -140,10 +140,6 @@ trait meta_boxes
 		$post_type_supports_thumbnails = post_type_supports( $post_type, 'thumbnail' );
 		$post_type_is_hierarchical = $post_type_object->hierarchical;
 
-		// 20140327 Because so many plugins create broken post types, assume that all post types support custom fields.
-		// $post_type_supports_custom_fields = post_type_supports( $post_type, 'custom-fields' );
-		$post_type_supports_custom_fields = true;
-
 		if ( is_super_admin() OR static::user_has_roles( $this->get_site_option( 'role_link' ) ) )
 		{
 			// Check the link box if the post has been published and has children OR it isn't published yet.
@@ -159,6 +155,10 @@ trait meta_boxes
 			$meta_box_data->html->put( 'link', '' );
 			$meta_box_data->convert_form_input_later( 'link' );
 		}
+
+		// 20140327 Because so many plugins create broken post types, assume that all post types support custom fields.
+		// $post_type_supports_custom_fields = post_type_supports( $post_type, 'custom-fields' );
+		$post_type_supports_custom_fields = true;
 
 		if (
 			( $post_type_supports_custom_fields OR $post_type_supports_thumbnails )
