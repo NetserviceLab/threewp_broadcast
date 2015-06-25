@@ -98,6 +98,8 @@ class ThreeWP_Broadcast
 			$this->add_filter( 'post_type_link', 'post_link', 10, 3 );
 		}
 
+		$this->add_action( 'network_admin_menu', 'admin_menu' );
+
 		$this->add_filter( 'threewp_broadcast_add_meta_box' );
 		$this->add_filter( 'threewp_broadcast_admin_menu', 'add_post_row_actions_and_hooks', 100 );
 		$this->add_filter( 'threewp_broadcast_broadcast_post' );

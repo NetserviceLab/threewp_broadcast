@@ -219,6 +219,7 @@ Xcache v3, which does support namespaces, has not yet been tested. Anyone with X
 == Changelog ==
 
 = xx 2015xxxx =
+* New: Broadcast now hooks into the network admin menu.
 * Code: threewp_broadcast_get_user_writable_blogs, threewp_broadcast_maybe_clear_post hook priority changed from 11 to 100.
 * Code: threewp_broadcast_get_post_types, threewp_broadcast_menu, threewp_broadcast_prepare_meta_box, threewp_broadcast_wp_insert_term, threewp_broadcast_wp_update_term, threewp_broadcast_manage_posts_custom_column priority change from 9 to 5.
 
