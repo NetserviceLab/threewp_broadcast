@@ -1,4 +1,5 @@
 # Composer stuff
 composer.lock
-vendor
 src/sdk/.git
+src/sdk/vendor
+

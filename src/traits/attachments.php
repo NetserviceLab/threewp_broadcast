@@ -53,7 +53,7 @@ trait attachments
 			'post_title' => $attachment_data->post->post_title,
 			'post_content' => '',
 			'post_status' => 'inherit',
-      'post_name' => $attachment_data->post->post_name
+            'post_name' => $attachment_data->post->post_name
 		];
 		$this->debug( 'Copy attachment: Inserting attachment.' );
 		$action->set_attachment_id( wp_insert_attachment( $attachment, $target, $attachment_data->post->post_parent ) );
